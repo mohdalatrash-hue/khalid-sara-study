@@ -12,7 +12,7 @@
    الأنواع: mcq · tf · fill · match   — لا تحذف السطر الأخير ];
    ============================================================================ */
 
-var QUESTIONS = [
+var POOL = [
  /* ===== الكسور الاعتيادية والعمليات عليها (الفصل ٦) ===== */
  {u:"الكسور والعمليات 🍕",type:"mcq",q:"٢/٧ + ٣/٧ =",
   opts:["٥/٧","٥/١٤","٦/٧","١/٧"],a:0,
@@ -108,4 +108,21 @@ var QUESTIONS = [
  {u:"القياس والمسائل 📏",type:"tf",q:"لتحويلِ المترِ إلى سنتيمترٍ نضربُ في ١٠٠.",a:true,
   right:"صحيح! ١ متر = ١٠٠ سم، فنضربُ في ١٠٠. ✅",
   wrong:"العبارةُ صحيحة: المترُ = ١٠٠ سم، فالتحويلُ بالضربِ في ١٠٠."}
+];
+
+/* ===== مُولّدات الأسئلة المتغيّرة (Grade 6) ===== */
+var AR=function(n){return String(n).replace(/[0-9]/g,function(d){return "٠١٢٣٤٥٦٧٨٩"[d];});};
+var R=function(a,b){return a+Math.floor(Math.random()*(b-a+1));};
+function _gcd(x,y){return y?_gcd(y,x%y):x;}
+function _mk(u,q,correct,cands,right,wrong){var opts=[correct];for(var x=0;x<cands.length;x++){if(opts.indexOf(cands[x])<0)opts.push(cands[x]);if(opts.length>=4)break;}for(var j=opts.length-1;j>0;j--){var k=Math.floor(Math.random()*(j+1));var t=opts[j];opts[j]=opts[k];opts[k]=t;}return {u:u,type:"mcq",q:q,opts:opts,a:opts.indexOf(correct),right:right,wrong:wrong};}
+
+var GENERATORS = [
+ {u:"الكسور والعمليات 🍕",make:function(){var d=R(5,12),a=R(1,d-2),b=R(1,Math.max(1,d-a-1)),s=a+b;return _mk("الكسور والعمليات 🍕",AR(a)+"/"+AR(d)+" + "+AR(b)+"/"+AR(d)+" =",AR(s)+"/"+AR(d),[AR(s)+"/"+AR(d+d),AR(s+1)+"/"+AR(d),AR(a)+"/"+AR(d)],"أحسنت! نجمع البسط: <b>"+AR(s)+"/"+AR(d)+"</b>.","المقام ثابت، نجمع البسط فقط: <b>"+AR(s)+"/"+AR(d)+"</b>.");}},
+ {u:"الكسور والعمليات 🍕",make:function(){var d=R(5,12),a=R(2,d-1),b=R(1,a-1),r=a-b;return {u:"الكسور والعمليات 🍕",type:"fill",q:AR(a)+"/"+AR(d)+" − "+AR(b)+"/"+AR(d)+" = ____ /"+AR(d),hint:"اطرح البسط",accept:[String(r),AR(r)],right:"أحسنت! "+AR(a)+"−"+AR(b)+" = <b>"+AR(r)+"</b>.",wrong:"نطرح البسط: <b>"+AR(r)+"</b>."};}},
+ {u:"الكسور والعمليات 🍕",make:function(){var b=R(3,9),a=R(1,b-1),c=R(2,6),num=a*c;return {u:"الكسور والعمليات 🍕",type:"fill",q:"("+AR(a)+"/"+AR(b)+") × "+AR(c)+" = ____ /"+AR(b),hint:"اضرب البسط في العدد",accept:[String(num),AR(num)],right:"أحسنت! "+AR(a)+"×"+AR(c)+" = <b>"+AR(num)+"</b> (الناتج "+AR(num)+"/"+AR(b)+").",wrong:"نضرب البسط في العدد: "+AR(a)+"×"+AR(c)+" = <b>"+AR(num)+"</b>."};}},
+ {u:"القاسم والمضاعف 🔢",make:function(){var m=R(2,9),a=m*R(2,6),b=m*R(2,6);if(a===b)b+=m;var g=_gcd(a,b);return _mk("القاسم والمضاعف 🔢","القاسمُ المشتركُ الأكبرُ (ق.م.أ) للعددينِ "+AR(a)+" و"+AR(b)+" =",AR(g),[AR(g*2),AR(Math.max(1,g-1)),AR(g+1)],"أحسنت! ق.م.أ("+AR(a)+"،"+AR(b)+") = <b>"+AR(g)+"</b>.","أكبرُ عددٍ يقسمُ "+AR(a)+" و"+AR(b)+" معاً هو <b>"+AR(g)+"</b>.");}},
+ {u:"القاسم والمضاعف 🔢",make:function(){var a=R(2,9),b=R(2,9);if(a===b)b=a+1;var l=a*b/_gcd(a,b);return _mk("القاسم والمضاعف 🔢","المضاعفُ المشتركُ الأصغرُ (م.م.أ) للعددينِ "+AR(a)+" و"+AR(b)+" =",AR(l),[AR(a*b),AR(l+a),AR(l+1)],"أحسنت! م.م.أ("+AR(a)+"،"+AR(b)+") = <b>"+AR(l)+"</b>.","أصغرُ مضاعفٍ مشتركٍ لـ"+AR(a)+" و"+AR(b)+" هو <b>"+AR(l)+"</b>.");}},
+ {u:"الجبر والعدّ ✖️",make:function(){var k=R(2,9),n=R(2,9);return _mk("الجبر والعدّ ✖️","قيمةُ العبارةِ ("+AR(k)+" × س) عندما س = "+AR(n)+" هي:",AR(k*n),[AR(k+n),AR(k*n+1),AR(k*(n+1))],"أحسنت! "+AR(k)+" × "+AR(n)+" = <b>"+AR(k*n)+"</b>.","نعوّض س="+AR(n)+": "+AR(k)+"×"+AR(n)+" = <b>"+AR(k*n)+"</b>.");}},
+ {u:"الجبر والعدّ ✖️",make:function(){var a=R(2,6),x=R(2,9),b=R(1,9),c=a*x+b;return {u:"الجبر والعدّ ✖️",type:"fill",q:"إذا كان "+AR(a)+" س + "+AR(b)+" = "+AR(c)+" ، فإنّ س = ____",hint:"اطرح ثم اقسم",accept:[String(x),AR(x)],right:"أحسنت! "+AR(a)+"س = "+AR(c-b)+" ← س = <b>"+AR(x)+"</b>.",wrong:AR(a)+"س = "+AR(c)+"−"+AR(b)+" = "+AR(c-b)+" ← س = <b>"+AR(x)+"</b>."};}},
+ {u:"القياس والمسائل 📏",make:function(){var l=R(3,12),w=R(2,9);return {u:"القياس والمسائل 📏",type:"fill",q:"مساحةُ مستطيلٍ طولُه "+AR(l)+" سم وعرضُه "+AR(w)+" سم = ____ سم²",hint:"الطول × العرض",accept:[String(l*w),AR(l*w)],right:"أحسنت! "+AR(l)+"×"+AR(w)+" = <b>"+AR(l*w)+"</b> سم².",wrong:"المساحة = الطول × العرض = <b>"+AR(l*w)+"</b> سم²."};}}
 ];

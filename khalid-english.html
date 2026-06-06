@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>Khalid · English Study & Exam — Grade 6 (Term 2)</title>
+<title>English Study & Exam — Grade 6 (Term 2)</title>
 <!--
   ════════════════════════════════════════════════════════════════════
   Khalid — English Study & Exam · Grade 6 · Term 2 (1447 AH)
@@ -18,11 +18,13 @@
   ════════════════════════════════════════════════════════════════════
 -->
 <style>
-  :root{--pink:#ff7eb6;--purple:#9b5de5;--blue:#4cc9f0;--green:#43c59e;--yellow:#ffd166;--red:#ff6b6b;--ink:#36304a;--soft:#fff6fb;}
+  @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@600;700;800&display=swap');
+  h1,h2,h3{font-family:'Cairo','Segoe UI',Tahoma,Arial,sans-serif;font-weight:800;letter-spacing:.2px;}
+  :root{--pink:#2f8f86;--purple:#284b6d;--blue:#2f6fb0;--green:#2e8f72;--yellow:#e3c069;--red:#cf5b3f;--ink:#233042;--soft:#f3f7fb;}
   *{box-sizing:border-box;}
   html{-webkit-text-size-adjust:100%;}
   body{margin:0;font-family:"Comic Sans MS","Segoe UI",Tahoma,sans-serif;color:var(--ink);
-       background:linear-gradient(135deg,#ffd6ec,#d9c2ff 50%,#c2f0ff);min-height:100vh;
+       background:linear-gradient(135deg,#eef2f7,#e8eef4 55%,#edf2f1);min-height:100vh;
        padding:18px;padding:calc(18px + env(safe-area-inset-top)) calc(14px + env(safe-area-inset-right)) calc(18px + env(safe-area-inset-bottom)) calc(14px + env(safe-area-inset-left));}
   button,select,input,.chip{touch-action:manipulation;-webkit-tap-highlight-color:rgba(0,0,0,0);}
   .opt{overflow-wrap:break-word;word-break:break-word;}
@@ -61,6 +63,7 @@
   .fb.show{display:block;animation:pop .3s;}
   .fb.right{background:#e3fbf1;border:2px solid var(--green);}
   .fb.bad{background:#fff0f0;border:2px solid var(--red);}
+  .fb.warn{background:#fff4e0;border:2px solid #f5a623;color:#8a5a00;}
   .fb b{display:block;margin-bottom:4px;font-size:1.1rem;}
   .parent{margin-top:10px;background:#fff8e6;border:2px dashed #ffd166;border-radius:12px;padding:10px 12px;font-size:.95rem;color:#7a5b00;}
   @keyframes pop{from{transform:scale(.9);opacity:0;}to{transform:scale(1);opacity:1;}}
@@ -121,7 +124,9 @@
     <div class="parent ar">💡 <b>للطالب:</b> أجب ثم اضغط «تحقّق». اقرأ الصندوق الأخضر (لماذا صحيحة) أو الوردي (الشرح والتصحيح).
       لا يمكنك الانتقال قبل الإجابة. في النهاية يوجد تقرير محفوظ لوليّ الأمر.</div>
     <div style="margin-top:10px;"><input id="studentName" class="inp" autocomplete="off" placeholder="Type your name ✏️" style="text-align:center;max-width:340px;margin:0 auto;display:block;"></div>
-    <button class="btn-main" style="margin-top:14px;" onclick="startQuiz()">Start the exam! 🚀 / ابدأ</button>
+    <div style="text-align:center;margin-top:14px;font-weight:bold;color:#6f7a93;">Choose a form to start:</div>
+    <div class="row" style="margin-top:8px;"><button class="btn-main" style="font-size:1.05rem;padding:12px;" onclick="startQuiz('1')">Form 1</button><button class="btn-main" style="font-size:1.05rem;padding:12px;" onclick="startQuiz('2')">Form 2</button><button class="btn-main" style="font-size:1.05rem;padding:12px;" onclick="startQuiz('3')">Form 3</button></div>
+    <button class="btn-main" style="margin-top:8px;background:linear-gradient(135deg,#284b6d,#2f8f86);" onclick="startQuiz('r')">🎲 Random form</button>
     <div id="hasHistory" class="hide" style="text-align:center;margin-top:10px;">
       <button class="btn-soft" onclick="showReport(true)">📊 Parent report / تقرير وليّ الأمر</button></div>
   </div>
@@ -163,17 +168,17 @@
 const PASSWORD = "sara";
 const STORAGE_KEY = "khalid_english_u5_8_attempts";
 
-const TYPELABEL = {mcq:"✏️ Choose the correct answer / اختاري الإجابة",
-  fill:"🔡 Fill in the missing word / أكملي الفراغ",
+const TYPELABEL = {mcq:"✏️ Choose the correct answer / اختر الإجابة",
+  fill:"🔡 Fill in the missing word / أكمل الفراغ",
   reorder:"🔀 Rearrange to make a sentence / رتّبي الجملة",
-  match:"🔗 Match / صِلي",
+  match:"🔗 Match / صِلْ",
   tf:"✅ True or False / صح أو خطأ",
   spell:"🔤 Spelling — the missing letters / الإملاء"};
 
 
 /* ===== STATE ===== */
-let i=0, score=0, answered=false, startTime=0, perUnit={}, perType={}, wrongItems=[], studentName='', curInputReady=false;
-const norm=s=>(s||"").toString().toLowerCase().replace(/[.،,!?؟]/g,'').replace(/\s+/g,' ').trim();
+let i=0, score=0, answered=false, startTime=0, perUnit={}, perType={}, wrongItems=[], studentName='', QUESTIONS=[], currentForm='', SAMPLE_SIZE=15, curInputReady=false;
+const norm=s=>(s||"").toString().toLowerCase().replace(/[.،,!?؟]/g,'').replace(/['’‘`´]/g,'').replace(/\s+/g,' ').trim();
 
 function tryLogin(){
   if(document.getElementById('pw').value.trim().toLowerCase()===PASSWORD){
@@ -184,8 +189,11 @@ function show(id){['intro','quiz','results'].forEach(s=>document.getElementById(
   document.getElementById(id).classList.remove('hide'); window.scrollTo(0,0);}
 /* show parent-report button on load if there is saved history */
 if(loadHistory().length){document.getElementById('hasHistory').classList.remove('hide');}
-function startQuiz(){var _e=document.getElementById('studentName');var _n=_e?(''+_e.value).trim():'';if(!_n){if(_e){_e.style.borderColor='#ff6b6b';_e.focus();}alert('Please type your name to start 🙂');return;}studentName=_n;i=0;score=0;answered=false;perUnit={};perType={};wrongItems=[];startTime=Date.now();show('quiz');render();}
+function startQuiz(form){var _e=document.getElementById('studentName');var _n=_e?(''+_e.value).trim():'';if(!_n){if(_e){_e.style.borderColor='#ff6b6b';_e.focus();}alert('Please type your name to start 🙂');return;}studentName=_n;currentForm=form||'r';QUESTIONS=buildSample(currentForm);if(!QUESTIONS.length){return;}i=0;score=0;answered=false;perUnit={};perType={};wrongItems=[];startTime=Date.now();show('quiz');render();}
 
+function _rngSeed(s){var x=(s*9301+49297)%233280;return function(){x=(x*9301+49297)%233280;return x/233280;};}
+function _shufR(a,rnd){a=a.slice();for(var j=a.length-1;j>0;j--){var k=Math.floor(rnd()*(j+1));var t=a[j];a[j]=a[k];a[k]=t;}return a;}
+function buildSample(form){var items=(typeof POOL!=='undefined'?POOL.slice():[]);if(typeof GENERATORS!=='undefined'){for(var g=0;g<GENERATORS.length;g++){try{var it=GENERATORS[g].make();if(it){it.u=it.u||GENERATORS[g].u;items.push(it);}}catch(e){}}}var rnd=(form==='r')?Math.random:_rngSeed(parseInt(form,10)||1);items=_shufR(items,rnd);return items.slice(0,Math.min(SAMPLE_SIZE,items.length));}
 function render(){
   answered=false; curInputReady=false;
   const Q=QUESTIONS[i];
@@ -234,14 +242,14 @@ function renderReorder(Q,ob){ const line=document.createElement('div'); line.cla
 function renderMatch(Q,ob){ const rights=shuffle(Q.pairs.map(p=>p[1]));
    Q.pairs.forEach((p,idx)=>{ const row=document.createElement('div'); row.className='matchrow'; row.dataset.correct=p[1];
      const l=document.createElement('div'); l.className='lft'; l.textContent=p[0]; row.appendChild(l);
-     const sel=document.createElement('select'); sel.innerHTML='<option value="">— choose / اختاري —</option>'+rights.map(r=>'<option>'+r+'</option>').join('');
+     const sel=document.createElement('select'); sel.innerHTML='<option value="">— choose / اختر —</option>'+rights.map(r=>'<option>'+r+'</option>').join('');
      row.appendChild(sel); ob.appendChild(row);}); curInputReady=true; }
 
 function checkInput(){ if(answered) return; const Q=QUESTIONS[i];
   if(Q.type==='fill'||Q.type==='spell'){ const v=document.getElementById('fillInp').value;
-    if(!v.trim()){alarm();return;} const ok=Q.accept.map(norm).includes(norm(v));
-    document.getElementById('fillInp').style.borderColor=ok?'var(--green)':'var(--red)';
-    document.getElementById('fillInp').disabled=true; grade(ok, Q.accept[0], Q); }
+    if(!v.trim()){alarm();return;} var nv=norm(v);var _g=Q.accept.map(norm).indexOf(nv)>=0;var _a=(!_g&&Q.ok&&Q.ok.map(norm).indexOf(nv)>=0);
+    document.getElementById('fillInp').style.borderColor=_g?'var(--green)':(_a?'#f5a623':'var(--red)');
+    document.getElementById('fillInp').disabled=true; grade(_g?true:(_a?'warn':false), Q.accept[0], Q); }
   else if(Q.type==='reorder'){ const a=document.getElementById('ansLine'); const got=[...a.querySelectorAll('.chip')].map(c=>c.textContent).join(' ');
     if(!got.trim()){alarm();return;} const ok=norm(got)===norm(Q.answer); grade(ok, Q.answer, Q); a.style.borderColor=ok?'var(--green)':'var(--red)'; }
   else if(Q.type==='match'){ const rows=document.querySelectorAll('.matchrow'); let all=true,filled=true;
@@ -254,10 +262,10 @@ function alarm(){const a=document.getElementById('alarm');a.classList.add('show'
 function lockOpts(){document.querySelectorAll('#opts .opt').forEach(b=>b.classList.add('locked'));}
 
 function grade(correct, correctText, Q){
-  answered=true; perType[Q.type]=(perType[Q.type]||{c:0,t:0}); perType[Q.type].t++; if(correct){perType[Q.type].c++;} else {wrongItems.push({u:Q.u,q:(Q.q||'').replace(/<[^>]+>/g,'').trim(),ans:correctText});} document.getElementById('checkBtn').style.display='none';
+  answered=true; perType[Q.type]=(perType[Q.type]||{c:0,t:0}); perType[Q.type].t++; if(correct===true||correct==='warn'){perType[Q.type].c++;} else {wrongItems.push({u:Q.u,q:(Q.q||'').replace(/<[^>]+>/g,'').trim(),ans:correctText,exp:(Q.wrong||'').replace(/<[^>]+>/g,'').trim()});} document.getElementById('checkBtn').style.display='none';
   const uk=Q.u; perUnit[uk]=perUnit[uk]||{c:0,t:0}; perUnit[uk].t++;
   const fb=document.getElementById('fb');
-  if(correct){ score++; perUnit[uk].c++; fb.className='fb right show'; fb.innerHTML='<b>✅ Correct! / إجابة صحيحة</b>'+Q.right; }
+  if(correct===true){ score++; perUnit[uk].c++; fb.className='fb right show'; fb.innerHTML='<b>✅ Correct!</b>'+Q.right; } else if(correct==='warn'){ score++; perUnit[uk].c++; fb.className='fb warn show'; fb.innerHTML='<b>🟠 Accepted — full form preferred</b>'+Q.right+'<div class="parent">📝 Preferred: "<b>'+correctText+'</b>".</div>'; }
   else { fb.className='fb bad show'; fb.innerHTML='<b>❌ Not quite / ليست صحيحة</b>'+Q.wrong+
     '<div class="parent">👨‍👩‍👧 <b>For parent:</b> correct answer → "<b>'+correctText+'</b>". Review together. — <span class="ar">الإجابة الصحيحة: '+correctText+'</span></div>'; }
   document.getElementById('scorePill').textContent='⭐ '+score+' / '+(i+1);
@@ -299,7 +307,7 @@ function reportData(dur){var total=QUESTIONS.length,correct=score,wrong=total-co
   var types=Object.keys(perType).map(function(k){var v=perType[k];return {ty:k,c:v.c,t:v.t,p:_pc(v.c,v.t)};});
   var weak=units.filter(function(u){return u.p<100;}).sort(function(a,b){return a.p-b.p;});
   return {total:total,correct:correct,wrong:wrong,p:_pc(correct,total),dur:dur,units:units,types:types,weak:weak,started:new Date(startTime),ended:new Date()};}
-function renderFullReport(dur){injectPrintCSS();var d=reportData(dur);var subj=document.title;
+function renderFullReport(dur){injectPrintCSS();var d=reportData(dur);var subj=document.title+(currentForm?(' · '+(currentForm==='r'?'Random form':'Form '+currentForm)):'');
   var h='<div id="printable" style="text-align:left;direction:ltr;">';
   h+='<h2 style="margin:.2em 0;">📊 Parent Report</h2><p style="margin:.2em 0;"><b>Student:</b> '+(studentName||'-')+'</p><p style="margin:.2em 0;color:#555;">'+subj+'</p>';
   h+='<table><tr><th>Date &amp; time</th><td>'+d.started.toLocaleString()+'</td></tr>';
@@ -310,11 +318,11 @@ function renderFullReport(dur){injectPrintCSS();var d=reportData(dur);var subj=d
   h+='<tr><th>Score</th><td>'+d.p+'%</td></tr></table>';
   h+='<h3>By unit</h3><table><tr><th>Unit</th><th>Correct/Total</th><th>%</th></tr>';
   d.units.forEach(function(u){h+='<tr><td>'+u.u+'</td><td>'+u.c+'/'+u.t+'</td><td>'+u.p+'%</td></tr>';});h+='</table>';
-  h+='<h3>By question type</h3><table><tr><th>Type</th><th>Correct/Total</th><th>%</th></tr>';
-  d.types.forEach(function(t){h+='<tr><td>'+(TYPENAME[t.ty]||t.ty)+'</td><td>'+t.c+'/'+t.t+'</td><td>'+t.p+'%</td></tr>';});h+='</table>';
-  if(d.weak.length){h+='<h3>Needs review</h3><ul>';d.weak.forEach(function(u){h+='<li>'+u.u+' — '+u.p+'%</li>';});h+='</ul>';}
+
+
+  if(d.weak.length){h+='<h3>👀 Focus here (most-missed units)</h3><ul>';d.weak.forEach(function(u){h+='<li>'+u.u+' — '+u.p+'%</li>';});h+='</ul>';}
   if(wrongItems.length){h+='<h3>Missed questions ('+wrongItems.length+')</h3><ol style="padding-inline-start:18px;">';
-    wrongItems.forEach(function(w){h+='<li style="margin-bottom:6px;"><div>'+w.u+'</div><div>'+w.q+'</div><div style="color:#137333;">Correct answer: '+w.ans+'</div></li>';});h+='</ol>';}
+    wrongItems.forEach(function(w){h+='<li style="margin-bottom:6px;"><div>'+w.u+'</div><div>'+w.q+'</div><div style="color:#137333;">Correct answer: '+w.ans+'</div>'+(w.exp?'<div style="color:#7a5b00;">💡 '+w.exp+'</div>':'')+'</li>';});h+='</ol>';}
   else{h+='<p style="color:#137333;font-weight:bold;">Excellent! No mistakes. 🌟</p>';}
   h+='<p style="color:#999;font-size:.82rem;">Generated '+d.ended.toLocaleString()+'</p></div>';
   h+='<div class="noprint" style="margin-top:14px;display:flex;gap:8px;flex-wrap:wrap;justify-content:center;">'+
@@ -329,9 +337,9 @@ function renderFullReport(dur){injectPrintCSS();var d=reportData(dur);var subj=d
 function reportText(d,subj){var L=[];L.push('Parent Report — '+subj);L.push('Student: '+(studentName||'-'));L.push('Date & time: '+d.started.toLocaleString());
   L.push('Time spent: '+fmt(d.dur));L.push('Score: '+d.correct+' / '+d.total+' ('+d.p+'%)');L.push('Wrong: '+d.wrong);
   L.push('');L.push('By unit:');d.units.forEach(function(u){L.push('  - '+u.u+': '+u.c+'/'+u.t+' ('+u.p+'%)');});
-  L.push('');L.push('By type:');d.types.forEach(function(t){L.push('  - '+(TYPENAME[t.ty]||t.ty)+': '+t.c+'/'+t.t+' ('+t.p+'%)');});
+
   if(d.weak.length){L.push('');L.push('Needs review:');d.weak.forEach(function(u){L.push('  - '+u.u+' ('+u.p+'%)');});}
-  if(wrongItems.length){L.push('');L.push('Missed questions:');wrongItems.forEach(function(w,n){L.push('  '+(n+1)+') ['+w.u+'] '+w.q+' -> correct: '+w.ans);});}
+  if(wrongItems.length){L.push('');L.push('Missed questions:');wrongItems.forEach(function(w,n){L.push('  '+(n+1)+') ['+w.u+'] '+w.q+' -> correct: '+w.ans+(w.exp?(NL+'      💡 '+w.exp):''));});}
   return L.join(NL);}
 var SHARE_TITLE='Student report';var NOTE_EMPTY='Please write a note first.';var NOTE_OFF='Sending is not set up yet.';var NOTE_OK='Your note was sent to the teacher. Thank you ✅';var NOTE_FAIL='Could not send.';
 function shareReport(){var t=window._reportText||'';if(navigator.share){navigator.share({title:SHARE_TITLE,text:t}).catch(function(){});}else{window.open('https://wa.me/?text='+encodeURIComponent(t),'_blank');}}

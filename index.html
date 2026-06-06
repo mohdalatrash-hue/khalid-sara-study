@@ -3,62 +3,76 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>مذاكرة خالد وسارة · Khalid & Sara — Study & Exam</title>
+<title>مذاكرة واختبار · المرحلة الابتدائية — الفصل الثاني</title>
 <style>
-  :root{--pink:#ff7eb6;--purple:#9b5de5;--blue:#4cc9f0;--green:#43c59e;--yellow:#ffd166;--ink:#2f2a44;}
+  @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@600;700;800&display=swap');
+  h1,h2,h3{font-family:'Cairo','Segoe UI',Tahoma,Arial,sans-serif;font-weight:800;letter-spacing:.2px;}
+  :root{--pink:#2f8f86;--purple:#284b6d;--blue:#2f6fb0;--green:#2e8f72;--yellow:#e3c069;--ink:#233042;}
   *{box-sizing:border-box;} html{-webkit-text-size-adjust:100%;}
   body{margin:0;font-family:"Segoe UI",Tahoma,"Geeza Pro",sans-serif;color:var(--ink);
-    background:linear-gradient(135deg,#ffd6ec,#d9c2ff 50%,#c2f0ff);min-height:100vh;
+    background:linear-gradient(135deg,#eef2f7,#e8eef4 55%,#edf2f1);min-height:100vh;
     padding:calc(18px + env(safe-area-inset-top)) 14px calc(18px + env(safe-area-inset-bottom));}
-  .wrap{max-width:820px;margin:0 auto;}
+  .wrap{max-width:860px;margin:0 auto;}
   h1{text-align:center;font-size:1.8rem;margin:.2em 0;}
-  .sub{text-align:center;color:#6f6a86;margin-bottom:18px;}
-  .kid{background:#fff;border-radius:24px;padding:20px;margin:16px 0;box-shadow:0 12px 34px rgba(120,80,170,.18);}
-  .kid h2{margin:.1em 0 .1em;font-size:1.4rem;}
-  .kid .grade{color:#7a6f93;font-size:.95rem;margin-bottom:12px;}
+  .sub{text-align:center;color:#5b5570;margin:0 auto 6px;max-width:640px;line-height:1.7;}
+  .how{background:#fff;border-radius:18px;padding:12px 16px;margin:14px auto 6px;max-width:640px;
+    box-shadow:0 8px 22px rgba(120,80,170,.14);text-align:center;color:#4a4560;font-weight:bold;line-height:1.9;}
+  .how span{color:var(--purple);}
+  .grade{background:#fff;border-radius:24px;padding:20px;margin:16px 0;box-shadow:0 12px 34px rgba(120,80,170,.18);}
+  .grade h2{margin:.1em 0 .5em;font-size:1.35rem;}
   .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px;}
   a.app{display:block;text-decoration:none;color:#fff;border-radius:18px;padding:18px 14px;text-align:center;font-weight:bold;font-size:1.15rem;
     box-shadow:0 6px 14px rgba(0,0,0,.12);transition:transform .08s;}
   a.app:active{transform:scale(.97);}
   a.app .em{display:block;font-size:2rem;margin-bottom:6px;}
-  .c1{background:linear-gradient(135deg,#9b5de5,#ff7eb6);}
-  .c2{background:linear-gradient(135deg,#4cc9f0,#43c59e);}
-  .c3{background:linear-gradient(135deg,#ffb14e,#ffd166);color:#6b4e00;}
-  .c4{background:linear-gradient(135deg,#ff6b6b,#ff7eb6);}
-  .soon{background:#ece7f5;color:#9a8fb0;pointer-events:none;}
-  .soon .tag{display:block;font-size:.75rem;font-weight:normal;}
-  .foot{text-align:center;color:#8a7fa6;font-size:.85rem;margin-top:18px;}
+  a.app .tag{display:block;font-size:.75rem;font-weight:normal;margin-top:2px;}
+  .c1{background:linear-gradient(135deg,#284b6d,#2f8f86);} .c2{background:linear-gradient(135deg,#2f6fb0,#2e8f72);}
+  .c3{background:linear-gradient(135deg,#c79a3f,#e3c069);color:#6b4e00;} .c4{background:linear-gradient(135deg,#1f7a8c,#284b6d);}
   .en{direction:ltr;}
+  .ded{background:#fff;border-radius:20px;padding:18px;margin:18px 0;box-shadow:0 8px 22px rgba(120,80,170,.14);text-align:center;line-height:1.9;}
+  .ded .big{font-size:1.1rem;font-weight:bold;color:var(--purple);}
+  .ded a{color:#2f6fb0;}
+  .foot{text-align:center;color:#8a7fa6;font-size:.85rem;margin-top:10px;}
 </style>
 </head>
 <body>
 <div class="wrap">
-  <h1>🌟 مذاكرة واختبار · خالد وسارة 🌟</h1>
-  <p class="sub">اختبارات تفاعلية من المنهج — الفصل الدراسي الثاني<br><span class="en">Interactive study & exam apps from the textbooks — Term 2</span></p>
+  <h1>📚 مذاكرة واختبار · الفصل الدراسي الثاني</h1>
+  <p class="sub">تطبيقاتٌ تفاعليةٌ لمراجعةِ المنهجِ والتدرّبِ عليه، مبنيّةٌ من الكتبِ المدرسية.
+    صُمِّمت لمساعدةِ الطلابِ على الاستعدادِ <b>للاختباراتِ المركزيةِ في المقرّراتِ الأربعةِ الرئيسية</b>.
+    مجانية، وتعملُ على الجوّالِ ومتصفّحِ الكمبيوترِ بلا تثبيت.</p>
 
-  <div class="kid">
-    <h2>👦 خالد</h2>
-    <div class="grade">الصف السادس الابتدائي · الفصل الثاني &nbsp;|&nbsp; <span class="en">Grade 6 · Term 2</span></div>
+  <div class="how">
+    كيف تستخدمه؟ &nbsp;<span>اكتب اسمك</span> ← <span>اختر النموذج</span> ← <span>أجب</span> ← <span>شارك التقرير</span> مع وليّ الأمر أو المعلّم.
+  </div>
+
+  <div class="grade">
+    <h2>🧒 الصف الرابع الابتدائي</h2>
     <div class="grid">
-      <a class="app c1" href="khalid-lughati.html"><span class="em">🌙</span>لغتي<span class="tag" style="font-size:.75rem;display:block;font-weight:normal;">الوحدة ٢</span></a>
-      <a class="app c2" href="khalid-english.html"><span class="em">🔤</span>English<span class="tag" style="font-size:.75rem;display:block;font-weight:normal;">Units 5–8</span></a>
-      <a class="app c3" href="khalid-math.html"><span class="em">➗</span>الرياضيات<span class="tag" style="font-size:.75rem;display:block;font-weight:normal;">الفصل الثاني</span></a>
-      <a class="app c4" href="khalid-science.html"><span class="em">🔬</span>العلوم<span class="tag" style="font-size:.75rem;display:block;font-weight:normal;">الوحدات ٤–٦</span></a>
+      <a class="app c2" href="english.html"><span class="em">🔤</span>English<span class="tag">Units 5–8</span></a>
+      <a class="app c4" href="science.html"><span class="em">🔬</span>العلوم<span class="tag">الوحدات ٤–٧</span></a>
+      <a class="app c3" href="math.html"><span class="em">➗</span>الرياضيات<span class="tag">الفصول ٧–١٠</span></a>
+      <a class="app c1" href="lughati.html"><span class="em">📖</span>لغتي<span class="tag">الوحدة ٢</span></a>
     </div>
   </div>
 
-  <div class="kid">
-    <h2>👧 سارة</h2>
-    <div class="grade">الصف الرابع الابتدائي · الفصل الثاني &nbsp;|&nbsp; <span class="en">Grade 4 · Term 2</span></div>
+  <div class="grade">
+    <h2>🧑 الصف السادس الابتدائي</h2>
     <div class="grid">
-      <a class="app c2" href="english.html"><span class="em">🔤</span>English<span class="tag" style="font-size:.75rem;display:block;font-weight:normal;">Units 5–8</span></a>
-      <a class="app c4" href="science.html"><span class="em">🔬</span>العلوم<span class="tag" style="font-size:.75rem;display:block;font-weight:normal;">الوحدات ٤–٧</span></a>
-      <a class="app c3" href="math.html"><span class="em">➗</span>الرياضيات<span class="tag" style="font-size:.75rem;display:block;font-weight:normal;">الفصول ٧–١٠</span></a>
-      <a class="app c1" href="lughati.html"><span class="em">📖</span>لغتي<span class="tag" style="font-size:.75rem;display:block;font-weight:normal;">الوحدة ٢</span></a>
+      <a class="app c1" href="khalid-lughati.html"><span class="em">🌙</span>لغتي<span class="tag">الوحدة ٢</span></a>
+      <a class="app c2" href="khalid-english.html"><span class="em">🔤</span>English<span class="tag">Units 5–8</span></a>
+      <a class="app c3" href="khalid-math.html"><span class="em">➗</span>الرياضيات<span class="tag">الفصل الثاني</span></a>
+      <a class="app c4" href="khalid-science.html"><span class="em">🔬</span>العلوم<span class="tag">الوحدات ٤–٦</span></a>
     </div>
   </div>
 
-  <p class="foot">أُعِدَّ بحبٍّ لخالد وسارة 💙 · يعمل على الجوال والحاسوب · يحفظ تقرير التقدّم في المتصفح</p>
+  <div class="ded">
+    <div class="big">أُهديه إلى ولديَّ: خالد (الصف السادس) وسارة (الصف الرابع) 💙</div>
+    <div>صُنِعَ بحبٍّ لهما، وأُتيحَ للجميعِ نفعاً — <b>ولا تنسونا من صالح دعائكم 🤲</b></div>
+    <div style="margin-top:8px;">للملاحظاتِ والتواصل: <a href="mailto:mohd.alatrash@gmail.com" class="en">mohd.alatrash@gmail.com</a></div>
+  </div>
+
+  <p class="foot">يعمل على الجوال ومتصفّح الكمبيوتر · يحفظ تقرير التقدّم في المتصفح</p>
 </div>
 </body>
 </html>

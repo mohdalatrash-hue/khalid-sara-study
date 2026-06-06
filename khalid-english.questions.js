@@ -13,7 +13,7 @@
    Types: mcq · tf · fill · reorder · match · spell   — keep the final ];
    ============================================================================ */
 
-var QUESTIONS = [
+var POOL = [
  /* ---- UNIT 5 · Storylines ---- */
  {u:"Unit 5 · Storylines 🎬",type:"mcq",q:"A film that makes you laugh is a ____.",hint:"فيلم مُضحِك",
   opts:["comedy","horror","documentary","mystery"],a:0,
@@ -24,8 +24,8 @@ var QUESTIONS = [
   right:"Correct! With <b>you</b> we use <b>were</b>: \"Were you studying?\" ✅",
   wrong:"Use <b>were</b> with you/we/they: \"<b>Were</b> you studying last night?\""},
  {u:"Unit 5 · Storylines 🎬",type:"fill",q:"Complete (negative): \"He ____ watching the movie; we were studying!\"",hint:"was + not",
-  accept:["wasn't","was not","wasnt"],
-  right:"Great! <b>wasn't</b> = was not. ✅",
+  accept:["was not"],ok:["wasn't","wasnt"],
+  right:"Great! Full form: <b>was not</b>. (The contraction <b>wasn't</b> is accepted too.) ✅",
   wrong:"Use <b>wasn't</b> (was not) with he/she/it in the Past Progressive."},
  {u:"Unit 5 · Storylines 🎬",type:"reorder",q:"Put the words in order to make a suggestion:",
   tokens:["Why","don't","we","draw","a storyboard"],answer:"Why don't we draw a storyboard",hint:"اقتراح يبدأ بـ Why",

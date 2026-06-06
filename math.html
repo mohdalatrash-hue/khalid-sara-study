@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>سارة · مذاكرة واختبار الرياضيات — الصف الرابع (الفصل الثاني)</title>
+<title>مذاكرة واختبار الرياضيات — الصف الرابع (الفصل الثاني)</title>
 <!--
   ════════════════════════════════════════════════════════════════════
   سارة — مذاكرة واختبار العلوم · الصف الرابع الابتدائي · الفصل الدراسي الثاني (1447هـ)
@@ -20,11 +20,13 @@
   ════════════════════════════════════════════════════════════════════
 -->
 <style>
-  :root{--pink:#ff7eb6;--purple:#9b5de5;--blue:#4cc9f0;--green:#43c59e;--yellow:#ffd166;--red:#ff6b6b;--ink:#2f2a44;--soft:#f6fbff;}
+  @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@600;700;800&display=swap');
+  h1,h2,h3{font-family:'Cairo','Segoe UI',Tahoma,Arial,sans-serif;font-weight:800;letter-spacing:.2px;}
+  :root{--pink:#2f8f86;--purple:#284b6d;--blue:#2f6fb0;--green:#2e8f72;--yellow:#e3c069;--red:#cf5b3f;--ink:#233042;--soft:#f3f7fb;}
   *{box-sizing:border-box;}
   html{-webkit-text-size-adjust:100%;}
   body{margin:0;font-family:"Segoe UI",Tahoma,"Geeza Pro",sans-serif;color:var(--ink);
-       background:linear-gradient(135deg,#d6f0ff,#e7dbff 50%,#d8fff0);min-height:100vh;
+       background:linear-gradient(135deg,#eef2f7,#e8eef4 55%,#edf2f1);min-height:100vh;
        padding:calc(16px + env(safe-area-inset-top)) calc(14px + env(safe-area-inset-right)) calc(16px + env(safe-area-inset-bottom)) calc(14px + env(safe-area-inset-left));}
   button,select,input,.chip{touch-action:manipulation;-webkit-tap-highlight-color:rgba(0,0,0,0);font-family:inherit;}
   .wrap{max-width:780px;margin:0 auto;}
@@ -56,6 +58,7 @@
   .fb.show{display:block;animation:pop .3s;}
   .fb.right{background:#e3fbf1;border:2px solid var(--green);}
   .fb.bad{background:#fff0f0;border:2px solid var(--red);}
+  .fb.warn{background:#fff4e0;border:2px solid #f5a623;color:#8a5a00;}
   .fb b{display:block;margin-bottom:4px;font-size:1.12rem;}
   .parent{margin-top:10px;background:#fff8e6;border:2px dashed #ffd166;border-radius:12px;padding:10px 12px;font-size:1rem;color:#7a5b00;}
   @keyframes pop{from{transform:scale(.9);opacity:0;}to{transform:scale(1);opacity:1;}}
@@ -89,16 +92,22 @@
   <div id="intro" class="card">
     <div class="star">➗📐🍕</div>
     <h1>أهلاً بك! 🌟</h1>
-    <p class="sub">لنتدرّب على الرياضيات من كتابكِ — الفصل الثاني · الفصول ٧ إلى ١٠</p>
+    <p class="sub">لنتدرّب على الرياضيات من كتابك — الفصل الثاني · الفصول ٧ إلى ١٠</p>
     <div style="text-align:center;margin:8px 0;">
       <span class="pill">٧ · القسمة</span><span class="pill">٨ · الأشكال</span>
       <span class="pill">٩ · القياس</span><span class="pill">١٠ · الكسور</span>
     </div>
     <div style="text-align:center;margin:8px 0;" class="small">أنواع الأسئلة: ✏️ اختيار · 🔡 إكمال · ✅ صح/خطأ · 🔗 توصيل</div>
-    <div class="parent">💡 <b>للطالبة:</b> أجيبي ثم اضغطي «تحقّق». اقرئي الصندوق الأخضر (لماذا الإجابة صحيحة) أو الوردي (الشرح والتصحيح).
-      لا يمكنكِ الانتقال إلى السؤال التالي قبل الإجابة. في النهاية يوجد تقرير محفوظ لوليّ الأمر لمتابعة تقدّمكِ.</div>
+    <div class="parent">💡 <b>للطالب:</b> أجب ثم اضغط «تحقّق». اقرأ الصندوق الأخضر (لماذا الإجابة صحيحة) أو الوردي (الشرح والتصحيح).
+      لا يمكنك الانتقال إلى السؤال التالي قبل الإجابة. في النهاية يوجد تقرير محفوظ لوليّ الأمر لمتابعة تقدّمك.</div>
     <div style="margin-top:10px;"><input id="studentName" class="inp" autocomplete="off" placeholder="اكتب اسمك هنا ✏️" style="text-align:center;max-width:340px;margin:0 auto;display:block;"></div>
-    <button class="btn-main" style="margin-top:14px;" onclick="startQuiz()">ابدئي الاختبار 🚀</button>
+    <div style="text-align:center;margin-top:14px;font-weight:bold;color:#6f7a93;">اختر النموذج للبدء:</div>
+    <div class="row" style="margin-top:8px;">
+      <button class="btn-main" style="font-size:1.05rem;padding:12px;" onclick="startQuiz('1')">نموذج ١</button>
+      <button class="btn-main" style="font-size:1.05rem;padding:12px;" onclick="startQuiz('2')">نموذج ٢</button>
+      <button class="btn-main" style="font-size:1.05rem;padding:12px;" onclick="startQuiz('3')">نموذج ٣</button>
+    </div>
+    <button class="btn-main" style="margin-top:8px;background:linear-gradient(135deg,#284b6d,#2f8f86);" onclick="startQuiz('r')">🎲 نموذج عشوائي (أسئلة متغيّرة)</button>
     <div id="hasHistory" class="hide" style="text-align:center;margin-top:10px;">
       <button class="btn-soft" onclick="showReport(true)">📊 تقرير وليّ الأمر</button></div>
   </div>
@@ -112,7 +121,7 @@
     <p class="hint" id="qhint"></p>
     <div id="opts"></div>
     <div id="fb" class="fb"></div>
-    <div id="alarm" class="alarm">⛔ أجيبي عن السؤال أولاً قبل الانتقال</div>
+    <div id="alarm" class="alarm">⛔ أجب عن السؤال أولاً قبل الانتقال</div>
     <div class="row" style="margin-top:14px;">
       <button class="btn-soft" onclick="confirmReset()">↺ إعادة من البداية</button>
       <button class="btn-check" id="checkBtn" onclick="checkInput()" style="display:none;">تحقّق ✓</button>
@@ -122,7 +131,7 @@
 
   <div id="results" class="card hide">
     <div class="star" id="resEmoji">🎉</div>
-    <h1 id="resTitle">أحسنتِ يا سارة!</h1>
+    <h1 id="resTitle">أحسنت يا سارة!</h1>
     <p class="sub" id="resLine"></p>
     <div id="resBreakdown"></div>
     <h3 style="margin-top:18px;">📊 تقرير وليّ الأمر</h3>
@@ -138,18 +147,21 @@
 <script src="math.questions.js"></script>
 <script>
 const STORAGE_KEY = "sara_math_t2_attempts";
-const TYPELABEL = {mcq:"✏️ اختاري الإجابة الصحيحة", fill:"🔡 أكملي الفراغ", tf:"✅ صح أو خطأ", match:"🔗 صِلي العمودين"};
+const TYPELABEL = {mcq:"✏️ اختر الإجابة الصحيحة", fill:"🔡 أكمل الفراغ", tf:"✅ صح أو خطأ", match:"🔗 صِلْ العمودين"};
 
 
 /* ===== المحرّك (نفس محرّك نسخة الإنجليزي) ===== */
-let i=0, score=0, answered=false, startTime=0, perUnit={}, perType={}, wrongItems=[], studentName='';
+let i=0, score=0, answered=false, startTime=0, perUnit={}, perType={}, wrongItems=[], studentName='', QUESTIONS=[], currentForm='', SAMPLE_SIZE=20;
 const ARDIG=s=>String(s).replace(/[0-9]/g,d=>"٠١٢٣٤٥٦٧٨٩"[d]);
-const norm=s=>(s||"").toString().replace(/[.،,!؟?]/g,'').replace(/\s+/g,' ').replace(/[أإآ]/g,'ا').replace(/ة/g,'ه').trim();
+const norm=s=>(s||"").toString().toLowerCase().replace(/[.،,!؟?]/g,'').replace(/['’‘`´]/g,'').replace(/\s+/g,' ').replace(/[أإآ]/g,'ا').replace(/ة/g,'ه').trim();
 
 function show(id){['intro','quiz','results'].forEach(s=>document.getElementById(s).classList.add('hide'));
   document.getElementById(id).classList.remove('hide'); window.scrollTo(0,0);}
 if(loadHistory().length){document.getElementById('hasHistory').classList.remove('hide');}
-function startQuiz(){var _e=document.getElementById('studentName');var _n=_e?(''+_e.value).trim():'';if(!_n){if(_e){_e.style.borderColor='#ff6b6b';_e.focus();}alert('اكتب اسمك أولاً للبدء 🙂');return;}studentName=_n;i=0;score=0;answered=false;perUnit={};perType={};wrongItems=[];startTime=Date.now();show('quiz');render();}
+function startQuiz(form){var _e=document.getElementById('studentName');var _n=_e?(''+_e.value).trim():'';if(!_n){if(_e){_e.style.borderColor='#ff6b6b';_e.focus();}alert('اكتب اسمك أولاً للبدء 🙂');return;}studentName=_n;currentForm=form||'r';QUESTIONS=buildSample(currentForm);if(!QUESTIONS.length){alert('لا توجد أسئلة بعد.');return;}i=0;score=0;answered=false;perUnit={};perType={};wrongItems=[];startTime=Date.now();show('quiz');render();}
+function _rngSeed(s){var x=(s*9301+49297)%233280;return function(){x=(x*9301+49297)%233280;return x/233280;};}
+function _shufR(a,rnd){a=a.slice();for(var j=a.length-1;j>0;j--){var k=Math.floor(rnd()*(j+1));var t=a[j];a[j]=a[k];a[k]=t;}return a;}
+function buildSample(form){var items=(typeof POOL!=='undefined'?POOL.slice():[]);if(typeof GENERATORS!=='undefined'){for(var g=0;g<GENERATORS.length;g++){try{var it=GENERATORS[g].make();if(it){it.u=it.u||GENERATORS[g].u;items.push(it);}}catch(e){}}}var rnd=(form==='r')?Math.random:_rngSeed(parseInt(form,10)||1);items=_shufR(items,rnd);return items.slice(0,Math.min(SAMPLE_SIZE,items.length));}
 
 function render(){
   answered=false; const Q=QUESTIONS[i];
@@ -181,12 +193,12 @@ function renderFill(Q,ob){const inp=document.createElement('input');inp.classNam
 function renderMatch(Q,ob){const rights=shuffle(Q.pairs.map(p=>p[1]));
    Q.pairs.forEach(p=>{const row=document.createElement('div');row.className='matchrow';row.dataset.correct=p[1];
      const l=document.createElement('div');l.className='lft';l.textContent=p[0];row.appendChild(l);
-     const sel=document.createElement('select');sel.innerHTML='<option value="">— اختاري —</option>'+rights.map(r=>'<option>'+r+'</option>').join('');
+     const sel=document.createElement('select');sel.innerHTML='<option value="">— اختر —</option>'+rights.map(r=>'<option>'+r+'</option>').join('');
      row.appendChild(sel);ob.appendChild(row);});}
 function checkInput(){if(answered)return;const Q=QUESTIONS[i];
   if(Q.type==='fill'){const v=document.getElementById('fillInp').value;if(!v.trim()){alarm();return;}
-    const ok=Q.accept.map(norm).includes(norm(v));document.getElementById('fillInp').style.borderColor=ok?'var(--green)':'var(--red)';
-    document.getElementById('fillInp').disabled=true;grade(ok,Q.accept[0],Q);}
+    var nv=norm(v);var _g=Q.accept.map(norm).indexOf(nv)>=0;var _a=(!_g&&Q.ok&&Q.ok.map(norm).indexOf(nv)>=0);document.getElementById('fillInp').style.borderColor=_g?'var(--green)':(_a?'#f5a623':'var(--red)');
+    document.getElementById('fillInp').disabled=true;grade(_g?true:(_a?'warn':false),Q.accept[0],Q);}
   else if(Q.type==='match'){const rows=document.querySelectorAll('.matchrow');let all=true,filled=true;
     rows.forEach(r=>{const s=r.querySelector('select');if(!s.value)filled=false;});
     if(!filled){alarm();return;}
@@ -195,9 +207,9 @@ function checkInput(){if(answered)return;const Q=QUESTIONS[i];
 }
 function alarm(){const a=document.getElementById('alarm');a.classList.add('show');setTimeout(()=>a.classList.remove('show'),1500);}
 function lockOpts(){document.querySelectorAll('#opts .opt').forEach(b=>b.classList.add('locked'));}
-function grade(correct,correctText,Q){answered=true; perType[Q.type]=(perType[Q.type]||{c:0,t:0}); perType[Q.type].t++; if(correct){perType[Q.type].c++;} else {wrongItems.push({u:Q.u,q:(Q.q||'').replace(/<[^>]+>/g,'').trim(),ans:correctText});}document.getElementById('checkBtn').style.display='none';
+function grade(correct,correctText,Q){answered=true; perType[Q.type]=(perType[Q.type]||{c:0,t:0}); perType[Q.type].t++; if(correct===true||correct==='warn'){perType[Q.type].c++;} else {wrongItems.push({u:Q.u,q:(Q.q||'').replace(/<[^>]+>/g,'').trim(),ans:correctText,exp:(Q.wrong||'').replace(/<[^>]+>/g,'').trim()});}document.getElementById('checkBtn').style.display='none';
   const uk=Q.u;perUnit[uk]=perUnit[uk]||{c:0,t:0};perUnit[uk].t++;const fb=document.getElementById('fb');
-  if(correct){score++;perUnit[uk].c++;fb.className='fb right show';fb.innerHTML='<b>✅ أحسنتِ! إجابة صحيحة</b>'+Q.right;}
+  if(correct===true){score++;perUnit[uk].c++;fb.className='fb right show';fb.innerHTML='<b>✅ إجابة صحيحة</b>'+Q.right;}else if(correct==='warn'){score++;perUnit[uk].c++;fb.className='fb warn show';fb.innerHTML='<b>🟠 صحيحة — والأفضل كتابتها بالكامل</b>'+Q.right+'<div class="parent">📝 الصيغة المفضّلة: «<b>'+correctText+'</b>».</div>';}
   else{fb.className='fb bad show';fb.innerHTML='<b>❌ ليست صحيحة</b>'+Q.wrong+
     '<div class="parent">👨‍👩‍👧 <b>لوليّ الأمر:</b> الإجابة الصحيحة: «<b>'+correctText+'</b>». راجِعا السؤال معاً.</div>';}
   document.getElementById('scorePill').textContent='⭐ '+ARDIG(score)+' / '+ARDIG(i+1);
@@ -231,7 +243,7 @@ function reportData(dur){var total=QUESTIONS.length,correct=score,wrong=total-co
   var types=Object.keys(perType).map(function(k){var v=perType[k];return {ty:k,c:v.c,t:v.t,p:_pc(v.c,v.t)};});
   var weak=units.filter(function(u){return u.p<100;}).sort(function(a,b){return a.p-b.p;});
   return {total:total,correct:correct,wrong:wrong,p:_pc(correct,total),dur:dur,units:units,types:types,weak:weak,started:new Date(startTime),ended:new Date()};}
-function renderFullReport(dur){injectPrintCSS();var d=reportData(dur);var subj=document.title;
+function renderFullReport(dur){injectPrintCSS();var d=reportData(dur);var subj=document.title+(currentForm?(' · '+(currentForm==='r'?'نموذج عشوائي':'نموذج '+ARDIG(currentForm))):'');
   var h='<div id="printable" style="text-align:right;direction:rtl;">';
   h+='<h2 style="margin:.2em 0;">📊 تقرير وليّ الأمر</h2><p style="margin:.2em 0;"><b>الطالب:</b> '+(studentName||'-')+'</p><p style="margin:.2em 0;color:#555;">'+subj+'</p>';
   h+='<table><tr><th>التاريخ والوقت</th><td>'+d.started.toLocaleString('ar')+'</td></tr>';
@@ -242,11 +254,11 @@ function renderFullReport(dur){injectPrintCSS();var d=reportData(dur);var subj=d
   h+='<tr><th>النسبة المئوية</th><td>'+ARDIG(d.p)+'%</td></tr></table>';
   h+='<h3>الأداء حسب الوحدة</h3><table><tr><th>الوحدة</th><th>صحيح/الكل</th><th>النسبة</th></tr>';
   d.units.forEach(function(u){h+='<tr><td>'+u.u+'</td><td>'+ARDIG(u.c)+'/'+ARDIG(u.t)+'</td><td>'+ARDIG(u.p)+'%</td></tr>';});h+='</table>';
-  h+='<h3>الأداء حسب نوع السؤال</h3><table><tr><th>النوع</th><th>صحيح/الكل</th><th>النسبة</th></tr>';
-  d.types.forEach(function(t){h+='<tr><td>'+(TYPENAME[t.ty]||t.ty)+'</td><td>'+ARDIG(t.c)+'/'+ARDIG(t.t)+'</td><td>'+ARDIG(t.p)+'%</td></tr>';});h+='</table>';
-  if(d.weak.length){h+='<h3>نقاط تحتاج إلى مراجعة</h3><ul>';d.weak.forEach(function(u){h+='<li>'+u.u+' — '+ARDIG(u.p)+'%</li>';});h+='</ul>';}
+
+
+  if(d.weak.length){h+='<h3>👀 ركّزوا هنا (الوحدات الأكثر خطأً)</h3><ul>';d.weak.forEach(function(u){h+='<li>'+u.u+' — '+ARDIG(u.p)+'%</li>';});h+='</ul>';}
   if(wrongItems.length){h+='<h3>الأسئلة التي أُخطئ فيها ('+ARDIG(wrongItems.length)+')</h3><ol style="padding-inline-start:18px;">';
-    wrongItems.forEach(function(w){h+='<li style="margin-bottom:6px;"><div>'+w.u+'</div><div>'+w.q+'</div><div style="color:#137333;">الإجابة الصحيحة: '+w.ans+'</div></li>';});h+='</ol>';}
+    wrongItems.forEach(function(w){h+='<li style="margin-bottom:6px;"><div>'+w.u+'</div><div>'+w.q+'</div><div style="color:#137333;">الإجابة الصحيحة: '+w.ans+'</div>'+(w.exp?'<div style="color:#7a5b00;">💡 '+w.exp+'</div>':'')+'</li>';});h+='</ol>';}
   else{h+='<p style="color:#137333;font-weight:bold;">ممتاز! لا توجد أخطاء. 🌟</p>';}
   h+='<p style="color:#999;font-size:.82rem;">أُنشئ التقرير في '+d.ended.toLocaleString('ar')+'</p></div>';
   h+='<div class="noprint" style="margin-top:14px;display:flex;gap:8px;flex-wrap:wrap;justify-content:center;">'+
@@ -261,9 +273,9 @@ function renderFullReport(dur){injectPrintCSS();var d=reportData(dur);var subj=d
 function reportText(d,subj){var L=[];L.push('تقرير وليّ الأمر — '+subj);L.push('الطالب: '+(studentName||'-'));L.push('التاريخ والوقت: '+d.started.toLocaleString('ar'));
   L.push('الزمن المستغرق: '+fmt(d.dur));L.push('النتيجة: '+d.correct+' / '+d.total+' ('+d.p+'%)');L.push('إجابات خاطئة: '+d.wrong);
   L.push('');L.push('الأداء حسب الوحدة:');d.units.forEach(function(u){L.push('  - '+u.u+': '+u.c+'/'+u.t+' ('+u.p+'%)');});
-  L.push('');L.push('الأداء حسب النوع:');d.types.forEach(function(t){L.push('  - '+(TYPENAME[t.ty]||t.ty)+': '+t.c+'/'+t.t+' ('+t.p+'%)');});
+
   if(d.weak.length){L.push('');L.push('نقاط تحتاج مراجعة:');d.weak.forEach(function(u){L.push('  - '+u.u+' ('+u.p+'%)');});}
-  if(wrongItems.length){L.push('');L.push('الأسئلة التي أُخطئ فيها:');wrongItems.forEach(function(w,n){L.push('  '+(n+1)+') ['+w.u+'] '+w.q+' ← الصحيح: '+w.ans);});}
+  if(wrongItems.length){L.push('');L.push('الأسئلة التي أُخطئ فيها:');wrongItems.forEach(function(w,n){L.push('  '+(n+1)+') ['+w.u+'] '+w.q+' ← الصحيح: '+w.ans+(w.exp?(NL+'      💡 '+w.exp):''));});}
   return L.join(NL);}
 var SHARE_TITLE='تقرير الطالب';var NOTE_EMPTY='اكتب الملاحظة أولاً.';var NOTE_OFF='الإرسال غير مُفعّل بعد.';var NOTE_OK='تم إرسال ملاحظتك للمعلّم، شكراً ✅';var NOTE_FAIL='تعذّر الإرسال.';
 function shareReport(){var t=window._reportText||'';if(navigator.share){navigator.share({title:SHARE_TITLE,text:t}).catch(function(){});}else{window.open('https://wa.me/?text='+encodeURIComponent(t),'_blank');}}

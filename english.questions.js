@@ -48,7 +48,7 @@
        right:"...", wrong:"..."},
    ============================================================================ */
 
-var QUESTIONS = [
+var POOL = [
  /* ---- UNIT 5 · Outdoor Fun ---- */
  {u:"Unit 5 · Outdoor Fun 🌳",type:"mcq",q:"Very dry land with a lot of sand is a ____.",hint:"أرض جافة مليئة بالرمال",
   opts:["desert","forest","lake","island"],a:0,
