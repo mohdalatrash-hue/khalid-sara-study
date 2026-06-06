@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>سارة · مذاكرة واختبار الرياضيات — الصف الرابع (الفصل الثاني)</title>
+<!--
+  ════════════════════════════════════════════════════════════════════
+  سارة — مذاكرة واختبار العلوم · الصف الرابع الابتدائي · الفصل الدراسي الثاني (1447هـ)
+  الكتاب: العلوم — الصف الرابع الابتدائي — الجزء الثاني (وزارة التعليم 1447/2025)
+  حسب فهرس الكتاب:
+    الوحدة 4: الأرض ومواردها (الفصل 6: موارد الأرض — المعادن والصخور، التربة، الماء)
+    الوحدة 5: الفضاء (الفصل 7: النظام الشمسي والفضاء)
+    الوحدة 6: المادة (الفصل 8: قياس المادة وتغيُّرها)
+    الوحدة 7: القوى والطاقة (الفصل 9: القوى — الفصل 10: الطاقة)
+  جميع الأسئلة مأخوذة من محتوى الكتاب، مع إعادة استخدام أسئلة أوراق الاختبار
+  التي تطابق دروس الكتاب فقط (استُبعدت مواضيع قديمة خارج المنهج مثل الأمراض والمناعة والغذاء).
+  الدقة أولاً — بلا أي معلومة مُختلَقة.
+  ملاحظة لوليّ الأمر: يُحفظ تقرير التقدّم في هذا المتصفح؛ افتحي الملف في متصفح عادي.
+  ════════════════════════════════════════════════════════════════════
+-->
+<style>
+  :root{--pink:#ff7eb6;--purple:#9b5de5;--blue:#4cc9f0;--green:#43c59e;--yellow:#ffd166;--red:#ff6b6b;--ink:#2f2a44;--soft:#f6fbff;}
+  *{box-sizing:border-box;}
+  html{-webkit-text-size-adjust:100%;}
+  body{margin:0;font-family:"Segoe UI",Tahoma,"Geeza Pro",sans-serif;color:var(--ink);
+       background:linear-gradient(135deg,#d6f0ff,#e7dbff 50%,#d8fff0);min-height:100vh;
+       padding:calc(16px + env(safe-area-inset-top)) calc(14px + env(safe-area-inset-right)) calc(16px + env(safe-area-inset-bottom)) calc(14px + env(safe-area-inset-left));}
+  button,select,input,.chip{touch-action:manipulation;-webkit-tap-highlight-color:rgba(0,0,0,0);font-family:inherit;}
+  .wrap{max-width:780px;margin:0 auto;}
+  .card{background:#fff;border-radius:26px;padding:24px;box-shadow:0 14px 40px rgba(90,120,180,.22);}
+  h1{margin:.2em 0;font-size:1.6rem;text-align:center;}
+  .sub{text-align:center;color:#6f7a93;margin-bottom:14px;font-size:1rem;}
+  button{cursor:pointer;border:none;border-radius:16px;font-size:1.08rem;padding:12px 18px;transition:transform .08s;}
+  button:active{transform:scale(.97);}
+  .btn-main{background:linear-gradient(135deg,var(--blue),var(--green));color:#fff;font-weight:bold;box-shadow:0 6px 16px rgba(76,201,240,.4);width:100%;font-size:1.25rem;padding:16px;}
+  .pill{display:inline-block;background:var(--yellow);color:#6b4e00;border-radius:999px;padding:5px 14px;font-weight:bold;font-size:.92rem;margin:3px;}
+  .typetag{display:inline-block;background:#e7f0ff;color:#2f6fb0;border-radius:999px;padding:3px 14px;font-size:.9rem;font-weight:bold;margin-bottom:8px;}
+  .unit-badge{background:linear-gradient(135deg,var(--purple),var(--pink));color:#fff;border-radius:14px;padding:8px 16px;font-weight:bold;display:inline-block;font-size:1rem;}
+  .qtext{font-size:1.35rem;font-weight:bold;margin:6px 0;line-height:1.7;}
+  .hint{color:#7f8aa6;font-size:1.02rem;margin-bottom:12px;}
+  .opt{display:block;width:100%;text-align:right;background:var(--soft);border:3px solid #e7eef7;color:var(--ink);margin:9px 0;font-size:1.2rem;overflow-wrap:break-word;}
+  .opt:hover{border-color:var(--blue);}
+  .opt.correct{background:#d6f7ec;border-color:var(--green);}
+  .opt.wrong{background:#ffe0e0;border-color:var(--red);}
+  .opt.locked{pointer-events:none;opacity:.92;}
+  .tf{display:inline-block;width:46%;margin:2%;font-size:1.3rem;font-weight:bold;}
+  .tf.t{background:#e3fbf1;color:#1f8f6f;border:3px solid #a7e8d2;}
+  .tf.f{background:#ffeaea;color:#c0392b;border:3px solid #ffc2c2;}
+  .inp{font-size:1.25rem;padding:10px 14px;border-radius:12px;border:3px solid #e7eef7;width:100%;text-align:center;}
+  .matchrow{display:flex;align-items:center;gap:10px;margin:8px 0;flex-wrap:wrap;}
+  .matchrow .lft{flex:1;min-width:150px;background:var(--soft);border-radius:10px;padding:8px 12px;font-size:1.05rem;}
+  .matchrow select{font-size:1rem;padding:8px;border-radius:10px;border:3px solid #e7eef7;min-width:160px;flex:1;}
+  .matchrow.ok .lft{background:#d6f7ec;} .matchrow.no .lft{background:#ffe0e0;}
+  .fb{border-radius:16px;padding:14px 16px;margin-top:12px;font-size:1.08rem;line-height:1.7;display:none;}
+  .fb.show{display:block;animation:pop .3s;}
+  .fb.right{background:#e3fbf1;border:2px solid var(--green);}
+  .fb.bad{background:#fff0f0;border:2px solid var(--red);}
+  .fb b{display:block;margin-bottom:4px;font-size:1.12rem;}
+  .parent{margin-top:10px;background:#fff8e6;border:2px dashed #ffd166;border-radius:12px;padding:10px 12px;font-size:1rem;color:#7a5b00;}
+  @keyframes pop{from{transform:scale(.9);opacity:0;}to{transform:scale(1);opacity:1;}}
+  @keyframes shake{0%,100%{transform:translateX(0);}25%{transform:translateX(-8px);}75%{transform:translateX(8px);}}
+  .shake{animation:shake .4s;}
+  .topbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;flex-wrap:wrap;gap:8px;}
+  .progress{height:16px;background:#eee;border-radius:999px;overflow:hidden;margin:8px 0 4px;}
+  .progress>div{height:100%;background:linear-gradient(90deg,var(--green),var(--blue));width:0;transition:width .4s;}
+  .row{display:flex;gap:10px;flex-wrap:wrap;}.row button{flex:1;}
+  .btn-soft{background:#eef3ff;color:var(--purple);font-weight:bold;}
+  .btn-check{background:linear-gradient(135deg,var(--yellow),#ffb14e);color:#6b4e00;font-weight:bold;}
+  .btn-next{background:linear-gradient(135deg,var(--green),var(--blue));color:#fff;font-weight:bold;}
+  .btn-next:disabled{filter:grayscale(.7);opacity:.5;cursor:not-allowed;}
+  .alarm{background:var(--red);color:#fff;border-radius:12px;padding:10px 14px;margin-top:10px;font-weight:bold;display:none;text-align:center;}
+  .alarm.show{display:block;animation:shake .4s;}
+  table{width:100%;border-collapse:collapse;margin-top:10px;font-size:.95rem;}
+  th,td{border:1px solid #e6ecf5;padding:7px;text-align:center;}th{background:var(--purple);color:#fff;}
+  .star{font-size:2.6rem;text-align:center;}.small{font-size:.9rem;color:#8a93ad;}.hide{display:none;}
+  #reportArea{overflow-x:auto;}
+  @media (max-width:560px){
+    .card{padding:16px;border-radius:20px;} h1{font-size:1.3rem;} .qtext{font-size:1.18rem;}
+    .opt{font-size:1.1rem;padding:12px 14px;} .tf{width:100%;margin:6px 0;}
+    .matchrow{flex-direction:column;align-items:stretch;} .matchrow select,.matchrow .lft{width:100%;}
+    .row{flex-direction:column;} .row button{width:100%;} table{font-size:.85rem;} th,td{padding:5px;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div id="intro" class="card">
+    <div class="star">➗📐🍕</div>
+    <h1>أهلاً سارة! 🌟</h1>
+    <p class="sub">لنتدرّب على الرياضيات من كتابكِ — الفصل الثاني · الفصول ٧ إلى ١٠</p>
+    <div style="text-align:center;margin:8px 0;">
+      <span class="pill">٧ · القسمة</span><span class="pill">٨ · الأشكال</span>
+      <span class="pill">٩ · القياس</span><span class="pill">١٠ · الكسور</span>
+    </div>
+    <div style="text-align:center;margin:8px 0;" class="small">أنواع الأسئلة: ✏️ اختيار · 🔡 إكمال · ✅ صح/خطأ · 🔗 توصيل</div>
+    <div class="parent">💡 <b>للطالبة:</b> أجيبي ثم اضغطي «تحقّق». اقرئي الصندوق الأخضر (لماذا الإجابة صحيحة) أو الوردي (الشرح والتصحيح).
+      لا يمكنكِ الانتقال إلى السؤال التالي قبل الإجابة. في النهاية يوجد تقرير محفوظ لوليّ الأمر لمتابعة تقدّمكِ.</div>
+    <button class="btn-main" style="margin-top:14px;" onclick="startQuiz()">ابدئي الاختبار 🚀</button>
+    <div id="hasHistory" class="hide" style="text-align:center;margin-top:10px;">
+      <button class="btn-soft" onclick="showReport(true)">📊 تقرير وليّ الأمر</button></div>
+  </div>
+
+  <div id="quiz" class="card hide">
+    <div class="topbar"><span class="unit-badge" id="unitBadge"></span><span class="pill" id="scorePill">⭐ ٠ / ٠</span></div>
+    <div class="progress"><div id="bar"></div></div>
+    <p class="small" id="qcount"></p>
+    <div class="typetag" id="typeTag"></div>
+    <div class="qtext" id="qtext"></div>
+    <p class="hint" id="qhint"></p>
+    <div id="opts"></div>
+    <div id="fb" class="fb"></div>
+    <div id="alarm" class="alarm">⛔ أجيبي عن السؤال أولاً قبل الانتقال</div>
+    <div class="row" style="margin-top:14px;">
+      <button class="btn-soft" onclick="confirmReset()">↺ إعادة من البداية</button>
+      <button class="btn-check" id="checkBtn" onclick="checkInput()" style="display:none;">تحقّق ✓</button>
+      <button class="btn-next" id="nextBtn" onclick="next()" disabled>التالي ➜</button>
+    </div>
+  </div>
+
+  <div id="results" class="card hide">
+    <div class="star" id="resEmoji">🎉</div>
+    <h1 id="resTitle">أحسنتِ يا سارة!</h1>
+    <p class="sub" id="resLine"></p>
+    <div id="resBreakdown"></div>
+    <h3 style="margin-top:18px;">📊 تقرير وليّ الأمر</h3>
+    <div id="reportArea"></div>
+    <div class="row" style="margin-top:16px;">
+      <button class="btn-soft" onclick="confirmReset()">↺ إعادة المحاولة</button>
+      <button class="btn-soft" onclick="clearHistory()">🗑️ مسح السجل</button></div>
+  </div>
+</div>
+
+<!-- ===== بنك الأسئلة في math.questions.js — عدّل ذلك الملف لإضافة/تغيير الأسئلة ===== -->
+<script src="math.questions.js"></script>
+<script>
+const STORAGE_KEY = "sara_math_t2_attempts";
+const TYPELABEL = {mcq:"✏️ اختاري الإجابة الصحيحة", fill:"🔡 أكملي الفراغ", tf:"✅ صح أو خطأ", match:"🔗 صِلي العمودين"};
+
+
+/* ===== المحرّك (نفس محرّك نسخة الإنجليزي) ===== */
+let i=0, score=0, answered=false, startTime=0, perUnit={};
+const ARDIG=s=>String(s).replace(/[0-9]/g,d=>"٠١٢٣٤٥٦٧٨٩"[d]);
+const norm=s=>(s||"").toString().replace(/[.،,!؟?]/g,'').replace(/\s+/g,' ').replace(/[أإآ]/g,'ا').replace(/ة/g,'ه').trim();
+
+function show(id){['intro','quiz','results'].forEach(s=>document.getElementById(s).classList.add('hide'));
+  document.getElementById(id).classList.remove('hide'); window.scrollTo(0,0);}
+if(loadHistory().length){document.getElementById('hasHistory').classList.remove('hide');}
+function startQuiz(){i=0;score=0;answered=false;perUnit={};startTime=Date.now();show('quiz');render();}
+
+function render(){
+  answered=false; const Q=QUESTIONS[i];
+  document.getElementById('unitBadge').textContent=Q.u;
+  document.getElementById('scorePill').textContent='⭐ '+ARDIG(score)+' / '+ARDIG(i);
+  document.getElementById('qcount').textContent='السؤال '+ARDIG(i+1)+' من '+ARDIG(QUESTIONS.length);
+  document.getElementById('bar').style.width=(i/QUESTIONS.length*100)+'%';
+  document.getElementById('typeTag').textContent=TYPELABEL[Q.type]||'';
+  document.getElementById('qtext').innerHTML=Q.q;
+  document.getElementById('qhint').innerHTML=Q.hint?('💭 '+Q.hint):'';
+  document.getElementById('fb').className='fb'; document.getElementById('fb').innerHTML='';
+  document.getElementById('alarm').classList.remove('show');
+  document.getElementById('nextBtn').disabled=true;
+  document.getElementById('nextBtn').textContent=(i===QUESTIONS.length-1)?'إنهاء 🏁':'التالي ➜';
+  document.getElementById('checkBtn').style.display=(Q.type==='mcq'||Q.type==='tf')?'none':'';
+  const ob=document.getElementById('opts'); ob.innerHTML='';
+  if(Q.type==='mcq') renderMCQ(Q,ob);
+  else if(Q.type==='tf') renderTF(Q,ob);
+  else if(Q.type==='fill') renderFill(Q,ob);
+  else if(Q.type==='match') renderMatch(Q,ob);
+}
+function renderMCQ(Q,ob){Q.opts.forEach((o,k)=>{const b=document.createElement('button');b.className='opt';b.textContent=o;b.onclick=()=>{
+   lockOpts(); ob.querySelectorAll('.opt').forEach((bb,idx)=>{if(idx===Q.a)bb.classList.add('correct');if(idx===k&&k!==Q.a)bb.classList.add('wrong');});
+   grade(k===Q.a,Q.opts[Q.a],Q);};ob.appendChild(b);});}
+function renderTF(Q,ob){[['صح ✓',true],['خطأ ✗',false]].forEach(([lbl,val])=>{const b=document.createElement('button');
+   b.className='opt tf '+(val?'t':'f');b.textContent=lbl;b.onclick=()=>{lockOpts();grade(val===Q.a,(Q.a?'صح':'خطأ'),Q);};ob.appendChild(b);});}
+function renderFill(Q,ob){const inp=document.createElement('input');inp.className='inp';inp.id='fillInp';inp.placeholder='اكتبي الإجابة هنا…';inp.autocomplete='off';
+   inp.onkeydown=e=>{if(e.key==='Enter')checkInput();};ob.appendChild(inp);setTimeout(()=>inp.focus(),60);}
+function renderMatch(Q,ob){const rights=shuffle(Q.pairs.map(p=>p[1]));
+   Q.pairs.forEach(p=>{const row=document.createElement('div');row.className='matchrow';row.dataset.correct=p[1];
+     const l=document.createElement('div');l.className='lft';l.textContent=p[0];row.appendChild(l);
+     const sel=document.createElement('select');sel.innerHTML='<option value="">— اختاري —</option>'+rights.map(r=>'<option>'+r+'</option>').join('');
+     row.appendChild(sel);ob.appendChild(row);});}
+function checkInput(){if(answered)return;const Q=QUESTIONS[i];
+  if(Q.type==='fill'){const v=document.getElementById('fillInp').value;if(!v.trim()){alarm();return;}
+    const ok=Q.accept.map(norm).includes(norm(v));document.getElementById('fillInp').style.borderColor=ok?'var(--green)':'var(--red)';
+    document.getElementById('fillInp').disabled=true;grade(ok,Q.accept[0],Q);}
+  else if(Q.type==='match'){const rows=document.querySelectorAll('.matchrow');let all=true,filled=true;
+    rows.forEach(r=>{const s=r.querySelector('select');if(!s.value)filled=false;});
+    if(!filled){alarm();return;}
+    rows.forEach(r=>{const s=r.querySelector('select');const ok=s.value===r.dataset.correct;r.classList.add(ok?'ok':'no');if(!ok)all=false;s.disabled=true;});
+    grade(all,Q.pairs.map(p=>p[0]+' ⟵ '+p[1]).join(' ، '),Q);}
+}
+function alarm(){const a=document.getElementById('alarm');a.classList.add('show');setTimeout(()=>a.classList.remove('show'),1500);}
+function lockOpts(){document.querySelectorAll('#opts .opt').forEach(b=>b.classList.add('locked'));}
+function grade(correct,correctText,Q){answered=true;document.getElementById('checkBtn').style.display='none';
+  const uk=Q.u;perUnit[uk]=perUnit[uk]||{c:0,t:0};perUnit[uk].t++;const fb=document.getElementById('fb');
+  if(correct){score++;perUnit[uk].c++;fb.className='fb right show';fb.innerHTML='<b>✅ أحسنتِ! إجابة صحيحة</b>'+Q.right;}
+  else{fb.className='fb bad show';fb.innerHTML='<b>❌ ليست صحيحة</b>'+Q.wrong+
+    '<div class="parent">👨‍👩‍👧 <b>لوليّ الأمر:</b> الإجابة الصحيحة: «<b>'+correctText+'</b>». راجِعا السؤال معاً.</div>';}
+  document.getElementById('scorePill').textContent='⭐ '+ARDIG(score)+' / '+ARDIG(i+1);
+  document.getElementById('nextBtn').disabled=false;
+}
+function next(){if(!answered){alarm();return;}i++;if(i>=QUESTIONS.length)finish();else render();}
+function finish(){const dur=Math.round((Date.now()-startTime)/1000),wrong=QUESTIONS.length-score,wrongPct=Math.round(wrong/QUESTIONS.length*100);
+  const a=loadHistory();a.push({no:a.length+1,date:new Date().toLocaleString('ar'),total:QUESTIONS.length,correct:score,wrongPct,sec:dur});saveHistory(a);
+  show('results');const pct=Math.round(score/QUESTIONS.length*100);
+  document.getElementById('resEmoji').textContent=pct>=80?'🎉🌟':pct>=50?'😊👍':'💪📚';
+  document.getElementById('resTitle').textContent=pct>=80?'رائعة يا سارة! 🌟':pct>=50?'أحسنتِ يا سارة! 👍':'واصلي المذاكرة يا سارة! 💪';
+  document.getElementById('resLine').innerHTML='النتيجة: <b>'+ARDIG(score)+' / '+ARDIG(QUESTIONS.length)+'</b> ('+ARDIG(pct)+'%) · الزمن: '+fmt(dur);
+  let bd='<div style="margin-top:8px;">';for(const[k,v]of Object.entries(perUnit))bd+='<span class="pill">'+k.split('·')[0].trim()+': '+ARDIG(v.c)+'/'+ARDIG(v.t)+'</span>';bd+='</div>';
+  document.getElementById('resBreakdown').innerHTML=bd;showReport(false);}
+function showReport(standalone){if(standalone){show('results');document.getElementById('resEmoji').textContent='📊';
+   document.getElementById('resTitle').textContent='تقرير وليّ الأمر';document.getElementById('resLine').textContent='';document.getElementById('resBreakdown').innerHTML='';}
+  const a=loadHistory();let h='<p class="small">عدد المحاولات: <b>'+ARDIG(a.length)+'</b></p>';
+  if(a.length){h+='<table><tr><th>#</th><th>التاريخ</th><th>النتيجة</th><th>نسبة الخطأ</th><th>الزمن</th></tr>';
+    a.slice().reverse().forEach(x=>h+='<tr><td>'+ARDIG(x.no)+'</td><td>'+x.date+'</td><td>'+ARDIG(x.correct)+'/'+ARDIG(x.total)+'</td><td>'+ARDIG(x.wrongPct)+'%</td><td>'+fmt(x.sec)+'</td></tr>');
+    h+='</table>';const f=a[0];h+='<div class="parent">⭐ <b>المحاولة الأولى:</b> '+ARDIG(f.correct)+'/'+ARDIG(f.total)+' · نسبة الخطأ '+ARDIG(f.wrongPct)+'% · الزمن '+fmt(f.sec)+'. (محفوظة لمتابعة التقدّم)</div>';}
+  document.getElementById('reportArea').innerHTML=h;}
+function fmt(s){const m=Math.floor(s/60),x=s%60;return (m?ARDIG(m)+' د ':'')+ARDIG(x)+' ث';}
+function shuffle(a){a=a.slice();for(let j=a.length-1;j>0;j--){const k=Math.floor(Math.random()*(j+1));[a[j],a[k]]=[a[k],a[j]];}return a;}
+function loadHistory(){try{return JSON.parse(localStorage.getItem(STORAGE_KEY))||[];}catch(e){return [];}}
+function saveHistory(a){try{localStorage.setItem(STORAGE_KEY,JSON.stringify(a));}catch(e){}}
+function confirmReset(){if(confirm('هل تريدين إعادة الاختبار من البداية؟'))startQuiz();}
+function clearHistory(){if(confirm('مسح تقرير وليّ الأمر المحفوظ؟')){localStorage.removeItem(STORAGE_KEY);showReport(true);}}
+</script>
+</body>
+</html>
