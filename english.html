@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Sara · English Study & Exam — Grade 4 (Term 2)</title>
+<!--
+  ════════════════════════════════════════════════════════════════════
+  Sara — English Study & Exam · Grade 4 · Term 2 (1446 AH)
+  Book: "Top Goal, Student Book 1" (McGraw-Hill) — PART 2, Units 5–8:
+        5 Outdoor Fun · 6 House Accidents · 7 Wildlife · 8 Weather
+  Question TYPES mirror the real exam paper: Multiple Choice, Fill in the
+  missing word, Rearrange the sentence, Matching, True/False, Spelling.
+  All content is taken from the actual book (+ matching exam items).
+  Accuracy first — no invented facts.
+  Parent: password is below (editable). Progress reports are saved in
+  this browser so you can follow up over time. Open in a normal browser.
+  ════════════════════════════════════════════════════════════════════
+-->
+<style>
+  :root{--pink:#ff7eb6;--purple:#9b5de5;--blue:#4cc9f0;--green:#43c59e;--yellow:#ffd166;--red:#ff6b6b;--ink:#36304a;--soft:#fff6fb;}
+  *{box-sizing:border-box;}
+  html{-webkit-text-size-adjust:100%;}
+  body{margin:0;font-family:"Comic Sans MS","Segoe UI",Tahoma,sans-serif;color:var(--ink);
+       background:linear-gradient(135deg,#ffd6ec,#d9c2ff 50%,#c2f0ff);min-height:100vh;
+       padding:18px;padding:calc(18px + env(safe-area-inset-top)) calc(14px + env(safe-area-inset-right)) calc(18px + env(safe-area-inset-bottom)) calc(14px + env(safe-area-inset-left));}
+  button,select,input,.chip{touch-action:manipulation;-webkit-tap-highlight-color:rgba(0,0,0,0);}
+  .opt{overflow-wrap:break-word;word-break:break-word;}
+  #reportArea{overflow-x:auto;}
+  .wrap{max-width:780px;margin:0 auto;}
+  .card{background:#fff;border-radius:26px;padding:24px;box-shadow:0 14px 40px rgba(120,80,170,.22);}
+  h1{margin:.2em 0;font-size:1.7rem;text-align:center;}
+  .sub{text-align:center;color:#7a6f93;margin-bottom:14px;font-size:.95rem;}
+  .ar{direction:rtl;font-family:"Segoe UI",Tahoma,sans-serif;}
+  button{font-family:inherit;cursor:pointer;border:none;border-radius:16px;font-size:1.05rem;padding:12px 18px;transition:transform .08s,box-shadow .15s;}
+  button:active{transform:scale(.97);}
+  .btn-main{background:linear-gradient(135deg,var(--purple),var(--pink));color:#fff;font-weight:bold;box-shadow:0 6px 16px rgba(155,93,229,.4);width:100%;font-size:1.2rem;padding:16px;}
+  .pill{display:inline-block;background:var(--yellow);color:#6b4e00;border-radius:999px;padding:5px 14px;font-weight:bold;font-size:.88rem;margin:3px;}
+  .typetag{display:inline-block;background:#efe7fb;color:var(--purple);border-radius:999px;padding:3px 12px;font-size:.8rem;font-weight:bold;margin-bottom:8px;}
+  .unit-badge{background:linear-gradient(135deg,var(--blue),var(--green));color:#fff;border-radius:14px;padding:8px 16px;font-weight:bold;display:inline-block;font-size:1rem;}
+  .qtext{font-size:1.3rem;font-weight:bold;margin:6px 0;line-height:1.5;}
+  .hint{color:#8a7fa6;font-size:1rem;margin-bottom:12px;}
+  .opt{display:block;width:100%;text-align:left;background:var(--soft);border:3px solid #f0e6f7;color:var(--ink);margin:9px 0;font-size:1.15rem;}
+  .opt:hover{border-color:var(--purple);}
+  .opt.correct{background:#d6f7ec;border-color:var(--green);}
+  .opt.wrong{background:#ffe0e0;border-color:var(--red);}
+  .opt.locked{pointer-events:none;opacity:.92;}
+  .tf{display:inline-block;width:46%;margin:2%;font-size:1.3rem;font-weight:bold;}
+  .tf.t{background:#e3fbf1;color:#1f8f6f;border:3px solid #a7e8d2;}
+  .tf.f{background:#ffeaea;color:#c0392b;border:3px solid #ffc2c2;}
+  .inp{font-size:1.2rem;padding:10px 12px;border-radius:12px;border:3px solid #e6dcf2;min-width:140px;}
+  .chip{display:inline-block;background:var(--soft);border:3px solid #e6dcf2;border-radius:12px;padding:8px 14px;margin:5px;font-size:1.1rem;cursor:pointer;}
+  .chip.used{opacity:.3;pointer-events:none;}
+  .answer-line{min-height:48px;background:#faf6ff;border:2px dashed #cdbdf0;border-radius:12px;padding:10px;margin:10px 0;font-size:1.15rem;}
+  .answer-line .chip{background:#e7dbff;border-color:var(--purple);}
+  .matchrow{display:flex;align-items:center;gap:10px;margin:8px 0;flex-wrap:wrap;}
+  .matchrow .lft{flex:1;min-width:150px;background:var(--soft);border-radius:10px;padding:8px 12px;font-size:1.05rem;}
+  .matchrow select{font-family:inherit;font-size:1rem;padding:8px;border-radius:10px;border:3px solid #e6dcf2;min-width:150px;flex:1;}
+  .matchrow.ok .lft{background:#d6f7ec;} .matchrow.no .lft{background:#ffe0e0;}
+  .fb{border-radius:16px;padding:14px 16px;margin-top:12px;font-size:1.05rem;line-height:1.6;display:none;}
+  .fb.show{display:block;animation:pop .3s;}
+  .fb.right{background:#e3fbf1;border:2px solid var(--green);}
+  .fb.bad{background:#fff0f0;border:2px solid var(--red);}
+  .fb b{display:block;margin-bottom:4px;font-size:1.1rem;}
+  .parent{margin-top:10px;background:#fff8e6;border:2px dashed #ffd166;border-radius:12px;padding:10px 12px;font-size:.95rem;color:#7a5b00;}
+  @keyframes pop{from{transform:scale(.9);opacity:0;}to{transform:scale(1);opacity:1;}}
+  @keyframes shake{0%,100%{transform:translateX(0);}25%{transform:translateX(-8px);}75%{transform:translateX(8px);}}
+  .shake{animation:shake .4s;}
+  .topbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;flex-wrap:wrap;gap:8px;}
+  .progress{height:16px;background:#eee;border-radius:999px;overflow:hidden;margin:8px 0 4px;}
+  .progress>div{height:100%;background:linear-gradient(90deg,var(--green),var(--blue));width:0;transition:width .4s;}
+  .row{display:flex;gap:10px;flex-wrap:wrap;}.row button{flex:1;}
+  .btn-soft{background:#efe7fb;color:var(--purple);font-weight:bold;}
+  .btn-check{background:linear-gradient(135deg,var(--yellow),#ffb14e);color:#6b4e00;font-weight:bold;}
+  .btn-next{background:linear-gradient(135deg,var(--green),var(--blue));color:#fff;font-weight:bold;}
+  .btn-next:disabled{filter:grayscale(.7);opacity:.5;cursor:not-allowed;}
+  .alarm{background:var(--red);color:#fff;border-radius:12px;padding:10px 14px;margin-top:10px;font-weight:bold;display:none;text-align:center;}
+  .alarm.show{display:block;animation:shake .4s;}
+  table{width:100%;border-collapse:collapse;margin-top:10px;font-size:.92rem;}
+  th,td{border:1px solid #e6dcf2;padding:7px;text-align:center;}th{background:var(--purple);color:#fff;}
+  .star{font-size:2.6rem;text-align:center;}
+  input[type=password]{font-size:1.2rem;padding:12px;border-radius:14px;border:3px solid #e6dcf2;width:100%;text-align:center;}
+  .small{font-size:.85rem;color:#9a8fb0;}.hide{display:none;}
+  .mono{font-family:monospace;letter-spacing:3px;font-size:1.4rem;}
+  /* ===== phone / tablet ===== */
+  @media (max-width:560px){
+    body{padding:10px;}
+    .card{padding:16px;border-radius:20px;}
+    h1{font-size:1.35rem;}
+    .qtext{font-size:1.15rem;}
+    .opt{font-size:1.05rem;padding:12px 14px;}
+    .btn-main{font-size:1.08rem;padding:14px;}
+    .tf{width:100%;margin:6px 0;}          /* stack True/False on phones */
+    .matchrow{flex-direction:column;align-items:stretch;}
+    .matchrow select,.matchrow .lft{width:100%;}
+    .row{flex-direction:column;}            /* stack action buttons */
+    .row button{width:100%;}
+    .star{font-size:2.2rem;}
+    .inp{width:100%;}
+    table{font-size:.82rem;} th,td{padding:5px;}
+    .chip{font-size:1.05rem;padding:10px 14px;}  /* bigger finger targets */
+  }
+  @media (hover:none){ .opt{font-size:1.1rem;} }  /* touch devices: comfy text */
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div id="intro" class="card">
+    <div class="star">🌳🦜🌦️</div>
+    <h1>Hello Sara! 🌸</h1>
+    <p class="sub">Practice English from your book — Units 5–8, with all the exam question types.<br>
+      <span class="ar">سنتدرّب على كل أنواع أسئلة الاختبار من كتابك — الوحدات ٥ إلى ٨</span></p>
+    <div style="text-align:center;margin:8px 0;">
+      <span class="pill">5 · Outdoor Fun</span><span class="pill">6 · House Accidents</span>
+      <span class="pill">7 · Wildlife</span><span class="pill">8 · Weather</span>
+    </div>
+    <div style="text-align:center;margin:8px 0;" class="small">
+      Question types / أنواع الأسئلة: ✏️ Choose · 🔡 Fill · 🔀 Rearrange · 🔗 Match · ✅ True/False · 🔤 Spelling
+    </div>
+    <div class="parent ar">💡 <b>للطالبة:</b> أجيبي ثم اضغطي «تحقّق». اقرئي الصندوق الأخضر (لماذا صحيحة) أو الوردي (الشرح والتصحيح).
+      لا يمكنكِ الانتقال قبل الإجابة. في النهاية يوجد تقرير محفوظ لوليّ الأمر.</div>
+    <button class="btn-main" style="margin-top:14px;" onclick="startQuiz()">Start the exam! 🚀 / ابدئي</button>
+    <div id="hasHistory" class="hide" style="text-align:center;margin-top:10px;">
+      <button class="btn-soft" onclick="showReport(true)">📊 Parent report / تقرير وليّ الأمر</button></div>
+  </div>
+
+  <div id="quiz" class="card hide">
+    <div class="topbar"><span class="unit-badge" id="unitBadge">Unit 5</span><span class="pill" id="scorePill">⭐ 0 / 0</span></div>
+    <div class="progress"><div id="bar"></div></div>
+    <p class="small" id="qcount"></p>
+    <div class="typetag" id="typeTag"></div>
+    <div class="qtext" id="qtext"></div>
+    <p class="hint ar" id="qhint"></p>
+    <div id="opts"></div>
+    <div id="fb" class="fb"></div>
+    <div id="alarm" class="alarm">⛔ Please answer first! <span class="ar"> أجيبي عن السؤال أولاً</span></div>
+    <div class="row" style="margin-top:14px;">
+      <button class="btn-soft" onclick="confirmReset()">↺ Start over / إعادة</button>
+      <button class="btn-check" id="checkBtn" onclick="checkInput()" style="display:none;">Check ✓ / تحقّق</button>
+      <button class="btn-next" id="nextBtn" onclick="next()" disabled>Next ➜ / التالي</button>
+    </div>
+  </div>
+
+  <div id="results" class="card hide">
+    <div class="star" id="resEmoji">🎉</div>
+    <h1 id="resTitle">Well done, Sara!</h1>
+    <p class="sub" id="resLine"></p>
+    <div id="resBreakdown"></div>
+    <h3 style="margin-top:18px;">📊 Parent Report <span class="ar small">— تقرير وليّ الأمر</span></h3>
+    <div id="reportArea"></div>
+    <div class="row" style="margin-top:16px;">
+      <button class="btn-soft" onclick="confirmReset()">↺ Try again / إعادة المحاولة</button>
+      <button class="btn-soft" onclick="clearHistory()">🗑️ Clear report / مسح السجل</button></div>
+  </div>
+</div>
+
+<!-- ===== QUESTION BANK lives in english.questions.js — edit THAT file to add/change questions ===== -->
+<script src="english.questions.js"></script>
+<script>
+const PASSWORD = "sara";
+const STORAGE_KEY = "sara_english_u5_8_attempts";
+
+const TYPELABEL = {mcq:"✏️ Choose the correct answer / اختاري الإجابة",
+  fill:"🔡 Fill in the missing word / أكملي الفراغ",
+  reorder:"🔀 Rearrange to make a sentence / رتّبي الجملة",
+  match:"🔗 Match / صِلي",
+  tf:"✅ True or False / صح أو خطأ",
+  spell:"🔤 Spelling — the missing letters / الإملاء"};
+
+
+/* ===== STATE ===== */
+let i=0, score=0, answered=false, startTime=0, perUnit={}, curInputReady=false;
+const norm=s=>(s||"").toString().toLowerCase().replace(/[.،,!?؟]/g,'').replace(/\s+/g,' ').trim();
+
+function tryLogin(){
+  if(document.getElementById('pw').value.trim().toLowerCase()===PASSWORD){
+    show('intro'); if(loadHistory().length) document.getElementById('hasHistory').classList.remove('hide');
+  } else document.getElementById('pwerr').style.display='block';
+}
+function show(id){['intro','quiz','results'].forEach(s=>document.getElementById(s).classList.add('hide'));
+  document.getElementById(id).classList.remove('hide'); window.scrollTo(0,0);}
+/* show parent-report button on load if there is saved history */
+if(loadHistory().length){document.getElementById('hasHistory').classList.remove('hide');}
+function startQuiz(){i=0;score=0;answered=false;perUnit={};startTime=Date.now();show('quiz');render();}
+
+function render(){
+  answered=false; curInputReady=false;
+  const Q=QUESTIONS[i];
+  document.getElementById('unitBadge').textContent=Q.u;
+  document.getElementById('scorePill').textContent='⭐ '+score+' / '+i;
+  document.getElementById('qcount').textContent='Question '+(i+1)+' of '+QUESTIONS.length+'  ·  سؤال '+(i+1)+' من '+QUESTIONS.length;
+  document.getElementById('bar').style.width=(i/QUESTIONS.length*100)+'%';
+  document.getElementById('typeTag').textContent=TYPELABEL[Q.type]||'';
+  document.getElementById('qtext').innerHTML=Q.q+(Q.type==='spell'?' <span class="mono">'+Q.word+'</span>':'');
+  document.getElementById('qhint').innerHTML=Q.hint?('💭 '+Q.hint):'';
+  document.getElementById('fb').className='fb'; document.getElementById('fb').innerHTML='';
+  document.getElementById('alarm').classList.remove('show');
+  document.getElementById('nextBtn').disabled=true;
+  document.getElementById('nextBtn').textContent=(i===QUESTIONS.length-1)?'Finish 🏁 / إنهاء':'Next ➜ / التالي';
+  const chk=document.getElementById('checkBtn');
+  chk.style.display=(Q.type==='mcq'||Q.type==='tf')?'none':'';
+  const ob=document.getElementById('opts'); ob.innerHTML='';
+  if(Q.type==='mcq') renderMCQ(Q,ob);
+  else if(Q.type==='tf') renderTF(Q,ob);
+  else if(Q.type==='fill'||Q.type==='spell') renderFill(Q,ob);
+  else if(Q.type==='reorder') renderReorder(Q,ob);
+  else if(Q.type==='match') renderMatch(Q,ob);
+}
+
+function renderMCQ(Q,ob){ Q.opts.forEach((o,k)=>{const b=document.createElement('button');b.className='opt';b.textContent=o;b.onclick=()=>{
+   lockOpts(); const btns=ob.querySelectorAll('.opt'); btns.forEach((bb,idx)=>{if(idx===Q.a)bb.classList.add('correct');if(idx===k&&k!==Q.a)bb.classList.add('wrong');});
+   grade(k===Q.a, Q.opts[Q.a], Q);}; ob.appendChild(b);}); }
+
+function renderTF(Q,ob){ [['True ✓ / صح',true],['False ✗ / خطأ',false]].forEach(([lbl,val])=>{
+   const b=document.createElement('button'); b.className='opt tf '+(val?'t':'f'); b.textContent=lbl; b.onclick=()=>{
+     lockOpts(); grade(val===Q.a, (Q.a?'True / صح':'False / خطأ'), Q);}; ob.appendChild(b);}); }
+
+function renderFill(Q,ob){ const inp=document.createElement('input'); inp.className='inp'; inp.id='fillInp';
+   inp.placeholder=(Q.type==='spell'?'؟؟':'……'); inp.autocomplete='off';
+   inp.onkeydown=e=>{if(e.key==='Enter')checkInput();}; ob.appendChild(inp); curInputReady=true; setTimeout(()=>inp.focus(),60); }
+
+function renderReorder(Q,ob){ const line=document.createElement('div'); line.className='answer-line'; line.id='ansLine';
+   line.innerHTML='<span class="small">Tap the words in order ⬇️ / اضغطي الكلمات بالترتيب</span>'; ob.appendChild(line);
+   const pool=document.createElement('div'); pool.id='pool';
+   shuffle(Q.tokens.map((t,ix)=>({t,ix}))).forEach(o=>{const c=document.createElement('span');c.className='chip';c.textContent=o.t;
+     c.onclick=()=>{ if(answered)return; c.classList.add('used'); const a=document.getElementById('ansLine');
+       if(a.querySelector('.small'))a.innerHTML=''; const used=document.createElement('span'); used.className='chip'; used.textContent=o.t;
+       used.onclick=()=>{ if(answered)return; used.remove(); c.classList.remove('used'); }; a.appendChild(used); };
+     pool.appendChild(c);}); ob.appendChild(pool); curInputReady=true; }
+
+function renderMatch(Q,ob){ const rights=shuffle(Q.pairs.map(p=>p[1]));
+   Q.pairs.forEach((p,idx)=>{ const row=document.createElement('div'); row.className='matchrow'; row.dataset.correct=p[1];
+     const l=document.createElement('div'); l.className='lft'; l.textContent=p[0]; row.appendChild(l);
+     const sel=document.createElement('select'); sel.innerHTML='<option value="">— choose / اختاري —</option>'+rights.map(r=>'<option>'+r+'</option>').join('');
+     row.appendChild(sel); ob.appendChild(row);}); curInputReady=true; }
+
+function checkInput(){ if(answered) return; const Q=QUESTIONS[i];
+  if(Q.type==='fill'||Q.type==='spell'){ const v=document.getElementById('fillInp').value;
+    if(!v.trim()){alarm();return;} const ok=Q.accept.map(norm).includes(norm(v));
+    document.getElementById('fillInp').style.borderColor=ok?'var(--green)':'var(--red)';
+    document.getElementById('fillInp').disabled=true; grade(ok, Q.accept[0], Q); }
+  else if(Q.type==='reorder'){ const a=document.getElementById('ansLine'); const got=[...a.querySelectorAll('.chip')].map(c=>c.textContent).join(' ');
+    if(!got.trim()){alarm();return;} const ok=norm(got)===norm(Q.answer); grade(ok, Q.answer, Q); a.style.borderColor=ok?'var(--green)':'var(--red)'; }
+  else if(Q.type==='match'){ const rows=document.querySelectorAll('.matchrow'); let all=true,filled=true;
+    rows.forEach(r=>{const sel=r.querySelector('select'); if(!sel.value){filled=false;} const ok=sel.value===r.dataset.correct;
+      r.classList.add(ok?'ok':'no'); if(!ok)all=false; sel.disabled=true;});
+    if(!filled){rows.forEach(r=>{r.classList.remove('ok','no');r.querySelector('select').disabled=false;}); alarm(); return;}
+    const ansText=Q.pairs.map(p=>p[0]+' → '+p[1]).join(' ; '); grade(all, ansText, Q); }
+}
+function alarm(){const a=document.getElementById('alarm');a.classList.add('show');setTimeout(()=>a.classList.remove('show'),1500);}
+function lockOpts(){document.querySelectorAll('#opts .opt').forEach(b=>b.classList.add('locked'));}
+
+function grade(correct, correctText, Q){
+  answered=true; document.getElementById('checkBtn').style.display='none';
+  const uk=Q.u; perUnit[uk]=perUnit[uk]||{c:0,t:0}; perUnit[uk].t++;
+  const fb=document.getElementById('fb');
+  if(correct){ score++; perUnit[uk].c++; fb.className='fb right show'; fb.innerHTML='<b>✅ Correct! / إجابة صحيحة</b>'+Q.right; }
+  else { fb.className='fb bad show'; fb.innerHTML='<b>❌ Not quite / ليست صحيحة</b>'+Q.wrong+
+    '<div class="parent">👨‍👩‍👧 <b>For parent:</b> correct answer → "<b>'+correctText+'</b>". Review together. — <span class="ar">الإجابة الصحيحة: '+correctText+'</span></div>'; }
+  document.getElementById('scorePill').textContent='⭐ '+score+' / '+(i+1);
+  document.getElementById('nextBtn').disabled=false;
+}
+function next(){ if(!answered){alarm();return;} i++; if(i>=QUESTIONS.length) finish(); else render(); }
+
+function finish(){
+  const dur=Math.round((Date.now()-startTime)/1000), wrong=QUESTIONS.length-score, wrongPct=Math.round(wrong/QUESTIONS.length*100);
+  const attempts=loadHistory();
+  attempts.push({no:attempts.length+1,date:new Date().toLocaleString(),total:QUESTIONS.length,correct:score,wrongPct,sec:dur,
+    units:Object.fromEntries(Object.entries(perUnit).map(([k,v])=>[k,v.c+'/'+v.t]))});
+  saveHistory(attempts); show('results');
+  const pct=Math.round(score/QUESTIONS.length*100);
+  document.getElementById('resEmoji').textContent=pct>=80?'🎉🌟':pct>=50?'😊👍':'💪📚';
+  document.getElementById('resTitle').textContent=pct>=80?'Amazing, Sara! 🌟':pct>=50?'Good job, Sara! 👍':'Keep going, Sara! 💪';
+  document.getElementById('resLine').innerHTML='Score: <b>'+score+' / '+QUESTIONS.length+'</b> ('+pct+'%) · Time: '+fmt(dur)+
+     '<br><span class="ar">النتيجة: '+score+' من '+QUESTIONS.length+' · الزمن: '+fmt(dur)+'</span>';
+  let bd='<div style="margin-top:8px;">'; for(const[k,v]of Object.entries(perUnit)) bd+='<span class="pill">'+k.split('·')[0].trim()+': '+v.c+'/'+v.t+'</span>'; bd+='</div>';
+  document.getElementById('resBreakdown').innerHTML=bd; showReport(false);
+}
+function showReport(standalone){ if(standalone){show('results');document.getElementById('resEmoji').textContent='📊';
+   document.getElementById('resTitle').textContent='Parent Report';document.getElementById('resLine').textContent='';document.getElementById('resBreakdown').innerHTML='';}
+  const a=loadHistory(); let h='<p class="small">Total attempts / عدد المحاولات: <b>'+a.length+'</b></p>';
+  if(a.length){ h+='<table><tr><th>#</th><th>Date</th><th>Score</th><th>Wrong %</th><th>Time</th></tr>';
+    a.slice().reverse().forEach(x=>h+='<tr><td>'+x.no+'</td><td>'+x.date+'</td><td>'+x.correct+'/'+x.total+'</td><td>'+x.wrongPct+'%</td><td>'+fmt(x.sec)+'</td></tr>');
+    h+='</table>'; const f=a[0]; h+='<div class="parent">⭐ <b>First attempt:</b> '+f.correct+'/'+f.total+' · '+f.wrongPct+'% wrong · '+fmt(f.sec)+'. <span class="ar">المحاولة الأولى محفوظة لمتابعة التقدّم.</span></div>';}
+  document.getElementById('reportArea').innerHTML=h;
+}
+function fmt(s){const m=Math.floor(s/60),x=s%60;return (m?m+'m ':'')+x+'s';}
+function shuffle(a){a=a.slice();for(let j=a.length-1;j>0;j--){const k=Math.floor(Math.random()*(j+1));[a[j],a[k]]=[a[k],a[j]];}return a;}
+function loadHistory(){try{return JSON.parse(localStorage.getItem(STORAGE_KEY))||[];}catch(e){return [];}}
+function saveHistory(a){try{localStorage.setItem(STORAGE_KEY,JSON.stringify(a));}catch(e){}}
+function confirmReset(){if(confirm('Start the exam again? / إعادة الاختبار؟'))startQuiz();}
+function clearHistory(){if(confirm('Clear the saved parent report? / مسح التقرير؟')){localStorage.removeItem(STORAGE_KEY);showReport(true);}}
+</script>
+</body>
+</html>

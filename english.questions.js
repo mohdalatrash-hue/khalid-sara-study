@@ -1,0 +1,138 @@
+/* ============================================================================
+   SARA · ENGLISH (Grade 4 · Units 5–8) — QUESTION BANK
+   سارة · إنجليزي — بنك الأسئلة
+   ----------------------------------------------------------------------------
+   THIS is the only file you edit to add or change questions.
+   هذا هو الملف الوحيد الذي تعدّله لإضافة أو تغيير الأسئلة.
+
+   • Add a question: copy one block below, paste it inside the [ ... ],
+     keep the comma between blocks. أضف سؤالاً: انسخ أي قالب وألصقه داخل [ ... ]
+   • Keep the same "u:" text for questions in the same unit — the app groups
+     by it and shows it as the section title.
+   • Every block needs a "right:" (shown when correct) and "wrong:" (shown when
+     wrong — the parent/teacher explanation). كل سؤال يحتاج شرحًا للصواب والخطأ.
+   • Don't remove the last line  ];  — it closes the list.
+
+   QUESTION TYPES — copy the matching template:
+   ----------------------------------------------------------------------------
+   1) mcq  — multiple choice (a = index of correct option, starts at 0)
+      {u:"Unit 5 · Outdoor Fun 🌳", type:"mcq", q:"Question text?",
+       hint:"تلميح بالعربي (optional)",
+       opts:["right one","wrong","wrong","wrong"], a:0,
+       right:"Praise + why it's right.", wrong:"Clear explanation."},
+
+   2) tf  — true / false (a:true or a:false)
+      {u:"Unit 8 · Weather 🌦️", type:"tf", q:"A statement to judge.",
+       a:false, hint:"تلميح",
+       right:"...", wrong:"..."},
+
+   3) fill — type the missing word (accept = list of acceptable answers)
+      {u:"Unit 5 · Outdoor Fun 🌳", type:"fill", q:"I love ____ . (hike)",
+       hint:"تلميح", accept:["hiking"],
+       right:"...", wrong:"..."},
+
+   4) spell — fill the missing letters (word shows blanks, accept = answers)
+      {u:"Unit 8 · Weather 🌦️", type:"spell", q:"Clue for the word:",
+       word:"s n _ _", accept:["ow","snow"], hint:"تلميح",
+       right:"...", wrong:"..."},
+
+   5) reorder — tap word-chips into a sentence (tokens shuffled; answer = final)
+      {u:"Unit 5 · Outdoor Fun 🌳", type:"reorder", q:"Put in order:",
+       tokens:["She","forgot","to take","her backpack"],
+       answer:"She forgot to take her backpack", hint:"تلميح",
+       right:"...", wrong:"..."},
+
+   6) match — match left items to right meanings (pairs = [[left,right],...])
+      {u:"Unit 7 · Wildlife 🦁", type:"match", q:"Match:",
+       pairs:[["who","for a person"],["where","for a place"]],
+       right:"...", wrong:"..."},
+   ============================================================================ */
+
+var QUESTIONS = [
+ /* ---- UNIT 5 · Outdoor Fun ---- */
+ {u:"Unit 5 · Outdoor Fun 🌳",type:"mcq",q:"Very dry land with a lot of sand is a ____.",hint:"أرض جافة مليئة بالرمال",
+  opts:["desert","forest","lake","island"],a:0,
+  right:"Yes! A <b>desert</b> is dry land full of sand. 🏜️",
+  wrong:"Desert = sand & dry. Forest = trees, lake = water, island = land with water around it."},
+ {u:"Unit 5 · Outdoor Fun 🌳",type:"spell",q:"The planet we live on:",word:"E _ _ t h",accept:["ar","earth"],hint:"الكوكب الذي نعيش عليه (E_ _th)",
+  right:"Correct — <b>Earth</b>! 🌍 The missing letters are <b>ar</b>.",
+  wrong:"The word is <b>Earth</b> (E-a-r-t-h). The missing letters are <b>ar</b>."},
+ {u:"Unit 5 · Outdoor Fun 🌳",type:"fill",q:"Use the correct form: I love ____ in the hills. (hike)",hint:"بعد love نستخدم فعل + ing",
+  accept:["hiking"],
+  right:"Great! After <b>love/like/hate</b> we use <b>verb + -ing</b> → <b>hiking</b>. ✅",
+  wrong:"After love/like/hate use <b>-ing</b>: \"I love <b>hiking</b>.\""},
+ {u:"Unit 5 · Outdoor Fun 🌳",type:"fill",q:"Use the correct form: He decided ____ the hill. (climb)",hint:"بعد decided نستخدم to + فعل",
+  accept:["to climb"],
+  right:"Yes! After <b>decided</b> we use <b>to + verb</b> → <b>to climb</b>. ✅",
+  wrong:"After decide/want/forget use <b>to + verb</b>: \"He decided <b>to climb</b>.\""},
+ {u:"Unit 5 · Outdoor Fun 🌳",type:"reorder",q:"Put the words in the right order:",
+  tokens:["her backpack","She","to take","forgot"],answer:"She forgot to take her backpack",hint:"من فعل ماذا",
+  right:"Perfect! \"<b>She forgot to take her backpack.</b>\" ✅",
+  wrong:"Order: who + verb + to + verb + what → \"<b>She forgot to take her backpack.</b>\""},
+ {u:"Unit 5 · Outdoor Fun 🌳",type:"tf",q:"A hill is higher than a mountain.",a:false,hint:"أيّهما أعلى؟",
+  right:"Right — that's <b>False</b>. A <b>mountain</b> is higher than a hill. ⛰️",
+  wrong:"It's <b>False</b>: a mountain is the HIGH one; a hill is smaller."},
+ {u:"Unit 5 · Outdoor Fun 🌳",type:"match",q:"Match the nature word with its meaning:",
+  pairs:[["waterfall","water falling from a high place"],["island","land with water all around it"],["cave","a hole in the rock you can go inside"],["forest","a place with many trees"]],
+  right:"Excellent matching! 🌟",
+  wrong:"Check the book pictures (Unit 5): waterfall = water from high up; island = land surrounded by water; cave = hole in rock; forest = many trees."},
+
+ /* ---- UNIT 6 · House Accidents ---- */
+ {u:"Unit 6 · House Accidents 🩹",type:"mcq",q:"My tooth hurts. I have a ____.",hint:"ألم في السن",
+  opts:["headache","toothache","earache","stomachache"],a:1,
+  right:"Yes! tooth + ache = <b>toothache</b>. 🦷",
+  wrong:"toothache = tooth, headache = head, earache = ear, stomachache = tummy."},
+ {u:"Unit 6 · House Accidents 🩹",type:"fill",q:"It is dangerous! You ____ play with electricity.",hint:"ممنوع تماماً (must + not)",
+  accept:["mustn't","must not","mustnt"],
+  right:"Correct! <b>mustn't</b> = it is NOT allowed. ⚡🚫",
+  wrong:"Use <b>mustn't</b> (must not) for something not allowed/dangerous."},
+ {u:"Unit 6 · House Accidents 🩹",type:"match",q:"Match the problem with the right advice (from the book):",
+  pairs:[["I have a cough.","You should drink water and juice."],["I have a stomachache.","You shouldn't eat ice cream."],["I have an earache.","You shouldn't listen to loud music."]],
+  right:"Well done! That's exactly the book's advice. 🩺",
+  wrong:"Book advice: cough → drink water & juice; stomachache → don't eat ice cream; earache → don't listen to loud music."},
+ {u:"Unit 6 · House Accidents 🩹",type:"tf",q:"If you have a toothache, you should eat a lot of candy.",a:false,hint:"هل الحلوى مفيدة للأسنان؟",
+  right:"Right — <b>False</b>! Too much candy is bad for teeth; you <b>shouldn't</b>. 🍬🚫",
+  wrong:"It's <b>False</b>. Candy is bad for a toothache — you <b>shouldn't</b> eat a lot of it."},
+ {u:"Unit 6 · House Accidents 🩹",type:"mcq",q:"You have a cough. You ____ drink a lot of water.",hint:"نصيحة جيدة",
+  opts:["should","shouldn't","mustn't","don't have to"],a:0,
+  right:"Yes! For good advice we use <b>should</b>. ✅",
+  wrong:"should = good advice (do it). Drinking water is good → <b>should</b>."},
+
+ /* ---- UNIT 7 · Wildlife ---- */
+ {u:"Unit 7 · Wildlife 🦁",type:"mcq",q:"A colourful bird that can talk is a ____.",hint:"طائر ملوّن يتكلّم",
+  opts:["panda","parrot","kangaroo","lion"],a:1,
+  right:"Yes! A <b>parrot</b> — \"the woman whose parrot speaks English\" (book). 🦜",
+  wrong:"A parrot is the talking bird. Panda & lion aren't birds; a kangaroo jumps."},
+ {u:"Unit 7 · Wildlife 🦁",type:"fill",q:"This is the zoo ____ the vet works on Fridays.",hint:"للمكان نستخدم …",
+  accept:["where"],
+  right:"Yes! For a <b>place</b> we use <b>where</b>. 🏞️",
+  wrong:"A zoo is a place → <b>where</b>."},
+ {u:"Unit 7 · Wildlife 🦁",type:"match",q:"Match the word with what it is used for:",
+  pairs:[["who","for a person"],["where","for a place"],["when","for a time / day"],["whose","to show it belongs to someone"]],
+  right:"Great! You know your relative words. 🌟",
+  wrong:"who = person, where = place, when = time, whose = belonging (the book's grammar chart)."},
+ {u:"Unit 7 · Wildlife 🦁",type:"mcq",q:"This is the scientist ____ works at the zoo.",hint:"للأشخاص",
+  opts:["which","who","where","when"],a:1,
+  right:"Correct! For a person → <b>who</b>. 👩‍🔬",
+  wrong:"For a person use <b>who</b>; 'which' is for things, 'where' places, 'when' time."},
+
+ /* ---- UNIT 8 · Weather ---- */
+ {u:"Unit 8 · Weather 🌦️",type:"mcq",q:"When it rains and the sun shines together, you see a ____.",hint:"ألوان جميلة في السماء",
+  opts:["cloud","rainbow","ice","wind"],a:1,
+  right:"Yes! A <b>rainbow</b>. 🌈",
+  wrong:"rainbow = colours in the sky; cloud = grey/white; ice = frozen water; wind = moving air."},
+ {u:"Unit 8 · Weather 🌦️",type:"spell",q:"Soft white frozen water that falls in winter:",word:"s n _ _",accept:["ow","snow"],hint:"يتساقط في البرد (sn_ _)",
+  right:"Correct — <b>snow</b>! ❄️ The missing letters are <b>ow</b>.",
+  wrong:"The word is <b>snow</b> (s-n-o-w). The missing letters are <b>ow</b>."},
+ {u:"Unit 8 · Weather 🌦️",type:"fill",q:"Look at the dark clouds! It ____ going to rain.",hint:"is / are — مع 'it'",
+  accept:["is"],
+  right:"Yes! With <b>it</b> → <b>is</b> going to rain. ☔",
+  wrong:"Use <b>is</b> with 'it': \"It <b>is</b> going to rain.\""},
+ {u:"Unit 8 · Weather 🌦️",type:"tf",q:"We use 'be going to' to talk about the past.",a:false,hint:"الماضي أم المستقبل؟",
+  right:"Right — <b>False</b>! 'be going to' talks about the <b>future</b>. 🔮",
+  wrong:"It's <b>False</b>: 'be going to' is for the <b>future</b> (tomorrow, next week)."},
+ {u:"Unit 8 · Weather 🌦️",type:"reorder",q:"Put the words in order to ask about tomorrow:",
+  tokens:["going to","Is","sunny","it","be","tomorrow"],answer:"Is it going to be sunny tomorrow",hint:"سؤال يبدأ بـ Is",
+  right:"Perfect! \"<b>Is it going to be sunny tomorrow?</b>\" ☀️",
+  wrong:"Question order: Is + it + going to + be + sunny + tomorrow → \"<b>Is it going to be sunny tomorrow?</b>\""}
+];
