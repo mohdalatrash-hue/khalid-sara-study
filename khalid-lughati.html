@@ -106,6 +106,7 @@
     <div class="topbar"><span class="unit-badge" id="unitBadge"></span><span class="pill" id="scorePill">⭐ ٠ / ٠</span></div>
     <div class="progress"><div id="bar"></div></div>
     <p class="small" id="qcount"></p>
+    <div id="passageBox" style="display:none;background:#fff8e1;border:2px solid #ffe08a;border-radius:14px;padding:12px 14px;margin-bottom:12px;line-height:1.95;font-size:1.02rem;"></div>
     <div class="typetag" id="typeTag"></div>
     <div class="qtext" id="qtext"></div>
     <p class="hint" id="qhint"></p>
@@ -156,6 +157,9 @@ function render(){
   document.getElementById('qcount').textContent='السؤال '+ARDIG(i+1)+' من '+ARDIG(QUESTIONS.length);
   document.getElementById('bar').style.width=(i/QUESTIONS.length*100)+'%';
   document.getElementById('typeTag').textContent=TYPELABEL[Q.type]||'';
+  var pb=document.getElementById('passageBox');
+  if(Q.passage){pb.style.display='';pb.innerHTML='<div style="font-weight:bold;margin-bottom:6px;">📖 اقرأ النص ثم أجب:</div>'+Q.passage;}
+  else{pb.style.display='none';pb.innerHTML='';}
   document.getElementById('qtext').innerHTML=Q.q;
   document.getElementById('qhint').innerHTML=Q.hint?('💭 '+Q.hint):'';
   document.getElementById('fb').className='fb'; document.getElementById('fb').innerHTML='';
