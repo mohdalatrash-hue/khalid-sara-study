@@ -107,7 +107,7 @@
       <button class="btn-main" style="font-size:1.05rem;padding:12px;" onclick="startQuiz('2')">نموذج ٢</button>
       <button class="btn-main" style="font-size:1.05rem;padding:12px;" onclick="startQuiz('3')">نموذج ٣</button>
     </div>
-    <button class="btn-main" style="margin-top:8px;background:linear-gradient(135deg,#284b6d,#2f8f86);" onclick="startQuiz('r')">🎲 نموذج عشوائي (أسئلة متغيّرة)</button>
+    <button class="btn-main" style="margin-top:8px;background:linear-gradient(135deg,#284b6d,#2f8f86);" onclick="startQuiz('r')">📚 كل الأسئلة (متغيّرة)</button>
     <div id="hasHistory" class="hide" style="text-align:center;margin-top:10px;">
       <button class="btn-soft" onclick="showReport(true)">📊 تقرير وليّ الأمر</button></div>
   </div>
@@ -137,6 +137,7 @@
     <h3 style="margin-top:18px;">📊 تقرير وليّ الأمر</h3>
     <div id="reportArea"></div>
     <div class="row" style="margin-top:16px;">
+      <button class="btn-soft" onclick="goHome()">🏠 القائمة الرئيسية</button>
       <button class="btn-soft" onclick="confirmReset()">↺ إعادة المحاولة</button>
       <button class="btn-soft" onclick="clearHistory()">🗑️ مسح السجل</button></div>
   </div>
@@ -151,17 +152,18 @@ const TYPELABEL = {mcq:"✏️ اختر الإجابة الصحيحة", fill:"�
 
 
 /* ===== المحرّك (نفس محرّك نسخة الإنجليزي) ===== */
-let i=0, score=0, answered=false, startTime=0, perUnit={}, perType={}, wrongItems=[], studentName='', QUESTIONS=[], currentForm='', SAMPLE_SIZE=20;
+let i=0, score=0, answered=false, startTime=0, perUnit={}, perType={}, wrongItems=[], studentName='', QUESTIONS=[], currentForm='', SAMPLE_SIZE=25;
 const ARDIG=s=>String(s).replace(/[0-9]/g,d=>"٠١٢٣٤٥٦٧٨٩"[d]);
 const norm=s=>(s||"").toString().toLowerCase().replace(/[.،,!؟?]/g,'').replace(/['’‘`´]/g,'').replace(/\s+/g,' ').replace(/[أإآ]/g,'ا').replace(/ة/g,'ه').trim();
 
 function show(id){['intro','quiz','results'].forEach(s=>document.getElementById(s).classList.add('hide'));
   document.getElementById(id).classList.remove('hide'); window.scrollTo(0,0);}
+function goHome(){show('intro');}
 if(loadHistory().length){document.getElementById('hasHistory').classList.remove('hide');}
 function startQuiz(form){var _e=document.getElementById('studentName');var _n=_e?(''+_e.value).trim():'';if(!_n){if(_e){_e.style.borderColor='#ff6b6b';_e.focus();}alert('اكتب اسمك أولاً للبدء 🙂');return;}studentName=_n;currentForm=form||'r';QUESTIONS=buildSample(currentForm);if(!QUESTIONS.length){alert('لا توجد أسئلة بعد.');return;}i=0;score=0;answered=false;perUnit={};perType={};wrongItems=[];startTime=Date.now();show('quiz');render();}
 function _rngSeed(s){var x=(s*9301+49297)%233280;return function(){x=(x*9301+49297)%233280;return x/233280;};}
 function _shufR(a,rnd){a=a.slice();for(var j=a.length-1;j>0;j--){var k=Math.floor(rnd()*(j+1));var t=a[j];a[j]=a[k];a[k]=t;}return a;}
-function buildSample(form){var items=(typeof POOL!=='undefined'?POOL.slice():[]);if(typeof GENERATORS!=='undefined'){for(var g=0;g<GENERATORS.length;g++){try{var it=GENERATORS[g].make();if(it){it.u=it.u||GENERATORS[g].u;items.push(it);}}catch(e){}}}var rnd=(form==='r')?Math.random:_rngSeed(parseInt(form,10)||1);items=_shufR(items,rnd);return items.slice(0,Math.min(SAMPLE_SIZE,items.length));}
+function buildSample(form){var items=(typeof POOL!=='undefined'?POOL.slice():[]);if(typeof GENERATORS!=='undefined'){for(var g=0;g<GENERATORS.length;g++){try{var it=GENERATORS[g].make();if(it){it.u=it.u||GENERATORS[g].u;items.push(it);}}catch(e){}}}var rnd=(form==='r')?Math.random:_rngSeed(parseInt(form,10)||1);items=_shufR(items,rnd);var size=(form==='r')?items.length:SAMPLE_SIZE;return items.slice(0,Math.min(size,items.length));}
 
 function render(){
   answered=false; const Q=QUESTIONS[i];
@@ -243,7 +245,7 @@ function reportData(dur){var total=QUESTIONS.length,correct=score,wrong=total-co
   var types=Object.keys(perType).map(function(k){var v=perType[k];return {ty:k,c:v.c,t:v.t,p:_pc(v.c,v.t)};});
   var weak=units.filter(function(u){return u.p<100;}).sort(function(a,b){return a.p-b.p;});
   return {total:total,correct:correct,wrong:wrong,p:_pc(correct,total),dur:dur,units:units,types:types,weak:weak,started:new Date(startTime),ended:new Date()};}
-function renderFullReport(dur){injectPrintCSS();var d=reportData(dur);var subj=document.title+(currentForm?(' · '+(currentForm==='r'?'نموذج عشوائي':'نموذج '+ARDIG(currentForm))):'');
+function renderFullReport(dur){injectPrintCSS();var d=reportData(dur);var subj=document.title+(currentForm?(' · '+(currentForm==='r'?'كل الأسئلة':'نموذج '+ARDIG(currentForm))):'');
   var h='<div id="printable" style="text-align:right;direction:rtl;">';
   h+='<h2 style="margin:.2em 0;">📊 تقرير وليّ الأمر</h2><p style="margin:.2em 0;"><b>الطالب:</b> '+(studentName||'-')+'</p><p style="margin:.2em 0;color:#555;">'+subj+'</p>';
   h+='<table><tr><th>التاريخ والوقت</th><td>'+d.started.toLocaleString('ar')+'</td></tr>';

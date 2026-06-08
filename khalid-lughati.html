@@ -103,7 +103,13 @@
     <div style="margin-top:10px;"><input id="studentName" class="inp" autocomplete="off" placeholder="اكتب اسمك هنا ✏️" style="text-align:center;max-width:340px;margin:0 auto;display:block;"></div>
     <div style="text-align:center;margin-top:14px;font-weight:bold;color:#6f7a93;">اختر النموذج للبدء:</div>
     <div class="row" style="margin-top:8px;"><button class="btn-main" style="font-size:1.05rem;padding:12px;" onclick="startQuiz('1')">نموذج ١</button><button class="btn-main" style="font-size:1.05rem;padding:12px;" onclick="startQuiz('2')">نموذج ٢</button><button class="btn-main" style="font-size:1.05rem;padding:12px;" onclick="startQuiz('3')">نموذج ٣</button></div>
-    <button class="btn-main" style="margin-top:8px;background:linear-gradient(135deg,#284b6d,#2f8f86);" onclick="startQuiz('r')">🎲 نموذج عشوائي</button>
+    <button class="btn-main" style="margin-top:8px;background:linear-gradient(135deg,#284b6d,#2f8f86);" onclick="startQuiz('r')">📚 كل الأسئلة</button>
+    <div id="markaziBox" style="margin-top:18px;border-top:2px dashed #d9c27a;padding-top:14px;">
+      <div style="text-align:center;font-weight:bold;color:#9a7b1e;"><span style="background:#fff5d6;border:1px solid #e6c84a;border-radius:10px;padding:2px 10px;margin-inline-end:6px;">🏅 جديد</span>نماذج تدريب الاختبارات المركزية</div>
+      <div class="small" style="text-align:center;margin-top:5px;">من تجميعات الاختبارات المركزية الوزارية للصف السادس — تدرّب على نمط الاختبار المركزي.</div>
+      <div class="row" style="margin-top:8px;"><button class="btn-main" style="font-size:1.05rem;padding:12px;background:linear-gradient(135deg,#8a6d1f,#b8860b);" onclick="startQuiz('m1')">مركزي ١</button><button class="btn-main" style="font-size:1.05rem;padding:12px;background:linear-gradient(135deg,#8a6d1f,#b8860b);" onclick="startQuiz('m2')">مركزي ٢</button><button class="btn-main" style="font-size:1.05rem;padding:12px;background:linear-gradient(135deg,#8a6d1f,#b8860b);" onclick="startQuiz('m3')">مركزي ٣</button></div>
+      <button class="btn-main" style="margin-top:8px;background:linear-gradient(135deg,#6d551a,#9a7b1e);" onclick="startQuiz('mr')">📚 كل أسئلة المركزي</button>
+    </div>
     <div id="hasHistory" class="hide" style="text-align:center;margin-top:10px;">
       <button class="btn-soft" onclick="showReport(true)">📊 تقرير وليّ الأمر</button></div>
   </div>
@@ -134,6 +140,7 @@
     <h3 style="margin-top:18px;">📊 تقرير وليّ الأمر</h3>
     <div id="reportArea"></div>
     <div class="row" style="margin-top:16px;">
+      <button class="btn-soft" onclick="goHome()">🏠 القائمة الرئيسية</button>
       <button class="btn-soft" onclick="confirmReset()">↺ إعادة المحاولة</button>
       <button class="btn-soft" onclick="clearHistory()">🗑️ مسح السجل</button></div>
   </div>
@@ -142,24 +149,29 @@
 <!-- ===== بنك الأسئلة في khalid-lughati.questions.js — عدّل ذلك الملف لإضافة/تغيير الأسئلة ===== -->
 <script src="config.js"></script>
 <script src="khalid-lughati.questions.js"></script>
+<script src="khalid-lughati.markazi.js"></script>
 <script>
 const STORAGE_KEY = "khalid_lughati_u2_attempts";
 const TYPELABEL = {mcq:"✏️ اختر الإجابة الصحيحة", fill:"🔡 أكمل الفراغ", tf:"✅ صح أو خطأ", match:"🔗 صِلْ العمودين"};
 
 
 /* ===== المحرّك (نفس محرّك نسخة الإنجليزي) ===== */
-let i=0, score=0, answered=false, startTime=0, perUnit={}, perType={}, wrongItems=[], studentName='', QUESTIONS=[], currentForm='', SAMPLE_SIZE=15;
+let i=0, score=0, answered=false, startTime=0, perUnit={}, perType={}, wrongItems=[], studentName='', QUESTIONS=[], currentForm='', SAMPLE_SIZE=25;
 const ARDIG=s=>String(s).replace(/[0-9]/g,d=>"٠١٢٣٤٥٦٧٨٩"[d]);
 const norm=s=>(s||"").toString().toLowerCase().replace(/[.،,!؟?]/g,'').replace(/['’‘`´]/g,'').replace(/\s+/g,' ').replace(/[أإآ]/g,'ا').replace(/ة/g,'ه').trim();
 
 function show(id){['intro','quiz','results'].forEach(s=>document.getElementById(s).classList.add('hide'));
   document.getElementById(id).classList.remove('hide'); window.scrollTo(0,0);}
+function goHome(){show('intro');}
 if(loadHistory().length){document.getElementById('hasHistory').classList.remove('hide');}
 function startQuiz(form){var _e=document.getElementById('studentName');var _n=_e?(''+_e.value).trim():'';if(!_n){if(_e){_e.style.borderColor='#ff6b6b';_e.focus();}alert('اكتب اسمك أولاً للبدء 🙂');return;}studentName=_n;currentForm=form||'r';QUESTIONS=buildSample(currentForm);if(!QUESTIONS.length){return;}i=0;score=0;answered=false;perUnit={};perType={};wrongItems=[];startTime=Date.now();show('quiz');render();}
 
 function _rngSeed(s){var x=(s*9301+49297)%233280;return function(){x=(x*9301+49297)%233280;return x/233280;};}
 function _shufR(a,rnd){a=a.slice();for(var j=a.length-1;j>0;j--){var k=Math.floor(rnd()*(j+1));var t=a[j];a[j]=a[k];a[k]=t;}return a;}
-function buildSample(form){var items=(typeof POOL!=='undefined'?POOL.slice():[]);if(typeof GENERATORS!=='undefined'){for(var g=0;g<GENERATORS.length;g++){try{var it=GENERATORS[g].make();if(it){it.u=it.u||GENERATORS[g].u;items.push(it);}}catch(e){}}}var rnd=(form==='r')?Math.random:_rngSeed(parseInt(form,10)||1);items=_shufR(items,rnd);return items.slice(0,Math.min(SAMPLE_SIZE,items.length));}
+function buildSample(form){var markazi=(typeof form==='string'&&form.charAt(0)==='m');var seed=markazi?form.slice(1):form;var items;if(markazi){items=(typeof MARKAZI!=='undefined'?MARKAZI.slice():[]);}else{items=(typeof POOL!=='undefined'?POOL.slice():[]);if(typeof GENERATORS!=='undefined'){for(var g=0;g<GENERATORS.length;g++){try{var it=GENERATORS[g].make();if(it){it.u=it.u||GENERATORS[g].u;items.push(it);}}catch(e){}}}}var rnd=(seed==='r')?Math.random:_rngSeed(parseInt(seed,10)||1);items=_shufR(items,rnd);var size=(seed==='r')?items.length:(markazi?(typeof MARKAZI_SIZE!=='undefined'?MARKAZI_SIZE:25):SAMPLE_SIZE);return items.slice(0,Math.min(size,items.length));}
+function _formLabelAR(f){if(!f)return'';if(f.charAt(0)==='m'){var s=f.slice(1);return s==='r'?'كل أسئلة المركزي':'مركزي '+ARDIG(s);}return f==='r'?'كل الأسئلة':'نموذج '+ARDIG(f);}
+function _formLabelEN(f){if(!f)return'';if(f.charAt(0)==='m'){var s=f.slice(1);return s==='r'?'All central':'Central '+s;}return f==='r'?'All questions':'Form '+f;}
+(function(){var _mb=document.getElementById('markaziBox');if(_mb&&(typeof MARKAZI==='undefined'||!MARKAZI||!MARKAZI.length)){_mb.style.display='none';}})();
 function render(){
   answered=false; const Q=QUESTIONS[i];
   document.getElementById('unitBadge').textContent=Q.u;
@@ -243,7 +255,7 @@ function reportData(dur){var total=QUESTIONS.length,correct=score,wrong=total-co
   var types=Object.keys(perType).map(function(k){var v=perType[k];return {ty:k,c:v.c,t:v.t,p:_pc(v.c,v.t)};});
   var weak=units.filter(function(u){return u.p<100;}).sort(function(a,b){return a.p-b.p;});
   return {total:total,correct:correct,wrong:wrong,p:_pc(correct,total),dur:dur,units:units,types:types,weak:weak,started:new Date(startTime),ended:new Date()};}
-function renderFullReport(dur){injectPrintCSS();var d=reportData(dur);var subj=document.title+(currentForm?(' · '+(currentForm==='r'?'نموذج عشوائي':'نموذج '+ARDIG(currentForm))):'');
+function renderFullReport(dur){injectPrintCSS();var d=reportData(dur);var subj=document.title+(currentForm?(' · '+_formLabelAR(currentForm)):'');
   var h='<div id="printable" style="text-align:right;direction:rtl;">';
   h+='<h2 style="margin:.2em 0;">📊 تقرير وليّ الأمر</h2><p style="margin:.2em 0;"><b>الطالب:</b> '+(studentName||'-')+'</p><p style="margin:.2em 0;color:#555;">'+subj+'</p>';
   h+='<table><tr><th>التاريخ والوقت</th><td>'+d.started.toLocaleString('ar')+'</td></tr>';
