@@ -125,10 +125,11 @@
       لا يمكنك الانتقال قبل الإجابة. في النهاية يوجد تقرير محفوظ لوليّ الأمر.</div>
     <div style="margin-top:10px;"><input id="studentName" class="inp" autocomplete="off" placeholder="Type your name ✏️" style="text-align:center;max-width:340px;margin:0 auto;display:block;"></div>
     <div style="text-align:center;margin-top:14px;font-weight:bold;color:#6f7a93;">Choose a form to start:</div>
-    <div class="row" style="margin-top:8px;"><button class="btn-main" style="font-size:1.05rem;padding:12px;" onclick="startQuiz('1')">Form 1</button><button class="btn-main" style="font-size:1.05rem;padding:12px;" onclick="startQuiz('2')">Form 2</button><button class="btn-main" style="font-size:1.05rem;padding:12px;" onclick="startQuiz('3')">Form 3</button></div>
+    <div id="progressSummary" style="display:none;text-align:center;font-weight:bold;color:#2e8f72;margin:4px 0 6px;font-size:1.05rem;"></div>
+    <div class="row" id="formButtons" style="margin-top:8px;"></div>
     <button class="btn-main" style="margin-top:8px;background:linear-gradient(135deg,#284b6d,#2f8f86);" onclick="startQuiz('r')">📚 All questions</button>
     <div id="hasHistory" class="hide" style="text-align:center;margin-top:10px;">
-      <button class="btn-soft" onclick="showReport(true)">📊 Parent report / تقرير وليّ الأمر</button></div>
+      <button class="btn-soft" onclick="showDashboard()">📊 Progress / لوحة المتابعة</button></div>
   </div>
 
   <div id="quiz" class="card hide">
@@ -183,19 +184,104 @@ const norm=s=>(s||"").toString().toLowerCase().replace(/[.،,!?؟]/g,'').replace
 
 function tryLogin(){
   if(document.getElementById('pw').value.trim().toLowerCase()===PASSWORD){
-    show('intro'); if(loadHistory().length) document.getElementById('hasHistory').classList.remove('hide');
+    show('intro');try{renderFormStatus();}catch(e){};
   } else document.getElementById('pwerr').style.display='block';
 }
 function show(id){['intro','quiz','results'].forEach(s=>document.getElementById(s).classList.add('hide'));
   document.getElementById(id).classList.remove('hide'); window.scrollTo(0,0);}
-function goHome(){show('intro');}
+function goHome(){show('intro');try{renderFormStatus();}catch(e){}}
 /* show parent-report button on load if there is saved history */
-if(loadHistory().length){document.getElementById('hasHistory').classList.remove('hide');}
+(function(){var _p=loadProgress();if(_p.name){var _ne=document.getElementById('studentName');if(_ne)_ne.value=_p.name;}if(_p.attempts&&_p.attempts.length){document.getElementById('hasHistory').classList.remove('hide');}try{renderFormStatus();}catch(e){}})();
 function startQuiz(form){var _e=document.getElementById('studentName');var _n=_e?(''+_e.value).trim():'';if(!_n){if(_e){_e.style.borderColor='#ff6b6b';_e.focus();}alert('Please type your name to start 🙂');return;}studentName=_n;currentForm=form||'r';QUESTIONS=buildSample(currentForm);if(!QUESTIONS.length){return;}i=0;score=0;answered=false;perUnit={};perType={};wrongItems=[];startTime=Date.now();show('quiz');render();}
 
 function _rngSeed(s){var x=(s*9301+49297)%233280;return function(){x=(x*9301+49297)%233280;return x/233280;};}
 function _shufR(a,rnd){a=a.slice();for(var j=a.length-1;j>0;j--){var k=Math.floor(rnd()*(j+1));var t=a[j];a[j]=a[k];a[k]=t;}return a;}
-function buildSample(form){var items=(typeof POOL!=='undefined'?POOL.slice():[]);if(typeof GENERATORS!=='undefined'){for(var g=0;g<GENERATORS.length;g++){try{var it=GENERATORS[g].make();if(it){it.u=it.u||GENERATORS[g].u;items.push(it);}}catch(e){}}}var rnd=(form==='r')?Math.random:_rngSeed(parseInt(form,10)||1);items=_shufR(items,rnd);var size=(form==='r')?items.length:SAMPLE_SIZE;return items.slice(0,Math.min(size,items.length));}
+function _poolFor(mk){return mk?(typeof MARKAZI!=='undefined'?MARKAZI.slice():[]):(typeof POOL!=='undefined'?POOL.slice():[]);}
+function _withGen(base){if(typeof GENERATORS!=='undefined'){for(var g=0;g<GENERATORS.length;g++){try{var it=GENERATORS[g].make();if(it){it.u=it.u||GENERATORS[g].u;base.push(it);}}catch(e){}}}return base;}
+function _formSize(t){var s=Math.ceil(t/12);if(s<15)s=15;if(s>30)s=30;return s;}
+function _byUnitOrder(items,seedNum){var groups={},order=[];items.forEach(function(q){var u=q.u||'-';if(!groups[u]){groups[u]=[];order.push(u);}groups[u].push(q);});var r=_rngSeed(seedNum||12345);order.forEach(function(u){groups[u]=_shufR(groups[u],r);});order=_shufR(order,_rngSeed((seedNum||12345)+7));var out=[],i=0,more=true;while(more){more=false;for(var k=0;k<order.length;k++){var g=groups[order[k]];if(i<g.length){out.push(g[i]);more=true;}}i++;}return out;}
+function formCount(mk){var ord=_byUnitOrder(_poolFor(mk),mk?9001:12345);return Math.max(1,Math.ceil(ord.length/_formSize(ord.length)));}
+function buildSample(form){var mk=(typeof form==='string'&&form.charAt(0)==='m');var key=mk?form.slice(1):form;if(key==='r'){return _shufR(_withGen(_poolFor(mk)),Math.random);}var ord=_byUnitOrder(_poolFor(mk),mk?9001:12345);var size=_formSize(ord.length);var n=Math.max(1,Math.ceil(ord.length/size));var idx=((parseInt(key,10)||1)-1);if(idx<0)idx=0;idx=idx%n;return ord.slice(idx*size,(idx+1)*size);}
+function _mkFormBtn(label,form,extra){return '<button class="btn-main" style="font-size:1.02rem;padding:11px;'+(extra||'')+'" onclick="startQuiz(\''+form+'\')">'+label+'</button>';}
+function renderForms(){var AR=(document.documentElement.getAttribute('dir')==='rtl');var fb=document.getElementById('formButtons');if(fb){var n=formCount(false),h='';for(var k=1;k<=n;k++){h+=_mkFormBtn((AR?('نموذج '+ARDIG(k)):('Form '+k)),''+k);}fb.innerHTML=h;}var mb=document.getElementById('markaziButtons');if(mb&&typeof MARKAZI!=='undefined'&&MARKAZI&&MARKAZI.length){var m=formCount(true),h2='';for(var j=1;j<=m;j++){h2+=_mkFormBtn((AR?('مركزي '+ARDIG(j)):('Central '+j)),'m'+j,'background:linear-gradient(135deg,#8a6d1f,#b8860b);');}mb.innerHTML=h2;}}
+try{renderForms();}catch(e){}
+function renderFormStatus(){
+  try{
+    var p=loadProgress();var atts=p.attempts||[];
+    var isAr=document.documentElement.getAttribute('dir')==='rtl';
+    var fb=document.getElementById('formButtons');
+    if(fb){var nf=formCount(false);var btns=fb.querySelectorAll('button');
+      for(var k=1;k<=nf;k++){var btn=btns[k-1];if(!btn)continue;
+        var done=atts.filter(function(a){return String(a.form)===String(k);});
+        if(done.length){var last=done[done.length-1];var pct=Math.round(last.correct/last.total*100);
+          if(!btn.querySelector('.fstatus')){var sp=document.createElement('span');sp.className='fstatus';
+            sp.style.cssText='display:block;font-size:.75rem;margin-top:2px;';
+            sp.textContent='✅ '+ARDIG(pct)+'%';btn.appendChild(sp);}
+          btn.style.background='linear-gradient(135deg,#1e6e50,#2a8f6e)';}}}
+    var mb=document.getElementById('markaziButtons');
+    if(mb){var nm=(typeof MARKAZI!=='undefined'&&MARKAZI&&MARKAZI.length)?formCount(true):0;
+      var mbtns=mb.querySelectorAll('button');
+      for(var j=1;j<=nm;j++){var bm=mbtns[j-1];if(!bm)continue;
+        var dm=atts.filter(function(a){return a.form==='m'+j;});
+        if(dm.length){var lm=dm[dm.length-1];var pm=Math.round(lm.correct/lm.total*100);
+          if(!bm.querySelector('.fstatus')){var sm=document.createElement('span');sm.className='fstatus';
+            sm.style.cssText='display:block;font-size:.75rem;margin-top:2px;';
+            sm.textContent='✅ '+ARDIG(pm)+'%';bm.appendChild(sm);}
+          bm.style.background='linear-gradient(135deg,#5a3d00,#8a6d1f)';}}}
+    var n2=formCount(false);var seenIds={};var doneIds=[];
+    atts.forEach(function(a){var f=String(a.form||'');
+      if(f&&f!=='r'&&f!=='?'&&!/^m/.test(f)&&!seenIds[f]){seenIds[f]=1;doneIds.push(f);}});
+    var sumEl=document.getElementById('progressSummary');
+    if(sumEl&&n2>0){
+      sumEl.textContent=isAr?('✅ '+ARDIG(doneIds.length)+' من '+ARDIG(n2)+' نماذج مكتملة'):('✅ '+doneIds.length+' of '+n2+' forms done');
+      sumEl.style.display='';}
+  }catch(e){}
+}
+function showDashboard(){
+  var p=loadProgress();var atts=p.attempts||[];
+  var isAr=document.documentElement.getAttribute('dir')==='rtl';
+  show('results');
+  document.getElementById('resEmoji').textContent='📊';
+  document.getElementById('resTitle').textContent=isAr?'لوحة المتابعة':'Progress Dashboard';
+  document.getElementById('resLine').textContent=(p.name||(isAr?'الطالب':'Student'))+(isAr?' — سجلّ الاختبارات':' — Exam Records');
+  document.getElementById('resBreakdown').innerHTML='';
+  var n=formCount(false);
+  var nm=(typeof MARKAZI!=='undefined'&&MARKAZI&&MARKAZI.length)?formCount(true):0;
+  var allForms=[];
+  for(var k=1;k<=n;k++)allForms.push({id:String(k),label:isAr?('نموذج '+ARDIG(k)):('Form '+k)});
+  for(var j=1;j<=nm;j++)allForms.push({id:'m'+j,label:isAr?('مركزي '+ARDIG(j)):('Central '+j)});
+  if(atts.some(function(a){return a.form==='r';}))allForms.push({id:'r',label:isAr?'كل الأسئلة':'All Questions'});
+  var h='<table style="width:100%;border-collapse:collapse;font-size:.92rem;"><tr>'
+    +'<th>'+(isAr?'النموذج':'Form')+'</th>'
+    +'<th>'+(isAr?'آخر محاولة':'Last Attempt')+'</th>'
+    +'<th>'+(isAr?'النتيجة':'Score')+'</th>'
+    +'<th>'+(isAr?'الوقت':'Time')+'</th>'
+    +'<th>×</th></tr>';
+  var doneCt=0;
+  allForms.forEach(function(f){
+    var done=atts.filter(function(a){return String(a.form)===f.id;});
+    if(done.length){doneCt++;var last=done[done.length-1];
+      var pct=Math.round(last.correct/last.total*100);
+      var star=pct>=80?'🌟':pct>=60?'👍':'💪';
+      h+='<tr style="background:#f0faf5;"><td><b>'+f.label+'</b></td>'
+        +'<td style="font-size:.8rem;direction:ltr;text-align:center;">'+last.date+'</td>'
+        +'<td>'+star+' '+ARDIG(last.correct)+'/'+ARDIG(last.total)+' ('+ARDIG(pct)+'%)</td>'
+        +'<td>'+fmt(last.sec)+'</td><td>'+ARDIG(done.length)+'</td></tr>';
+    }else{
+      h+='<tr style="color:#bbb;"><td>'+f.label+'</td>'
+        +'<td colspan="4" style="text-align:center;">'+(isAr?'□ لم يُكمَل بعد':'□ not taken yet')+'</td></tr>';}
+  });
+  h+='</table>';
+  if(doneCt>0){
+    var scList=atts.filter(function(a){return a.total>0;}).map(function(a){return Math.round(a.correct/a.total*100);});
+    var avg=Math.round(scList.reduce(function(a,b){return a+b;},0)/(scList.length||1));
+    h+='<div class="parent" style="margin-top:10px;">📈 '
+      +(isAr?'<b>متوسط الدرجات:</b> ':'<b>Avg score:</b> ')
+      +ARDIG(avg)+'% · '
+      +(isAr?'اكتمل '+ARDIG(doneCt)+' من '+ARDIG(allForms.length)+' نموذج':'Completed '+doneCt+'/'+allForms.length+' forms')
+      +'</div>';}
+  document.getElementById('reportArea').innerHTML=h;
+}
 function render(){
   answered=false; curInputReady=false;
   const Q=QUESTIONS[i];
@@ -278,7 +364,7 @@ function next(){ if(!answered){alarm();return;} i++; if(i>=QUESTIONS.length) fin
 function finish(){
   const dur=Math.round((Date.now()-startTime)/1000), wrong=QUESTIONS.length-score, wrongPct=Math.round(wrong/QUESTIONS.length*100);
   const attempts=loadHistory();
-  attempts.push({no:attempts.length+1,date:new Date().toLocaleString(),total:QUESTIONS.length,correct:score,wrongPct,sec:dur,
+  attempts.push({no:attempts.length+1,date:new Date().toLocaleString(),total:QUESTIONS.length,correct:score,wrongPct,sec:dur,form:currentForm||'r',
     units:Object.fromEntries(Object.entries(perUnit).map(([k,v])=>[k,v.c+'/'+v.t]))});
   saveHistory(attempts); show('results');
   const pct=Math.round(score/QUESTIONS.length*100);
@@ -352,10 +438,12 @@ function copyReport(){var t=window._reportText||'';if(navigator.clipboard&&navig
 function _fbCopy(t){var ta=document.createElement('textarea');ta.value=t;document.body.appendChild(ta);ta.select();try{document.execCommand('copy');alert('Report copied ✅');}catch(e){alert('Copy manually:'+NL+NL+t);}document.body.removeChild(ta);}
 function downloadReport(){var t=window._reportText||'';var blob=new Blob([t],{type:'text/plain;charset=utf-8'});var url=URL.createObjectURL(blob);var a=document.createElement('a');a.href=url;a.download='report-'+document.title.slice(0,20)+'.txt';document.body.appendChild(a);a.click();document.body.removeChild(a);setTimeout(function(){URL.revokeObjectURL(url);},1500);}
 
-function loadHistory(){try{return JSON.parse(localStorage.getItem(STORAGE_KEY))||[];}catch(e){return [];}}
-function saveHistory(a){try{localStorage.setItem(STORAGE_KEY,JSON.stringify(a));}catch(e){}}
+function loadProgress(){try{var v2=JSON.parse(localStorage.getItem(STORAGE_KEY+'_v2'));if(v2&&v2.attempts)return v2;var old=JSON.parse(localStorage.getItem(STORAGE_KEY));if(old&&old.length)return {name:'',attempts:old.map(function(a){return Object.assign({form:'?'},a);})};}catch(e){}return {name:'',attempts:[]};}
+function saveProgress(p){try{localStorage.setItem(STORAGE_KEY+'_v2',JSON.stringify(p));}catch(e){}}
+function loadHistory(){return loadProgress().attempts;}
+function saveHistory(a){var p=loadProgress();p.attempts=a;if(typeof studentName!=='undefined'&&studentName)p.name=studentName;saveProgress(p);}
 function confirmReset(){if(confirm('Start the exam again? / إعادة الاختبار؟'))startQuiz();}
-function clearHistory(){if(confirm('Clear the saved parent report? / مسح التقرير؟')){localStorage.removeItem(STORAGE_KEY);showReport(true);}}
+function clearHistory(){if(confirm('Clear the saved parent report? / مسح التقرير؟')){localStorage.removeItem(STORAGE_KEY);localStorage.removeItem(STORAGE_KEY+'_v2');show('intro');try{renderFormStatus();}catch(e){};}}
 </script>
 </body>
 </html>
