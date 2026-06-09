@@ -18,11 +18,13 @@
       • ضع كود الموقع (الجزء قبل .goatcounter.com) في GOAT_CODE أدناه
       → يُفعّل: زيارات مُجمَّعة · خصوصيّة كاملة · GDPR متوافق
 
-   ④ COUNTER_NS — لا تغيّره، مخصّص للعدّاد العلني
+   ④ HITS_PATH — مسار العداد · لا تغيّره
    ============================================================================ */
 
 var LOG_ENDPOINT = "";
 
 var GA_ID      = "";   /* Google Analytics 4  مثال: "G-XXXXXXXXXX"  */
 var GOAT_CODE  = "";   /* GoatCounter         مثال: "khalid-sara"   */
-var COUNTER_NS = "khalid-sara-study";
+
+/* مسار عداد الزيارات (hits.sh) — لا تغيّره */
+var HITS_PATH  = "mohdalatrash-hue.github.io/khalid-sara-study";

@@ -185,7 +185,7 @@ function renderFormStatus(){
         if(done.length){var last=done[done.length-1];var pct=Math.round(last.correct/last.total*100);
           if(!btn.querySelector('.fstatus')){var sp=document.createElement('span');sp.className='fstatus';
             sp.style.cssText='display:block;font-size:.75rem;margin-top:2px;';
-            sp.textContent='✅ '+ARDIG(pct)+'%';btn.appendChild(sp);}
+            sp.textContent='✅ '+ARDIG(pct)+'%'+(done.length>1?' · '+ARDIG(done.length)+' مرّات':'');btn.appendChild(sp);}
           btn.style.background='linear-gradient(135deg,#1e6e50,#2a8f6e)';}}}
     var mb=document.getElementById('markaziButtons');
     if(mb){var nm=(typeof MARKAZI!=='undefined'&&MARKAZI&&MARKAZI.length)?formCount(true):0;
@@ -195,7 +195,7 @@ function renderFormStatus(){
         if(dm.length){var lm=dm[dm.length-1];var pm=Math.round(lm.correct/lm.total*100);
           if(!bm.querySelector('.fstatus')){var sm=document.createElement('span');sm.className='fstatus';
             sm.style.cssText='display:block;font-size:.75rem;margin-top:2px;';
-            sm.textContent='✅ '+ARDIG(pm)+'%';bm.appendChild(sm);}
+            sm.textContent='✅ '+ARDIG(pm)+'%'+(dm.length>1?' · '+ARDIG(dm.length)+' مرّات':'');bm.appendChild(sm);}
           bm.style.background='linear-gradient(135deg,#5a3d00,#8a6d1f)';}}}
     var n2=formCount(false);var seenIds={};var doneIds=[];
     atts.forEach(function(a){var f=String(a.form||'');
