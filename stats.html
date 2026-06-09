@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>📊 إحصائيات الموقع · مذاكرة واختبار</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@600;700;800&display=swap');
+  h1,h2,h3{font-family:'Cairo','Segoe UI',Tahoma,Arial,sans-serif;font-weight:800;}
+  :root{--purple:#284b6d;--blue:#2f6fb0;--green:#2e8f72;--teal:#2f8f86;--yellow:#e3c069;--ink:#233042;--soft:#f3f7fb;}
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:"Segoe UI",Tahoma,"Geeza Pro",sans-serif;color:var(--ink);
+    background:linear-gradient(135deg,#eef2f7,#e8eef4 55%,#edf2f1);min-height:100vh;
+    padding:calc(18px + env(safe-area-inset-top)) 14px calc(18px + env(safe-area-inset-bottom));}
+  .wrap{max-width:820px;margin:0 auto;}
+  h1{text-align:center;font-size:1.7rem;margin:.2em 0;}
+  .sub{text-align:center;color:#6f7a93;margin-bottom:18px;}
+  .card{background:#fff;border-radius:22px;padding:22px;box-shadow:0 12px 34px rgba(90,120,180,.18);margin-bottom:16px;}
+  .big-num{font-size:3.8rem;font-weight:800;text-align:center;font-family:'Cairo',sans-serif;
+    background:linear-gradient(135deg,var(--purple),var(--teal));-webkit-background-clip:text;-webkit-text-fill-color:transparent;
+    background-clip:text;line-height:1.1;}
+  .big-label{text-align:center;color:#6f7a93;font-size:1rem;margin-top:4px;}
+  .spinner{text-align:center;color:#aaa;padding:30px;font-size:1.1rem;}
+  table{width:100%;border-collapse:collapse;margin-top:10px;}
+  th{background:linear-gradient(135deg,var(--purple),var(--teal));color:#fff;padding:9px 12px;font-size:.9rem;}
+  td{border-bottom:1px solid #eef1f7;padding:10px 12px;vertical-align:middle;}
+  tr:last-child td{border-bottom:none;}
+  tr:hover td{background:#f7faff;}
+  .rank{font-weight:800;color:var(--purple);text-align:center;width:36px;}
+  .subject-name{font-weight:bold;font-size:1.05rem;}
+  .grade-tag{color:#8a93ad;font-size:.85rem;}
+  .count-num{font-weight:800;text-align:center;font-size:1.1rem;font-family:'Cairo',sans-serif;}
+  .bar-wrap{width:100%;background:#eef1f7;border-radius:8px;height:14px;overflow:hidden;}
+  .bar-fill{height:100%;border-radius:8px;background:linear-gradient(90deg,var(--blue),var(--green));transition:width .6s ease;}
+  .medal{font-size:1.3rem;}
+  .tip-box{background:#fff8e6;border:2px solid #e6c84a;border-radius:16px;padding:14px 16px;
+    margin-bottom:16px;color:#7a5b00;font-size:.95rem;line-height:1.8;}
+  .tip-box b{color:#9a7b1e;}
+  .tip-box code{background:#fff3c4;padding:1px 6px;border-radius:4px;font-size:.9rem;}
+  .back-btn{display:inline-block;background:linear-gradient(135deg,var(--purple),var(--teal));
+    color:#fff;text-decoration:none;border-radius:14px;padding:10px 20px;font-weight:bold;
+    font-size:1rem;box-shadow:0 6px 14px rgba(44,80,120,.2);}
+  .back-btn:active{transform:scale(.97);}
+  .refresh-btn{background:#eef3ff;color:var(--purple);border:none;border-radius:12px;
+    padding:8px 16px;font-size:.95rem;cursor:pointer;font-weight:bold;font-family:inherit;margin-inline-start:10px;}
+  .stat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:12px;margin-top:10px;}
+  .stat-tile{background:var(--soft);border-radius:14px;padding:14px;text-align:center;}
+  .stat-tile .snum{font-size:1.8rem;font-weight:800;font-family:'Cairo',sans-serif;color:var(--purple);}
+  .stat-tile .slbl{font-size:.82rem;color:#8a93ad;margin-top:2px;}
+  .error-msg{text-align:center;color:#c0392b;padding:20px;}
+  .hide{display:none;}
+  @media(max-width:560px){
+    .big-num{font-size:2.8rem;} th,td{padding:7px 8px;} .stat-tile .snum{font-size:1.5rem;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <h1>📊 إحصائيات الموقع</h1>
+  <p class="sub">آخر تحديث: الآن · البيانات من عدّاد الزيارات العلني</p>
+
+  <!-- Loading -->
+  <div id="loadingCard" class="card">
+    <div class="spinner">⏳ جاري تحميل الإحصائيات…</div>
+  </div>
+
+  <!-- Error -->
+  <div id="errorCard" class="card hide">
+    <div class="error-msg">
+      ⚠️ تعذّر تحميل البيانات. تحقّق من اتصالك بالإنترنت ثم
+      <button class="refresh-btn" onclick="location.reload()">🔄 أعِد المحاولة</button>
+    </div>
+  </div>
+
+  <!-- Main stats -->
+  <div id="mainStats" class="hide">
+
+    <!-- Total visits -->
+    <div class="card" style="text-align:center;">
+      <div class="big-num" id="totalNum">٠</div>
+      <div class="big-label">إجمالي الزيارات منذ إطلاق الموقع</div>
+      <div class="stat-grid" id="quickGrid"></div>
+    </div>
+
+    <!-- Subject leaderboard -->
+    <div class="card">
+      <h2 style="margin-top:0;">🏆 ترتيب المواد حسب الاستخدام</h2>
+      <table>
+        <thead>
+          <tr>
+            <th style="width:42px;">#</th>
+            <th>المادة</th>
+            <th style="width:72px;text-align:center;">الزيارات</th>
+            <th>الشعبية</th>
+          </tr>
+        </thead>
+        <tbody id="subjectRows"></tbody>
+      </table>
+    </div>
+
+    <!-- How to get more detail -->
+    <div class="tip-box">
+      <b>💡 هل تريد إحصاءات تفصيلية؟ (مجاناً)</b><br>
+      أضف <b>Google Analytics 4</b> بخطوتين:
+      <ol style="margin:6px 0 4px;padding-inline-start:18px;">
+        <li>أنشئ حساباً على <a href="https://analytics.google.com" target="_blank" style="color:#2f6fb0;">analytics.google.com</a> ← Property ← Web ← انسخ Measurement ID</li>
+        <li>افتح <code>config.js</code> وضع الـ ID في <code>GA_ID = "G-XXXXXXXX"</code> ثم أعِد الرفع</li>
+      </ol>
+      ستحصل على: خريطة الدول · نوع الجهاز · وقت الذروة · مسارات الطلاب · والمزيد.
+      <br><br>
+      أو جرّب <a href="https://goatcounter.com" target="_blank" style="color:#2f6fb0;">GoatCounter</a> (خصوصيّة كاملة، مجاني) — ضع كوده في <code>GOAT_CODE</code>.
+    </div>
+
+    <div style="text-align:center;margin-top:6px;">
+      <a href="index.html" class="back-btn">← العودة للموقع</a>
+      <button class="refresh-btn" onclick="location.reload()">🔄 تحديث</button>
+    </div>
+    <p style="text-align:center;color:#aaa;font-size:.82rem;margin-top:14px;">
+      العدّادات تبدأ من الصفر عند أوّل استخدام · الأرقام تقريبية وغير مضمونة من خدمة CounterAPI
+    </p>
+
+  </div><!-- /mainStats -->
+
+</div><!-- /wrap -->
+
+<script src="config.js"></script>
+<script src="analytics.js"></script>
+<script>
+/* ── Subject registry ── */
+var SUBJECTS = [
+  {key:'s4-lughati',  label:'لغتي',        grade:'الصف الرابع',  emoji:'📖'},
+  {key:'s4-english',  label:'English',      grade:'الصف الرابع',  emoji:'🔤'},
+  {key:'s4-math',     label:'الرياضيات',    grade:'الصف الرابع',  emoji:'➗'},
+  {key:'s4-science',  label:'العلوم',       grade:'الصف الرابع',  emoji:'🔬'},
+  {key:'s6-lughati',  label:'لغتي',        grade:'الصف السادس',  emoji:'🌙'},
+  {key:'s6-english',  label:'English',      grade:'الصف السادس',  emoji:'🔤'},
+  {key:'s6-math',     label:'الرياضيات',    grade:'الصف السادس',  emoji:'➗'},
+  {key:'s6-science',  label:'العلوم',       grade:'الصف السادس',  emoji:'🔬'},
+];
+
+var MEDALS = ['🥇','🥈','🥉'];
+var AR = function(n){ return String(Math.round(n)).replace(/[0-9]/g,function(d){return '٠١٢٣٤٥٦٧٨٩'[d];}); };
+var FMT = function(n){ return AR(n.toLocaleString()); };
+
+/* ── Fetch all counters in parallel ── */
+var ns  = (typeof COUNTER_NS!=='undefined'&&COUNTER_NS)||'khalid-sara-study';
+var allKeys = ['total'].concat(SUBJECTS.map(function(s){return s.key;}));
+var results = {};
+var pending = allKeys.length;
+var hadError = false;
+
+function onResult(k, n, err){
+  results[k] = n;
+  if(err) hadError = true;
+  if(--pending === 0) renderAll();
+}
+
+allKeys.forEach(function(k){
+  fetch('https://api.counterapi.dev/v1/'+ns+'/'+encodeURIComponent(k), {cache:'no-cache'})
+    .then(function(r){ return r.json(); })
+    .then(function(d){ onResult(k, d.Count||d.count||0, null); })
+    .catch(function(e){ onResult(k, 0, e); });
+});
+
+function renderAll(){
+  document.getElementById('loadingCard').style.display = 'none';
+
+  if(hadError && Object.values(results).every(function(v){return v===0;})){
+    document.getElementById('errorCard').classList.remove('hide');
+    return;
+  }
+
+  /* Total */
+  document.getElementById('totalNum').textContent = FMT(results['total']||0);
+
+  /* Quick-stats grid */
+  var subTotal = SUBJECTS.reduce(function(s,x){return s+(results[x.key]||0);},0);
+  var g4 = ['s4-lughati','s4-english','s4-math','s4-science'].reduce(function(s,k){return s+(results[k]||0);},0);
+  var g6 = ['s6-lughati','s6-english','s6-math','s6-science'].reduce(function(s,k){return s+(results[k]||0);},0);
+  var topSubj = SUBJECTS.slice().sort(function(a,b){return (results[b.key]||0)-(results[a.key]||0);})[0];
+
+  var tiles = [
+    {num: FMT(g4),     lbl: 'زيارات الصف الرابع'},
+    {num: FMT(g6),     lbl: 'زيارات الصف السادس'},
+    {num: FMT(subTotal), lbl: 'إجمالي فتح المواد'},
+    {num: (topSubj ? topSubj.emoji+' '+topSubj.label : '—'), lbl: 'الأكثر استخداماً'},
+  ];
+  document.getElementById('quickGrid').innerHTML = tiles.map(function(t){
+    return '<div class="stat-tile"><div class="snum">'+t.num+'</div><div class="slbl">'+t.lbl+'</div></div>';
+  }).join('');
+
+  /* Subject leaderboard */
+  var rows = SUBJECTS.map(function(s){
+    return {key:s.key, label:s.label, grade:s.grade, emoji:s.emoji, count:results[s.key]||0};
+  }).sort(function(a,b){return b.count-a.count;});
+
+  var maxCount = rows[0] ? Math.max(rows[0].count, 1) : 1;
+
+  var html = rows.map(function(r,idx){
+    var pct   = Math.round(r.count / maxCount * 100);
+    var medal = MEDALS[idx] || '<span class="rank">'+AR(idx+1)+'</span>';
+    return '<tr>'
+      +'<td style="text-align:center;font-size:1.2rem;">'+(MEDALS[idx]||AR(idx+1))+'</td>'
+      +'<td><span class="subject-name">'+r.emoji+' '+r.label+'</span>'
+      +  '<div class="grade-tag">'+r.grade+'</div></td>'
+      +'<td class="count-num">'+FMT(r.count)+'</td>'
+      +'<td><div class="bar-wrap"><div class="bar-fill" style="width:'+pct+'%"></div></div></td>'
+      +'</tr>';
+  }).join('');
+  document.getElementById('subjectRows').innerHTML = html;
+
+  document.getElementById('mainStats').classList.remove('hide');
+}
+</script>
+</body>
+</html>

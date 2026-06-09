@@ -83,7 +83,26 @@
     <div style="margin-top:8px;">للملاحظاتِ والتواصل: <a href="mailto:mohd.alatrash@gmail.com" class="en">mohd.alatrash@gmail.com</a></div>
   </div>
 
-  <p class="foot">يعمل على الجوال ومتصفّح الكمبيوتر · يحفظ تقرير التقدّم في المتصفح</p>
+  <p class="foot">
+    يعمل على الجوال ومتصفّح الكمبيوتر · يحفظ تقرير التقدّم في المتصفح
+    · <span id="visitDisplay"></span>
+    <a href="stats.html" style="color:#a09ab8;text-decoration:none;margin-inline-start:6px;" title="إحصائيات الموقع">📊</a>
+  </p>
 </div>
+
+<script src="config.js"></script>
+<script src="analytics.js"></script>
+<script>
+/* Fire index visit */
+_countHit('total');
+
+/* Show live visitor count in footer */
+_fetchCount('total', function(err, n){
+  if(!err && n > 1){
+    var el = document.getElementById('visitDisplay');
+    if(el) el.textContent = '👥 ' + n.toLocaleString('ar') + ' زيارة';
+  }
+});
+</script>
 </body>
 </html>

@@ -142,9 +142,11 @@
 
 <!-- ===== بنك الأسئلة في math.questions.js — عدّل ذلك الملف لإضافة/تغيير الأسئلة ===== -->
 <script src="config.js"></script>
+<script src="analytics.js"></script>
 <script src="math.questions.js"></script>
 <script>
 const STORAGE_KEY = "sara_math_t2_attempts";
+const SUBJECT_KEY = "s4-math";
 const TYPELABEL = {mcq:"✏️ اختر الإجابة الصحيحة", fill:"🔡 أكمل الفراغ", tf:"✅ صح أو خطأ", match:"🔗 صِلْ العمودين"};
 
 
@@ -155,9 +157,10 @@ const norm=s=>(s||"").toString().toLowerCase().replace(/[.،,!؟?]/g,'').replace
 
 function show(id){['intro','quiz','results'].forEach(s=>document.getElementById(s).classList.add('hide'));
   document.getElementById(id).classList.remove('hide'); window.scrollTo(0,0);}
-function goHome(){show('intro');try{renderFormStatus();}catch(e){}}
+function goHome(){show('intro');try{renderFormStatus();}catch(e){}
+  try{if(typeof _countHit==='function')_countHit(SUBJECT_KEY);}catch(e){}}
 (function(){var _p=loadProgress();if(_p.name){var _ne=document.getElementById('studentName');if(_ne)_ne.value=_p.name;}if(_p.attempts&&_p.attempts.length){document.getElementById('hasHistory').classList.remove('hide');}try{renderFormStatus();}catch(e){}})();
-function startQuiz(form){var _e=document.getElementById('studentName');var _n=_e?(''+_e.value).trim():'';if(!_n){if(_e){_e.style.borderColor='#ff6b6b';_e.focus();}alert('اكتب اسمك أولاً للبدء 🙂');return;}studentName=_n;currentForm=form||'r';QUESTIONS=buildSample(currentForm);if(!QUESTIONS.length){alert('لا توجد أسئلة بعد.');return;}i=0;score=0;answered=false;perUnit={};perType={};wrongItems=[];startTime=Date.now();show('quiz');render();}
+function startQuiz(form){var _e=document.getElementById('studentName');var _n=_e?(''+_e.value).trim():'';if(!_n){if(_e){_e.style.borderColor='#ff6b6b';_e.focus();}alert('اكتب اسمك أولاً للبدء 🙂');return;}studentName=_n;currentForm=form||'r';QUESTIONS=buildSample(currentForm);try{if(typeof _countHit==='function')_countHit(SUBJECT_KEY+'-f'+currentForm);}catch(e){};if(!QUESTIONS.length){alert('لا توجد أسئلة بعد.');return;}i=0;score=0;answered=false;perUnit={};perType={};wrongItems=[];startTime=Date.now();show('quiz');render();}
 function _rngSeed(s){var x=(s*9301+49297)%233280;return function(){x=(x*9301+49297)%233280;return x/233280;};}
 function _shufR(a,rnd){a=a.slice();for(var j=a.length-1;j>0;j--){var k=Math.floor(rnd()*(j+1));var t=a[j];a[j]=a[k];a[k]=t;}return a;}
 function _poolFor(mk){return mk?(typeof MARKAZI!=='undefined'?MARKAZI.slice():[]):(typeof POOL!=='undefined'?POOL.slice():[]);}
