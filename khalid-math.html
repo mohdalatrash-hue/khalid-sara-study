@@ -111,6 +111,12 @@
       <div class="row" id="markaziButtons" style="margin-top:8px;"></div>
       <button class="btn-main" style="margin-top:8px;background:linear-gradient(135deg,#6d551a,#9a7b1e);" onclick="startQuiz('mr')">📚 كل أسئلة المركزي</button>
     </div>
+    <div id="markazi2Box" style="margin-top:18px;border-top:2px dashed #7fc9b6;padding-top:14px;">
+      <div style="text-align:center;font-weight:bold;color:#1e7a5e;"><span style="background:#dff7ef;border:1px solid #4fbf9a;border-radius:10px;padding:2px 10px;margin-inline-end:6px;">✨ جديد</span>نماذج جديدة مركزية</div>
+      <div class="small" style="text-align:center;margin-top:5px;">من «تجميعات الاختبارات المركزية ٢ — ١٤٤٧»: كل نموذج اختبارٍ مركزيٍّ ككتلةٍ مستقلةٍ.</div>
+      <div class="row" id="markazi2Buttons" style="margin-top:8px;"></div>
+      <button class="btn-main" style="margin-top:8px;background:linear-gradient(135deg,#1e7a5e,#2fa884);" onclick="startQuiz('nr')">📚 كل الأسئلة الجديدة</button>
+    </div>
     <div id="hasHistory" class="hide" style="text-align:center;margin-top:10px;">
       <button class="btn-soft" onclick="showDashboard()">📊 لوحة المتابعة</button></div>
   </div>
@@ -151,6 +157,7 @@
 <script src="analytics.js"></script>
 <script src="khalid-math.questions.js"></script>
 <script src="khalid-math.markazi.js"></script>
+<script src="khalid-math.markazi2.js"></script>
 <script>
 const STORAGE_KEY = "khalid_math_t2_attempts";
 const SUBJECT_KEY = "s6-math";
@@ -172,13 +179,18 @@ function startQuiz(form){var _e=document.getElementById('studentName');var _n=_e
 function _rngSeed(s){var x=(s*9301+49297)%233280;return function(){x=(x*9301+49297)%233280;return x/233280;};}
 function _shufR(a,rnd){a=a.slice();for(var j=a.length-1;j>0;j--){var k=Math.floor(rnd()*(j+1));var t=a[j];a[j]=a[k];a[k]=t;}return a;}
 function _poolFor(mk){return mk?(typeof MARKAZI!=='undefined'?MARKAZI.slice():[]):(typeof POOL!=='undefined'?POOL.slice():[]);}
+function _m2pool(){return (typeof MARKAZI2!=='undefined'&&MARKAZI2)?MARKAZI2.slice():[];}
+function _m2sets(){return (typeof MARKAZI2_SETS!=='undefined'&&MARKAZI2_SETS&&MARKAZI2_SETS.length)?MARKAZI2_SETS.slice():(function(){var ns={};_m2pool().forEach(function(q){ns[q.s]=1;});return Object.keys(ns).map(function(n){return {n:parseInt(n,10),title:'نموذج جديد '+ARDIG(n)};}).sort(function(a,b){return a.n-b.n;});})();}
 function _withGen(base){if(typeof GENERATORS!=='undefined'){for(var g=0;g<GENERATORS.length;g++){try{var it=GENERATORS[g].make();if(it){it.u=it.u||GENERATORS[g].u;base.push(it);}}catch(e){}}}return base;}
 function _formSize(t){var s=Math.ceil(t/12);if(s<15)s=15;if(s>30)s=30;return s;}
 function _byUnitOrder(items,seedNum){var groups={},order=[];items.forEach(function(q){var u=q.u||'-';if(!groups[u]){groups[u]=[];order.push(u);}groups[u].push(q);});var r=_rngSeed(seedNum||12345);order.forEach(function(u){groups[u]=_shufR(groups[u],r);});order=_shufR(order,_rngSeed((seedNum||12345)+7));var out=[],i=0,more=true;while(more){more=false;for(var k=0;k<order.length;k++){var g=groups[order[k]];if(i<g.length){out.push(g[i]);more=true;}}i++;}return out;}
 function formCount(mk){var ord=_byUnitOrder(_poolFor(mk),mk?9001:12345);return Math.max(1,Math.ceil(ord.length/_formSize(ord.length)));}
-function buildSample(form){var mk=(typeof form==='string'&&form.charAt(0)==='m');var key=mk?form.slice(1):form;if(key==='r'){return _shufR(_withGen(_poolFor(mk)),Math.random);}var ord=_byUnitOrder(_poolFor(mk),mk?9001:12345);var size=_formSize(ord.length);var n=Math.max(1,Math.ceil(ord.length/size));var idx=((parseInt(key,10)||1)-1);if(idx<0)idx=0;idx=idx%n;return ord.slice(idx*size,(idx+1)*size);}
+function buildSample(form){
+  if(typeof form==='string'&&form.charAt(0)==='n'){var nk=form.slice(1);var all=_m2pool();if(nk==='r'){return _shufR(all,Math.random);}var sn=parseInt(nk,10)||1;return all.filter(function(q){return String(q.s)===String(sn);});}
+  var mk=(typeof form==='string'&&form.charAt(0)==='m');var key=mk?form.slice(1):form;if(key==='r'){return _shufR(_withGen(_poolFor(mk)),Math.random);}var ord=_byUnitOrder(_poolFor(mk),mk?9001:12345);var size=_formSize(ord.length);var n=Math.max(1,Math.ceil(ord.length/size));var idx=((parseInt(key,10)||1)-1);if(idx<0)idx=0;idx=idx%n;return ord.slice(idx*size,(idx+1)*size);}
 function _mkFormBtn(label,form,extra){return '<button class="btn-main" style="font-size:1.02rem;padding:11px;'+(extra||'')+'" onclick="startQuiz(\''+form+'\')">'+label+'</button>';}
-function renderForms(){var AR=(document.documentElement.getAttribute('dir')==='rtl');var fb=document.getElementById('formButtons');if(fb){var n=formCount(false),h='';for(var k=1;k<=n;k++){h+=_mkFormBtn((AR?('نموذج '+ARDIG(k)):('Form '+k)),''+k);}fb.innerHTML=h;}var mb=document.getElementById('markaziButtons');if(mb&&typeof MARKAZI!=='undefined'&&MARKAZI&&MARKAZI.length){var m=formCount(true),h2='';for(var j=1;j<=m;j++){h2+=_mkFormBtn((AR?('مركزي '+ARDIG(j)):('Central '+j)),'m'+j,'background:linear-gradient(135deg,#8a6d1f,#b8860b);');}mb.innerHTML=h2;}}
+function renderForms(){var AR=(document.documentElement.getAttribute('dir')==='rtl');var fb=document.getElementById('formButtons');if(fb){var n=formCount(false),h='';for(var k=1;k<=n;k++){h+=_mkFormBtn((AR?('نموذج '+ARDIG(k)):('Form '+k)),''+k);}fb.innerHTML=h;}var mb=document.getElementById('markaziButtons');if(mb&&typeof MARKAZI!=='undefined'&&MARKAZI&&MARKAZI.length){var m=formCount(true),h2='';for(var j=1;j<=m;j++){h2+=_mkFormBtn((AR?('مركزي '+ARDIG(j)):('Central '+j)),'m'+j,'background:linear-gradient(135deg,#8a6d1f,#b8860b);');}mb.innerHTML=h2;}
+  var nb=document.getElementById('markazi2Buttons');if(nb){var sets=_m2sets();var h3='';for(var z=0;z<sets.length;z++){var st=sets[z];h3+=_mkFormBtn(st.title||('نموذج جديد '+ARDIG(st.n)),'n'+st.n,'background:linear-gradient(135deg,#1e7a5e,#2fa884);');}nb.innerHTML=h3;}}
 try{renderForms();}catch(e){}
 function renderFormStatus(){
   try{
@@ -203,9 +215,18 @@ function renderFormStatus(){
             sm.style.cssText='display:block;font-size:.75rem;margin-top:2px;';
             sm.textContent='✅ '+ARDIG(pm)+'%'+(dm.length>1?' · '+ARDIG(dm.length)+' مرّات':'');bm.appendChild(sm);}
           bm.style.background='linear-gradient(135deg,#5a3d00,#8a6d1f)';}}}
+    var nb=document.getElementById('markazi2Buttons');
+    if(nb){var sets=_m2sets();var nbtns=nb.querySelectorAll('button');
+      for(var z=0;z<sets.length;z++){var bn=nbtns[z];if(!bn)continue;var sid='n'+sets[z].n;
+        var dn=atts.filter(function(a){return String(a.form)===sid;});
+        if(dn.length){var ln=dn[dn.length-1];var pn=Math.round(ln.correct/ln.total*100);
+          if(!bn.querySelector('.fstatus')){var sn2=document.createElement('span');sn2.className='fstatus';
+            sn2.style.cssText='display:block;font-size:.75rem;margin-top:2px;';
+            sn2.textContent='✅ '+ARDIG(pn)+'%'+(dn.length>1?' · '+ARDIG(dn.length)+' مرّات':'');bn.appendChild(sn2);}
+          bn.style.background='linear-gradient(135deg,#155c46,#1e7a5e)';}}}
     var n2=formCount(false);var seenIds={};var doneIds=[];
     atts.forEach(function(a){var f=String(a.form||'');
-      if(f&&f!=='r'&&f!=='?'&&!/^m/.test(f)&&!seenIds[f]){seenIds[f]=1;doneIds.push(f);}});
+      if(f&&f!=='r'&&f!=='?'&&!/^[mn]/.test(f)&&!seenIds[f]){seenIds[f]=1;doneIds.push(f);}});
     var sumEl=document.getElementById('progressSummary');
     if(sumEl&&n2>0){
       sumEl.textContent=isAr?('✅ '+ARDIG(doneIds.length)+' من '+ARDIG(n2)+' نماذج مكتملة'):('✅ '+doneIds.length+' of '+n2+' forms done');
@@ -225,6 +246,7 @@ function showDashboard(){
   var allForms=[];
   for(var k=1;k<=n;k++)allForms.push({id:String(k),label:isAr?('نموذج '+ARDIG(k)):('Form '+k)});
   for(var j=1;j<=nm;j++)allForms.push({id:'m'+j,label:isAr?('مركزي '+ARDIG(j)):('Central '+j)});
+  var _ns=_m2sets();for(var z=0;z<_ns.length;z++)allForms.push({id:'n'+_ns[z].n,label:(_ns[z].title||(isAr?('نموذج جديد '+ARDIG(_ns[z].n)):('New set '+_ns[z].n)))});
   if(atts.some(function(a){return a.form==='r';}))allForms.push({id:'r',label:isAr?'كل الأسئلة':'All Questions'});
   var h='<table style="width:100%;border-collapse:collapse;font-size:.92rem;"><tr>'
     +'<th>'+(isAr?'النموذج':'Form')+'</th>'
@@ -257,9 +279,10 @@ function showDashboard(){
       +'</div>';}
   document.getElementById('reportArea').innerHTML=h;
 }
-function _formLabelAR(f){if(!f)return'';if(f.charAt(0)==='m'){var s=f.slice(1);return s==='r'?'كل أسئلة المركزي':'مركزي '+ARDIG(s);}return f==='r'?'كل الأسئلة':'نموذج '+ARDIG(f);}
-function _formLabelEN(f){if(!f)return'';if(f.charAt(0)==='m'){var s=f.slice(1);return s==='r'?'All central':'Central '+s;}return f==='r'?'All questions':'Form '+f;}
+function _formLabelAR(f){if(!f)return'';if(f.charAt(0)==='n'){var sn=f.slice(1);if(sn==='r')return'كل الأسئلة الجديدة';var _t=_m2sets().filter(function(x){return String(x.n)===String(sn);})[0];return _t?_t.title:('نموذج جديد '+ARDIG(sn));}if(f.charAt(0)==='m'){var s=f.slice(1);return s==='r'?'كل أسئلة المركزي':'مركزي '+ARDIG(s);}return f==='r'?'كل الأسئلة':'نموذج '+ARDIG(f);}
+function _formLabelEN(f){if(!f)return'';if(f.charAt(0)==='n'){var sn=f.slice(1);return sn==='r'?'All new sets':'New set '+sn;}if(f.charAt(0)==='m'){var s=f.slice(1);return s==='r'?'All central':'Central '+s;}return f==='r'?'All questions':'Form '+f;}
 (function(){var _mb=document.getElementById('markaziBox');if(_mb&&(typeof MARKAZI==='undefined'||!MARKAZI||!MARKAZI.length)){_mb.style.display='none';}})();
+(function(){var _m2=document.getElementById('markazi2Box');if(_m2&&!_m2pool().length){_m2.style.display='none';}})();
 function render(){
   answered=false; const Q=QUESTIONS[i];
   document.getElementById('unitBadge').textContent=Q.u;
