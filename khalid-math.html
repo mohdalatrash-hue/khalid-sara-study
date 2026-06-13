@@ -84,6 +84,12 @@
     .matchrow{flex-direction:column;align-items:stretch;} .matchrow select,.matchrow .lft{width:100%;}
     .row{flex-direction:column;} .row button{width:100%;} table{font-size:.85rem;} th,td{padding:5px;}
   }
+  /* ===== كسور على هيئة الكتاب: بسط فوق، خط، مقام تحت ===== */
+  .frac{display:inline-flex;flex-direction:column;align-items:center;justify-content:center;
+        vertical-align:-0.45em;margin:0 .14em;line-height:1.05;text-align:center;}
+  .frac>.fn{display:block;padding:0 .3em;border-bottom:.12em solid currentColor;}
+  .frac>.fd{display:block;padding:.04em .3em 0;}
+  .opt .frac,.qtext .frac{vertical-align:-0.5em;}
 </style>
 </head>
 <body>
@@ -168,6 +174,8 @@ const TYPELABEL = {mcq:"✏️ اختر الإجابة الصحيحة", fill:"�
 let i=0, score=0, answered=false, startTime=0, perUnit={}, perType={}, wrongItems=[], studentName='', QUESTIONS=[], currentForm='', SAMPLE_SIZE=25;
 const ARDIG=s=>String(s).replace(/[0-9]/g,d=>"٠١٢٣٤٥٦٧٨٩"[d]);
 const norm=s=>(s||"").toString().toLowerCase().replace(/[.،,!؟?]/g,'').replace(/['’‘`´]/g,'').replace(/\s+/g,' ').replace(/[أإآ]/g,'ا').replace(/ة/g,'ه').trim();
+/* يحوّل كل «بسط/مقام» إلى كسرٍ مكدّسٍ على هيئة الكتاب (بسط فوق خطٍّ ومقام تحته) */
+function _frac(s){if(s==null)return s;return String(s).replace(/([0-9٠-٩]+)\s*\/\s*([0-9٠-٩]+)/g,'<span class="frac"><span class="fn">$1</span><span class="fd">$2</span></span>');}
 
 function show(id){['intro','quiz','results'].forEach(s=>document.getElementById(s).classList.add('hide'));
   document.getElementById(id).classList.remove('hide'); window.scrollTo(0,0);}
@@ -290,8 +298,8 @@ function render(){
   document.getElementById('qcount').textContent='السؤال '+ARDIG(i+1)+' من '+ARDIG(QUESTIONS.length);
   document.getElementById('bar').style.width=(i/QUESTIONS.length*100)+'%';
   document.getElementById('typeTag').textContent=TYPELABEL[Q.type]||'';
-  document.getElementById('qtext').innerHTML=Q.q;
-  document.getElementById('qhint').innerHTML=Q.hint?('💭 '+Q.hint):'';
+  document.getElementById('qtext').innerHTML=_frac(Q.q);
+  document.getElementById('qhint').innerHTML=_frac(Q.hint?('💭 '+Q.hint):'');
   document.getElementById('fb').className='fb'; document.getElementById('fb').innerHTML='';
   document.getElementById('alarm').classList.remove('show');
   document.getElementById('nextBtn').disabled=true;
@@ -303,7 +311,7 @@ function render(){
   else if(Q.type==='fill') renderFill(Q,ob);
   else if(Q.type==='match') renderMatch(Q,ob);
 }
-function renderMCQ(Q,ob){Q.opts.forEach((o,k)=>{const b=document.createElement('button');b.className='opt';b.textContent=o;b.onclick=()=>{
+function renderMCQ(Q,ob){Q.opts.forEach((o,k)=>{const b=document.createElement('button');b.className='opt';b.innerHTML=_frac(o);b.onclick=()=>{
    lockOpts(); ob.querySelectorAll('.opt').forEach((bb,idx)=>{if(idx===Q.a)bb.classList.add('correct');if(idx===k&&k!==Q.a)bb.classList.add('wrong');});
    grade(k===Q.a,Q.opts[Q.a],Q);};ob.appendChild(b);});}
 function renderTF(Q,ob){[['صح ✓',true],['خطأ ✗',false]].forEach(([lbl,val])=>{const b=document.createElement('button');
@@ -329,9 +337,9 @@ function alarm(){const a=document.getElementById('alarm');a.classList.add('show'
 function lockOpts(){document.querySelectorAll('#opts .opt').forEach(b=>b.classList.add('locked'));}
 function grade(correct,correctText,Q){answered=true; perType[Q.type]=(perType[Q.type]||{c:0,t:0}); perType[Q.type].t++; if(correct===true||correct==='warn'){perType[Q.type].c++;} else {wrongItems.push({u:Q.u,q:(Q.q||'').replace(/<[^>]+>/g,'').trim(),ans:correctText,exp:(Q.wrong||'').replace(/<[^>]+>/g,'').trim()});}document.getElementById('checkBtn').style.display='none';
   const uk=Q.u;perUnit[uk]=perUnit[uk]||{c:0,t:0};perUnit[uk].t++;const fb=document.getElementById('fb');
-  if(correct===true){score++;perUnit[uk].c++;fb.className='fb right show';fb.innerHTML='<b>✅ إجابة صحيحة</b>'+Q.right;}else if(correct==='warn'){score++;perUnit[uk].c++;fb.className='fb warn show';fb.innerHTML='<b>🟠 صحيحة — والأفضل كتابتها بالكامل</b>'+Q.right+'<div class="parent">📝 الصيغة المفضّلة: «<b>'+correctText+'</b>».</div>';}
-  else{fb.className='fb bad show';fb.innerHTML='<b>❌ ليست صحيحة</b>'+Q.wrong+
-    '<div class="parent">👨‍👩‍👧 <b>لوليّ الأمر:</b> الإجابة الصحيحة: «<b>'+correctText+'</b>». راجِعا السؤال معاً.</div>';}
+  if(correct===true){score++;perUnit[uk].c++;fb.className='fb right show';fb.innerHTML='<b>✅ إجابة صحيحة</b>'+_frac(Q.right);}else if(correct==='warn'){score++;perUnit[uk].c++;fb.className='fb warn show';fb.innerHTML='<b>🟠 صحيحة — والأفضل كتابتها بالكامل</b>'+_frac(Q.right)+'<div class="parent">📝 الصيغة المفضّلة: «<b>'+_frac(correctText)+'</b>».</div>';}
+  else{fb.className='fb bad show';fb.innerHTML='<b>❌ ليست صحيحة</b>'+_frac(Q.wrong)+
+    '<div class="parent">👨‍👩‍👧 <b>لوليّ الأمر:</b> الإجابة الصحيحة: «<b>'+_frac(correctText)+'</b>». راجِعا السؤال معاً.</div>';}
   document.getElementById('scorePill').textContent='⭐ '+ARDIG(score)+' / '+ARDIG(i+1);
   document.getElementById('nextBtn').disabled=false;
 }
@@ -378,7 +386,7 @@ function renderFullReport(dur){injectPrintCSS();var d=reportData(dur);var subj=d
 
   if(d.weak.length){h+='<h3>👀 ركّزوا هنا (الوحدات الأكثر خطأً)</h3><ul>';d.weak.forEach(function(u){h+='<li>'+u.u+' — '+ARDIG(u.p)+'%</li>';});h+='</ul>';}
   if(wrongItems.length){h+='<h3>الأسئلة التي أُخطئ فيها ('+ARDIG(wrongItems.length)+')</h3><ol style="padding-inline-start:18px;">';
-    wrongItems.forEach(function(w){h+='<li style="margin-bottom:6px;"><div>'+w.u+'</div><div>'+w.q+'</div><div style="color:#137333;">الإجابة الصحيحة: '+w.ans+'</div>'+(w.exp?'<div style="color:#7a5b00;">💡 '+w.exp+'</div>':'')+'</li>';});h+='</ol>';}
+    wrongItems.forEach(function(w){h+='<li style="margin-bottom:6px;"><div>'+w.u+'</div><div>'+_frac(w.q)+'</div><div style="color:#137333;">الإجابة الصحيحة: '+_frac(w.ans)+'</div>'+(w.exp?'<div style="color:#7a5b00;">💡 '+_frac(w.exp)+'</div>':'')+'</li>';});h+='</ol>';}
   else{h+='<p style="color:#137333;font-weight:bold;">ممتاز! لا توجد أخطاء. 🌟</p>';}
   h+='<p style="color:#999;font-size:.82rem;">أُنشئ التقرير في '+d.ended.toLocaleString('ar')+'</p></div>';
   h+='<div class="noprint" style="margin-top:14px;display:flex;gap:8px;flex-wrap:wrap;justify-content:center;">'+
