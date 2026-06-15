@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>مذاكرة واختبار العلوم — الصف الرابع (الفصل الثاني)</title>
+<title>نماذج التحدّي · العلوم — الصف الرابع (مستوى أعلى)</title>
 <!--
   ════════════════════════════════════════════════════════════════════
   سارة — مذاكرة واختبار العلوم · الصف الرابع الابتدائي · الفصل الدراسي الثاني (1447هـ)
@@ -90,12 +90,11 @@
 <div class="wrap">
 
   <div id="intro" class="card">
-    <div class="star">🪨🪐⚡</div>
-    <h1>أهلاً بك! 🌟</h1>
-    <p class="sub">لنتدرّب على العلوم من كتابك — الجزء الثاني، الوحدات ٤ إلى ٧</p>
+    <div class="star">🏆🔬🧠</div>
+    <h1>نماذج التحدّي · العلوم 🏆</h1>
+    <p class="sub">تدريبٌ أصعبُ لرفعِ المستوى — أسئلةُ تطبيقٍ وتعليلٍ وحسابٍ بسيطٍ · ٥ نماذج تحدٍّ</p>
     <div style="text-align:center;margin:8px 0;">
-      <span class="pill">٤ · الأرض ومواردها</span><span class="pill">٥ · الفضاء</span>
-      <span class="pill">٦ · المادة</span><span class="pill">٧ · القوى والطاقة</span>
+      <span class="pill">🪨 الأرض</span><span class="pill">🌙 الفضاء</span><span class="pill">🧪 المادة</span><span class="pill">🧲 القوى</span><span class="pill">⚡ الطاقة</span>
     </div>
     <div style="text-align:center;margin:8px 0;" class="small">أنواع الأسئلة: ✏️ اختيار · 🔡 إكمال · ✅ صح/خطأ · 🔗 توصيل</div>
     <div class="parent">💡 <b>للطالب:</b> أجب ثم اضغط «تحقّق». اقرأ الصندوق الأخضر (لماذا الإجابة صحيحة) أو الوردي (الشرح والتصحيح).
@@ -106,7 +105,6 @@
     <div class="row" id="formButtons" style="margin-top:8px;"></div>
     <button class="btn-main" style="margin-top:8px;background:linear-gradient(135deg,#284b6d,#2f8f86);" onclick="startQuiz('r')">📚 كل الأسئلة</button>
     <a href="sara-science-final.html" style="text-decoration:none;"><button class="btn-main" style="margin-top:8px;background:linear-gradient(135deg,#cf5b3f,#e3a55b);">📝 الاختبار النهائي <span style="font-weight:normal;">— نسخة تفاعلية مطابقة لورقة الاختبار</span></button></a>
-    <a href="sara-science-challenge.html" style="text-decoration:none;"><button class="btn-main" style="margin-top:8px;background:linear-gradient(135deg,#7a2e8f,#b06ad0);">🏆 نماذج التحدّي <span style="font-weight:normal;">— ٥ نماذج أصعب لرفع المستوى</span></button></a>
     <div id="hasHistory" class="hide" style="text-align:center;margin-top:10px;">
       <button class="btn-soft" onclick="showDashboard()">📊 لوحة المتابعة</button></div>
   </div>
@@ -145,9 +143,9 @@
 <!-- ===== بنك الأسئلة في science.questions.js — عدّل ذلك الملف لإضافة/تغيير الأسئلة ===== -->
 <script src="config.js"></script>
 <script src="analytics.js"></script>
-<script src="science.questions.js"></script>
+<script src="sara-science-challenge.questions.js"></script>
 <script>
-const STORAGE_KEY = "sara_science_u4_7_attempts";
+const STORAGE_KEY = "sara_science_challenge_attempts";
 const SUBJECT_KEY = "s4-science";
 const TYPELABEL = {mcq:"✏️ اختر الإجابة الصحيحة", fill:"🔡 أكمل الفراغ", tf:"✅ صح أو خطأ", match:"🔗 صِلْ العمودين"};
 
