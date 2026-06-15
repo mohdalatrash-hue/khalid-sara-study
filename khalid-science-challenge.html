@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>مذاكرة واختبار العلوم — الصف السادس (الفصل الثاني)</title>
+<title>نماذج التحدّي · العلوم — الصف السادس (مستوى أعلى)</title>
 <!--
   ════════════════════════════════════════════════════════════════════
   خالد — مذاكرة واختبار العلوم · الصف الرابع الابتدائي · الفصل الدراسي الثاني (1447هـ)
@@ -90,12 +90,11 @@
 <div class="wrap">
 
   <div id="intro" class="card">
-    <div class="star">🪐🧪⚡</div>
-    <h1>أهلاً بك! 🌟</h1>
-    <p class="sub">لنتدرّب على العلوم من كتابك — الجزء الثاني · الوحدات ٤ و٥ و٦</p>
+    <div class="star">🏆🧠🔥</div>
+    <h1>نماذج التحدّي · العلوم 🏆</h1>
+    <p class="sub">تدريبٌ أصعبُ لرفعِ المستوى — أسئلةُ تطبيقٍ وتحليلٍ وحسابٍ أعلى من مستوى الاختبار · ٥ نماذج تحدٍّ</p>
     <div style="text-align:center;margin:8px 0;">
-      <span class="pill">🪐 الفضاء</span><span class="pill">🧪 المادة</span>
-      <span class="pill">⚡ القوى والطاقة</span>
+      <span class="pill">🏃 القوى</span><span class="pill">⚡ الكهرباء</span><span class="pill">🪐 الفضاء</span><span class="pill">🧪 المادة</span><span class="pill">🌋 الأرض</span>
     </div>
     <div style="text-align:center;margin:8px 0;" class="small">أنواع الأسئلة: ✏️ اختيار · 🔡 إكمال · ✅ صح/خطأ · 🔗 توصيل</div>
     <div class="parent">💡 <b>للطالب:</b> أجب ثم اضغط «تحقّق». اقرأ الصندوق الأخضر (لماذا الإجابة صحيحة) أو الوردي (الشرح والتصحيح).
@@ -111,8 +110,6 @@
       <div class="row" id="markaziButtons" style="margin-top:8px;"></div>
       <button class="btn-main" style="margin-top:8px;background:linear-gradient(135deg,#6d551a,#9a7b1e);" onclick="startQuiz('mr')">📚 كل أسئلة المركزي</button>
     </div>
-    <a href="khalid-science-final.html" style="text-decoration:none;"><button class="btn-main" style="margin-top:8px;background:linear-gradient(135deg,#cf5b3f,#e3a55b);">📝 الاختبار النهائي <span style="font-weight:normal;">— نسخة تفاعلية مطابقة لورقة الاختبار</span></button></a>
-    <a href="khalid-science-challenge.html" style="text-decoration:none;"><button class="btn-main" style="margin-top:8px;background:linear-gradient(135deg,#7a2e8f,#b06ad0);">🏆 نماذج التحدّي <span style="font-weight:normal;">— ٥ نماذج أصعب لرفع المستوى</span></button></a>
     <div id="hasHistory" class="hide" style="text-align:center;margin-top:10px;">
       <button class="btn-soft" onclick="showDashboard()">📊 لوحة المتابعة</button></div>
   </div>
@@ -151,10 +148,9 @@
 <!-- ===== بنك الأسئلة في khalid-science.questions.js — عدّل ذلك الملف لإضافة/تغيير الأسئلة ===== -->
 <script src="config.js"></script>
 <script src="analytics.js"></script>
-<script src="khalid-science.questions.js"></script>
-<script src="khalid-science.markazi.js"></script>
+<script src="khalid-science-challenge.questions.js"></script>
 <script>
-const STORAGE_KEY = "khalid_science_t2_attempts";
+const STORAGE_KEY = "khalid_science_challenge_attempts";
 const SUBJECT_KEY = "s6-science";
 const TYPELABEL = {mcq:"✏️ اختر الإجابة الصحيحة", fill:"🔡 أكمل الفراغ", tf:"✅ صح أو خطأ", match:"🔗 صِلْ العمودين"};
 
