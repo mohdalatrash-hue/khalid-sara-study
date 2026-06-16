@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>مذاكرة واختبار العلوم — الصف الرابع (الفصل الثاني)</title>
+<title>الاختبار التفاعلي · مراجعة شاملة — العلوم الصف الرابع</title>
 <!--
   ════════════════════════════════════════════════════════════════════
   سارة — مذاكرة واختبار العلوم · الصف الرابع الابتدائي · الفصل الدراسي الثاني (1447هـ)
@@ -90,25 +90,23 @@
 <div class="wrap">
 
   <div id="intro" class="card">
-    <div class="star">🪨🪐⚡</div>
-    <h1>أهلاً بك! 🌟</h1>
-    <p class="sub">لنتدرّب على العلوم من كتابك — الجزء الثاني، الوحدات ٤ إلى ٧</p>
+    <div class="star">📝🔬🌍</div>
+    <h1>الاختبار التفاعلي · مراجعة شاملة 🌟</h1>
+    <p class="sub">نفسُ أسئلةِ النموذجِ الفارغِ وبالترتيبِ نفسِه — اختبارٌ واحدٌ كاملٌ من ٦ أسئلةٍ</p>
     <div style="text-align:center;margin:8px 0;">
-      <span class="pill">٤ · الأرض ومواردها</span><span class="pill">٥ · الفضاء</span>
-      <span class="pill">٦ · المادة</span><span class="pill">٧ · القوى والطاقة</span>
+      <span class="pill">🔬 اختيار</span><span class="pill">✅ صح/خطأ</span><span class="pill">🧩 إكمال</span><span class="pill">🔗 توصيل</span><span class="pill">📝 مثال</span><span class="pill">🖼️ صور</span>
     </div>
     <div style="text-align:center;margin:8px 0;" class="small">أنواع الأسئلة: ✏️ اختيار · 🔡 إكمال · ✅ صح/خطأ · 🔗 توصيل</div>
     <div class="parent">💡 <b>للطالب:</b> أجب ثم اضغط «تحقّق». اقرأ الصندوق الأخضر (لماذا الإجابة صحيحة) أو الوردي (الشرح والتصحيح).
       لا يمكنك الانتقال إلى السؤال التالي قبل الإجابة. في النهاية يوجد تقرير محفوظ لوليّ الأمر لمتابعة تقدّمك.</div>
     <div style="margin-top:10px;"><input id="studentName" class="inp" autocomplete="off" placeholder="اكتب اسمك هنا ✏️" style="text-align:center;max-width:340px;margin:0 auto;display:block;"></div>
-    <div style="text-align:center;margin-top:14px;font-weight:bold;color:#6f7a93;">اختر النموذج للبدء:</div>
+    <div style="text-align:center;margin-top:14px;font-weight:bold;color:#6f7a93;">اكتبِ اسمَكِ ثم ابدئي الاختبارَ كاملًا بالترتيب:</div>
     <div id="progressSummary" style="display:none;text-align:center;font-weight:bold;color:#2e8f72;margin:4px 0 6px;font-size:1.05rem;"></div>
-    <div class="row" id="formButtons" style="margin-top:8px;"></div>
-    <button class="btn-main" style="margin-top:8px;background:linear-gradient(135deg,#284b6d,#2f8f86);" onclick="startQuiz('r')">📚 كل الأسئلة</button>
+    <div class="row" id="formButtons" style="margin-top:8px;display:none;"></div>
+    <button class="btn-main" style="margin-top:8px;background:linear-gradient(135deg,#0a7d8c,#2bb3c4);font-size:1.3rem;" onclick="startQuiz('r')">📝 ابدأ الاختبار كاملًا (بالترتيب)</button>
     <a href="sara-science-final.html" style="text-decoration:none;"><button class="btn-main" style="margin-top:8px;background:linear-gradient(135deg,#cf5b3f,#e3a55b);">📝 الاختبار النهائي <span style="font-weight:normal;">— نسخة تفاعلية مطابقة لورقة الاختبار</span></button></a>
     <a href="sara-science-challenge.html" style="text-decoration:none;"><button class="btn-main" style="margin-top:8px;background:linear-gradient(135deg,#7a2e8f,#b06ad0);">🏆 نماذج التحدّي <span style="font-weight:normal;">— ٥ نماذج أصعب لرفع المستوى</span></button></a>
     <a href="sara-science-review.html" style="text-decoration:none;"><button class="btn-main" style="margin-top:8px;background:linear-gradient(135deg,#c0397a,#e58bb5);">📋 مراجعة شاملة <span style="font-weight:normal;">— كل أسئلة أوراق المعلّمة (يونيو)</span></button></a>
-    <a href="sara-science-exam.html" style="text-decoration:none;"><button class="btn-main" style="margin-top:8px;background:linear-gradient(135deg,#0a7d8c,#2bb3c4);">📝 الاختبار التفاعلي <span style="font-weight:normal;">— نفس المراجعة الشاملة بالترتيب، اختبار واحد كامل</span></button></a>
     <div id="hasHistory" class="hide" style="text-align:center;margin-top:10px;">
       <button class="btn-soft" onclick="showDashboard()">📊 لوحة المتابعة</button></div>
   </div>
@@ -147,9 +145,9 @@
 <!-- ===== بنك الأسئلة في science.questions.js — عدّل ذلك الملف لإضافة/تغيير الأسئلة ===== -->
 <script src="config.js"></script>
 <script src="analytics.js"></script>
-<script src="science.questions.js"></script>
+<script src="sara-science-exam.questions.js"></script>
 <script>
-const STORAGE_KEY = "sara_science_u4_7_attempts";
+const STORAGE_KEY = "sara_science_exam_ordered_attempts";
 const SUBJECT_KEY = "s4-science";
 const TYPELABEL = {mcq:"✏️ اختر الإجابة الصحيحة", fill:"🔡 أكمل الفراغ", tf:"✅ صح أو خطأ", match:"🔗 صِلْ العمودين"};
 
@@ -173,7 +171,7 @@ function _withGen(base){if(typeof GENERATORS!=='undefined'){for(var g=0;g<GENERA
 function _formSize(t){var s=Math.ceil(t/12);if(s<15)s=15;if(s>30)s=30;return s;}
 function _byUnitOrder(items,seedNum){var groups={},order=[];items.forEach(function(q){var u=q.u||'-';if(!groups[u]){groups[u]=[];order.push(u);}groups[u].push(q);});var r=_rngSeed(seedNum||12345);order.forEach(function(u){groups[u]=_shufR(groups[u],r);});order=_shufR(order,_rngSeed((seedNum||12345)+7));var out=[],i=0,more=true;while(more){more=false;for(var k=0;k<order.length;k++){var g=groups[order[k]];if(i<g.length){out.push(g[i]);more=true;}}i++;}return out;}
 function formCount(mk){var ord=_byUnitOrder(_poolFor(mk),mk?9001:12345);return Math.max(1,Math.ceil(ord.length/_formSize(ord.length)));}
-function buildSample(form){var mk=(typeof form==='string'&&form.charAt(0)==='m');var key=mk?form.slice(1):form;if(key==='r'){return _shufR(_withGen(_poolFor(mk)),Math.random);}var ord=_byUnitOrder(_poolFor(mk),mk?9001:12345);var size=_formSize(ord.length);var n=Math.max(1,Math.ceil(ord.length/size));var idx=((parseInt(key,10)||1)-1);if(idx<0)idx=0;idx=idx%n;return ord.slice(idx*size,(idx+1)*size);}
+function buildSample(form){var mk=(typeof form==='string'&&form.charAt(0)==='m');var key=mk?form.slice(1):form;if(key==='r'){return _withGen(_poolFor(mk));}var ord=_byUnitOrder(_poolFor(mk),mk?9001:12345);var size=_formSize(ord.length);var n=Math.max(1,Math.ceil(ord.length/size));var idx=((parseInt(key,10)||1)-1);if(idx<0)idx=0;idx=idx%n;return ord.slice(idx*size,(idx+1)*size);}
 function _mkFormBtn(label,form,extra){return '<button class="btn-main" style="font-size:1.02rem;padding:11px;'+(extra||'')+'" onclick="startQuiz(\''+form+'\')">'+label+'</button>';}
 function renderForms(){var AR=(document.documentElement.getAttribute('dir')==='rtl');var fb=document.getElementById('formButtons');if(fb){var n=formCount(false),h='';for(var k=1;k<=n;k++){h+=_mkFormBtn((AR?('نموذج '+ARDIG(k)):('Form '+k)),''+k);}fb.innerHTML=h;}var mb=document.getElementById('markaziButtons');if(mb&&typeof MARKAZI!=='undefined'&&MARKAZI&&MARKAZI.length){var m=formCount(true),h2='';for(var j=1;j<=m;j++){h2+=_mkFormBtn((AR?('مركزي '+ARDIG(j)):('Central '+j)),'m'+j,'background:linear-gradient(135deg,#8a6d1f,#b8860b);');}mb.innerHTML=h2;}}
 try{renderForms();}catch(e){}
