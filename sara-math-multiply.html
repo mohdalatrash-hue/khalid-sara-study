@@ -306,6 +306,11 @@ const MSG_WRONG = ['Almost! Keep going 💪','Not quite — check the visual abo
 
 const STORAGE_KEY = 'sara_multiply_v1';
 
+// === ARABIC NUMERALS ===
+function toAr(n) {
+  return String(n).replace(/[0-9]/g, d => '٠١٢٣٤٥٦٧٨٩'[d]);
+}
+
 // === STATE ===
 let S = {
   table: null, qs: [], qi: 0, score: 0,
@@ -333,14 +338,14 @@ function renderHome() {
     const p = S.progress[t] || {};
     const best = p.best || 0;
     const att  = p.attempts || 0;
-    const badge = best === 10 ? '🏆' : best >= 8 ? '🌟' : best >= 5 ? '✅' : att > 0 ? '📝' : '·';
+    const badge = best === 10 ? '🏆' : best >= 8 ? '🌟' : best >= 5 ? '✅' : att > 0 ? ('📝 ' + toAr(best) + '/١٠') : '·';
     const btn = document.createElement('button');
     btn.className = 'tb t' + t + (best === 10 ? ' mastered' : '');
-    btn.innerHTML = `<span class="t-num">${TABLE_ICONS[t]} ×${t}</span><span class="t-badge">${badge}</span>`;
+    btn.innerHTML = `<span class="t-num">${TABLE_ICONS[t]} ×${toAr(t)}</span><span class="t-badge">${badge}</span>`;
     btn.onclick = () => startPractice(t);
     grid.appendChild(btn);
   }
-  document.getElementById('homeStars').textContent = '⭐ ' + S.totalStars + ' stars earned';
+  document.getElementById('homeStars').textContent = '⭐ ' + toAr(S.totalStars) + ' stars earned';
 }
 
 // === QUESTION GENERATION ===
@@ -400,7 +405,7 @@ function renderVisual(a, b) {
     grid.style.letterSpacing = '2px';
     grid.innerHTML = rows;
     document.getElementById('visualBox').innerHTML =
-      `<div class="v-label">${a} groups of ${b} ${emoji} = ?</div><div class="v-grid" style="font-size:${b>6?'1.2rem':'1.6rem'};line-height:1.9;">${rows}</div>`;
+      `<div class="v-label">${toAr(a)} مجموعات من ${toAr(b)} ${emoji} = ؟</div><div class="v-grid" style="font-size:${b>6?'1.2rem':'1.6rem'};line-height:1.9;">${rows}</div>`;
 
   } else if (product <= 55) {
     // Groups as chips
@@ -409,13 +414,13 @@ function renderVisual(a, b) {
       chips += `<div class="v-group">${emoji.repeat(Math.min(b,8))}${b>8?'…':''}</div>`;
     }
     document.getElementById('visualBox').innerHTML =
-      `<div class="v-label">${a} groups of ${b} ${emoji} = ?</div><div class="v-groups">${chips}</div>`;
+      `<div class="v-label">${toAr(a)} مجموعات من ${toAr(b)} ${emoji} = ؟</div><div class="v-groups">${chips}</div>`;
 
   } else {
     // Just display the equation nicely for large products
     document.getElementById('visualBox').innerHTML =
-      `<div style="font-size:2.6rem;font-weight:900;color:#8e44ad;">${a} × ${b}</div>
-       <div style="color:#b2bec3;font-size:.9rem;margin-top:6px;">${a} groups of ${b} ${emoji}</div>`;
+      `<div style="font-size:2.6rem;font-weight:900;color:#8e44ad;">${toAr(a)} × ${toAr(b)}</div>
+       <div style="color:#b2bec3;font-size:.9rem;margin-top:6px;">${toAr(a)} مجموعات من ${toAr(b)} ${emoji}</div>`;
   }
 }
 
@@ -444,21 +449,21 @@ function renderQ() {
   const total = S.qs.length;
 
   document.getElementById('progFill').style.width = (S.qi / total * 100) + '%';
-  document.getElementById('progLabel').textContent = `Question ${S.qi + 1} of ${total}`;
-  document.getElementById('progCorrect').textContent = S.score + ' correct ✅';
-  document.getElementById('topStars').textContent = '⭐ ' + S.roundStars;
+  document.getElementById('progLabel').textContent = `سؤال ${toAr(S.qi + 1)} من ${toAr(total)}`;
+  document.getElementById('progCorrect').textContent = toAr(S.score) + ' صح ✅';
+  document.getElementById('topStars').textContent = '⭐ ' + toAr(S.roundStars);
 
   // Streak chip
   const sc = document.getElementById('streakChip');
-  sc.textContent = '🔥 ' + S.streak + ' streak' + (S.streak >= 5 ? ' — ON FIRE!' : S.streak >= 3 ? ' — Great!' : '');
+  sc.textContent = '🔥 ' + toAr(S.streak) + ' متتالية' + (S.streak >= 5 ? ' — رائع جداً!' : S.streak >= 3 ? ' — ممتاز!' : '');
   sc.className = 'streak-chip' + (S.streak >= 3 ? ' hot' : '');
 
   // Visual
   renderVisual(Q.a, Q.b);
 
   // Question
-  document.getElementById('qText').textContent = `${Q.a} × ${Q.b} = ?`;
-  document.getElementById('qSub').textContent   = `What is ${Q.a} times ${Q.b}?`;
+  document.getElementById('qText').textContent = `${toAr(Q.a)} × ${toAr(Q.b)} = ؟`;
+  document.getElementById('qSub').textContent   = `كم يساوي ${toAr(Q.a)} × ${toAr(Q.b)} ؟`;
 
   // Options
   const opts = makeOptions(Q.ans);
@@ -467,7 +472,8 @@ function renderQ() {
   opts.forEach(o => {
     const btn = document.createElement('button');
     btn.className = 'opt';
-    btn.textContent = o;
+    btn.dataset.val = o;           // numeric value for comparison
+    btn.textContent = toAr(o);
     btn.onclick = () => pick(o, Q.ans, btn);
     grid.appendChild(btn);
   });
@@ -477,7 +483,7 @@ function renderQ() {
   document.getElementById('fb').innerHTML = '';
   const nb = document.getElementById('nextBtn');
   nb.className = 'btn-next';
-  nb.textContent = (S.qi === S.qs.length - 1) ? '🏁 See My Results!' : 'Next ➜';
+  nb.textContent = (S.qi === S.qs.length - 1) ? '🏁 شوفي نتيجتي!' : 'التالي ➜';
 }
 
 function pick(chosen, correct, btn) {
@@ -499,22 +505,22 @@ function pick(chosen, correct, btn) {
     fb.className = 'fb right show';
 
     launchConfetti(false);
-    document.getElementById('topStars').textContent = '⭐ ' + S.roundStars;
+    document.getElementById('topStars').textContent = '⭐ ' + toAr(S.roundStars);
     const sc = document.getElementById('streakChip');
-    sc.textContent = '🔥 ' + S.streak + ' streak' + (S.streak >= 5 ? ' — ON FIRE!' : S.streak >= 3 ? ' — Great!' : '');
+    sc.textContent = '🔥 ' + toAr(S.streak) + ' متتالية' + (S.streak >= 5 ? ' — رائع جداً!' : S.streak >= 3 ? ' — ممتاز!' : '');
     sc.className = 'streak-chip' + (S.streak >= 3 ? ' hot' : '');
 
   } else {
     btn.classList.add('wrong');
     document.querySelectorAll('.opt').forEach(b => {
-      if (+b.textContent === correct) b.classList.add('correct');
+      if (+b.dataset.val === correct) b.classList.add('correct');
     });
     S.streak = 0;
     S.wrong++;
     const msg = MSG_WRONG[Math.floor(Math.random() * MSG_WRONG.length)];
-    fb.innerHTML = `<b>${msg}</b> The answer is <b>${correct}</b> ✏️`;
+    fb.innerHTML = `<b>${msg}</b> الجواب الصحيح هو <b>${toAr(correct)}</b> ✏️`;
     fb.className = 'fb bad show';
-    document.getElementById('streakChip').textContent = '🔥 0 streak';
+    document.getElementById('streakChip').textContent = '🔥 ٠ متتالية';
     document.getElementById('streakChip').className = 'streak-chip';
   }
 
@@ -562,32 +568,32 @@ function finishRound() {
   document.getElementById('resHero').textContent  = emoji;
   document.getElementById('resTitle').textContent = title;
   document.getElementById('resSub').textContent   = `You completed ${tName}!`;
-  document.getElementById('resScore').textContent = `${S.score} / ${total}`;
+  document.getElementById('resScore').textContent = `${toAr(S.score)} / ${toAr(total)}`;
 
-  let starsMsg = `⭐ +${S.roundStars} stars earned!`;
-  if (bonusStars) starsMsg += `  (+${bonusStars} bonus for ${pct}%!)`;
+  let starsMsg = `⭐ +${toAr(S.roundStars)} نجمة!`;
+  if (bonusStars) starsMsg += `  (+${toAr(bonusStars)} مكافأة)`;
   document.getElementById('resStars').textContent = starsMsg;
 
   // Prize box
   const pb = document.getElementById('prizeBox');
   if (pct === 100) {
-    pb.innerHTML = `🏆 <b>MASTER of the ${tName}!</b><br>You answered ALL 10 correctly! Keep it up! 🌟`;
+    pb.innerHTML = `🏆 <b>أتقنتِ ${tName}!</b><br>أجبتِ على كل الأسئلة صح! رائعة! 🌟`;
     pb.className = 'prize-box show';
   } else if (S.maxStreak >= 5) {
-    pb.innerHTML = `🔥 <b>Streak Master!</b> You got ${S.maxStreak} in a row! Amazing! 💫`;
+    pb.innerHTML = `🔥 <b>ملكة المتتالية!</b> أجبتِ ${toAr(S.maxStreak)} متتالية! مذهلة! 💫`;
     pb.className = 'prize-box show';
   } else {
     pb.className = 'prize-box';
   }
 
   document.getElementById('breakdown').innerHTML = `
-    <div class="bkitem"><div class="val">${S.score}</div><div class="lbl">Correct ✅</div></div>
-    <div class="bkitem"><div class="val">${S.wrong}</div><div class="lbl">Missed ❌</div></div>
-    <div class="bkitem"><div class="val">${S.maxStreak}</div><div class="lbl">Best Streak 🔥</div></div>
-    <div class="bkitem"><div class="val">${pct}%</div><div class="lbl">Score 🎯</div></div>`;
+    <div class="bkitem"><div class="val">${toAr(S.score)}</div><div class="lbl">صواب ✅</div></div>
+    <div class="bkitem"><div class="val">${toAr(S.wrong)}</div><div class="lbl">خطأ ❌</div></div>
+    <div class="bkitem"><div class="val">${toAr(S.maxStreak)}</div><div class="lbl">أفضل متتالية 🔥</div></div>
+    <div class="bkitem"><div class="val">${toAr(pct)}٪</div><div class="lbl">النتيجة 🎯</div></div>`;
 
   document.getElementById('retryBtn').textContent =
-    S.table === 'mix' ? '↺ New Mix Challenge!' : `↺ Try ${TABLE_NAMES[S.table]} Again!`;
+    S.table === 'mix' ? '↺ تحدي مختلط جديد!' : `↺ كرري جدول ×${toAr(S.table)}!`;
 
   showScreen('resultsScreen');
 }
