@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>قوانين الرياضيات — الصف الأول المتوسط (حفظ ومراجعة)</title>
+<!--
+  خالد — الصف الأول المتوسط — قوانين الرياضيات (الفصلان ٣ و٤، الجزء الأول). كل قانون بنصه وصفحته. البنك في khalid-m1-math-rules.questions.js
+-->
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@600;700;800&display=swap');
+  h1,h2,h3{font-family:'Cairo','Segoe UI',Tahoma,Arial,sans-serif;font-weight:800;letter-spacing:.2px;}
+  :root{--pink:#2f8f86;--purple:#284b6d;--blue:#2f6fb0;--green:#2e8f72;--yellow:#e3c069;--red:#cf5b3f;--ink:#233042;--soft:#f3f7fb;}
+  *{box-sizing:border-box;}
+  html{-webkit-text-size-adjust:100%;}
+  body{margin:0;font-family:"Segoe UI",Tahoma,"Geeza Pro",sans-serif;color:var(--ink);
+       background:linear-gradient(135deg,#eef2f7,#e8eef4 55%,#edf2f1);min-height:100vh;
+       padding:calc(16px + env(safe-area-inset-top)) calc(14px + env(safe-area-inset-right)) calc(16px + env(safe-area-inset-bottom)) calc(14px + env(safe-area-inset-left));}
+  button,select,input,.chip{touch-action:manipulation;-webkit-tap-highlight-color:rgba(0,0,0,0);font-family:inherit;}
+  .wrap{max-width:780px;margin:0 auto;}
+  .card{background:#fff;border-radius:26px;padding:24px;box-shadow:0 14px 40px rgba(90,120,180,.22);}
+  h1{margin:.2em 0;font-size:1.6rem;text-align:center;}
+  .sub{text-align:center;color:#6f7a93;margin-bottom:14px;font-size:1rem;}
+  button{cursor:pointer;border:none;border-radius:16px;font-size:1.08rem;padding:12px 18px;transition:transform .08s;}
+  button:active{transform:scale(.97);}
+  .btn-main{background:linear-gradient(135deg,var(--blue),var(--green));color:#fff;font-weight:bold;box-shadow:0 6px 16px rgba(76,201,240,.4);width:100%;font-size:1.25rem;padding:16px;}
+  .pill{display:inline-block;background:var(--yellow);color:#6b4e00;border-radius:999px;padding:5px 14px;font-weight:bold;font-size:.92rem;margin:3px;}
+  .typetag{display:inline-block;background:#e7f0ff;color:#2f6fb0;border-radius:999px;padding:3px 14px;font-size:.9rem;font-weight:bold;margin-bottom:8px;}
+  .unit-badge{background:linear-gradient(135deg,var(--purple),var(--pink));color:#fff;border-radius:14px;padding:8px 16px;font-weight:bold;display:inline-block;font-size:1rem;}
+  .qtext{font-size:1.35rem;font-weight:bold;margin:6px 0;line-height:1.7;}
+  .hint{color:#7f8aa6;font-size:1.02rem;margin-bottom:12px;}
+  .opt{display:block;width:100%;text-align:right;background:var(--soft);border:3px solid #e7eef7;color:var(--ink);margin:9px 0;font-size:1.2rem;overflow-wrap:break-word;}
+  .opt:hover{border-color:var(--blue);}
+  .opt.correct{background:#d6f7ec;border-color:var(--green);}
+  .opt.wrong{background:#ffe0e0;border-color:var(--red);}
+  .opt.locked{pointer-events:none;opacity:.92;}
+  .tf{display:inline-block;width:46%;margin:2%;font-size:1.3rem;font-weight:bold;}
+  .tf.t{background:#e3fbf1;color:#1f8f6f;border:3px solid #a7e8d2;}
+  .tf.f{background:#ffeaea;color:#c0392b;border:3px solid #ffc2c2;}
+  .inp{font-size:1.25rem;padding:10px 14px;border-radius:12px;border:3px solid #e7eef7;width:100%;text-align:center;}
+  .essayBox{font-size:1.12rem;padding:12px 14px;border-radius:14px;border:3px solid #e7eef7;width:100%;min-height:110px;font-family:inherit;resize:vertical;}
+  .selfgrade{display:flex;gap:10px;margin-top:10px;}
+  .selfgrade button{flex:1;}
+  .btn-ok{background:linear-gradient(135deg,var(--green),#4fd19a);color:#fff;font-weight:bold;}
+  .btn-no{background:linear-gradient(135deg,var(--red),#ff9472);color:#fff;font-weight:bold;}
+  .matchrow{display:flex;align-items:center;gap:10px;margin:8px 0;flex-wrap:wrap;}
+  .matchrow .lft{flex:1;min-width:150px;background:var(--soft);border-radius:10px;padding:8px 12px;font-size:1.05rem;}
+  .matchrow select{font-size:1rem;padding:8px;border-radius:10px;border:3px solid #e7eef7;min-width:160px;flex:1;}
+  .matchrow.ok .lft{background:#d6f7ec;} .matchrow.no .lft{background:#ffe0e0;}
+  .fb{border-radius:16px;padding:14px 16px;margin-top:12px;font-size:1.08rem;line-height:1.7;display:none;}
+  .fb.show{display:block;animation:pop .3s;}
+  .fb.right{background:#e3fbf1;border:2px solid var(--green);}
+  .fb.bad{background:#fff0f0;border:2px solid var(--red);}
+  .fb.warn{background:#fff4e0;border:2px solid #f5a623;color:#8a5a00;}
+  .fb b{display:block;margin-bottom:4px;font-size:1.12rem;}
+  .parent{margin-top:10px;background:#fff8e6;border:2px dashed #ffd166;border-radius:12px;padding:10px 12px;font-size:1rem;color:#7a5b00;}
+  @keyframes pop{from{transform:scale(.9);opacity:0;}to{transform:scale(1);opacity:1;}}
+  @keyframes shake{0%,100%{transform:translateX(0);}25%{transform:translateX(-8px);}75%{transform:translateX(8px);}}
+  .shake{animation:shake .4s;}
+  .topbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;flex-wrap:wrap;gap:8px;}
+  .progress{height:16px;background:#eee;border-radius:999px;overflow:hidden;margin:8px 0 4px;}
+  .progress>div{height:100%;background:linear-gradient(90deg,var(--green),var(--blue));width:0;transition:width .4s;}
+  .row{display:flex;gap:10px;flex-wrap:wrap;}.row button{flex:1;}
+  .btn-soft{background:#eef3ff;color:var(--purple);font-weight:bold;}
+  .btn-check{background:linear-gradient(135deg,var(--yellow),#ffb14e);color:#6b4e00;font-weight:bold;}
+  .btn-next{background:linear-gradient(135deg,var(--green),var(--blue));color:#fff;font-weight:bold;}
+  .btn-next:disabled{filter:grayscale(.7);opacity:.5;cursor:not-allowed;}
+  .alarm{background:var(--red);color:#fff;border-radius:12px;padding:10px 14px;margin-top:10px;font-weight:bold;display:none;text-align:center;}
+  .alarm.show{display:block;animation:shake .4s;}
+  table{width:100%;border-collapse:collapse;margin-top:10px;font-size:.95rem;}
+  th,td{border:1px solid #e6ecf5;padding:7px;text-align:center;}th{background:var(--purple);color:#fff;}
+  .star{font-size:2.6rem;text-align:center;}.small{font-size:.9rem;color:#8a93ad;}.hide{display:none;}
+  #reportArea{overflow-x:auto;}
+  @media (max-width:560px){
+    .card{padding:16px;border-radius:20px;} h1{font-size:1.3rem;} .qtext{font-size:1.18rem;}
+    .opt{font-size:1.1rem;padding:12px 14px;} .tf{width:100%;margin:6px 0;}
+    .matchrow{flex-direction:column;align-items:stretch;} .matchrow select,.matchrow .lft{width:100%;}
+    .row{flex-direction:column;} .row button{width:100%;} table{font-size:.85rem;} th,td{padding:5px;}
+  }
+  /* ===== كسور على هيئة الكتاب: بسط فوق، خط، مقام تحت ===== */
+  .frac{display:inline-flex;flex-direction:column;align-items:center;justify-content:center;
+        vertical-align:-0.45em;margin:0 .14em;line-height:1.05;text-align:center;}
+  .frac>.fn{display:block;padding:0 .3em;border-bottom:.12em solid currentColor;}
+  .frac>.fd{display:block;padding:.04em .3em 0;}
+  .opt .frac,.qtext .frac{vertical-align:-0.5em;}
+  /* ===== رياضيات: رسوم وجداول وخطوات الحل ===== */
+  .figbox{display:block;text-align:center;margin:10px auto;max-width:100%;overflow-x:auto;font-weight:normal;}
+  .figbox svg{max-width:100%;height:auto;}
+  table.mt{border-collapse:collapse;margin:0 auto;font-size:.98rem;width:auto;}
+  table.mt th,table.mt td{border:2px solid #9bb3d6;padding:5px 10px;text-align:center;background:#fff;color:var(--ink);}
+  table.mt th{background:#eaf2ff;}
+  .mline{margin:4px 0;padding:1px 9px;border-inline-start:3px solid #9bd3c0;}
+  .nw{white-space:nowrap;}
+  .mine{display:inline-block;font-size:.78em;background:#fff3cd;border:1px solid #e0b93a;border-radius:8px;padding:0 8px;}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div id="intro" class="card">
+    <div class="star">🧮📐⚖️</div>
+    <h1>قوانين الرياضيات — الصف الأول المتوسط: شاهدها، ومثّل لها، واكتبها</h1>
+    <p class="sub">قوانين الفصلين ٣ و٤ — كل قانون بنصه من الكتاب ورقم صفحته، ثم تمارين حفظه</p>
+    <div style="text-align:center;margin:8px 0;">
+      <span class="pill">⚖️ المعادلات والدوال</span><span class="pill">📐 المحيط والمساحة</span><span class="pill">➗ النسبة والتناسب</span><span class="pill">📏 القياس والتحويل</span>
+    </div>
+    <div style="text-align:center;margin:8px 0;" class="small">أنواع الأسئلة: ✏️ اختيار · 🔡 إكمال · ✅ صح/خطأ · 🔗 توصيل · ✍️ مقالي</div>
+    <div class="parent">💡 <b>للطالب:</b> أجب ثم اضغط «تحقّق». للأسئلة المقالية ✍️ اكتب إجابتك بنفسك ثم اضغط «أظهر الإجابة» وقارنها بإجابتك بأمانة. اقرأ الصندوق الأخضر (لماذا الإجابة صحيحة) أو الوردي (الشرح والتصحيح).
+      لا يمكنك الانتقال إلى السؤال التالي قبل الإجابة. في النهاية يوجد تقرير محفوظ لوليّ الأمر لمتابعة تقدّمك.</div>
+    <div style="margin-top:10px;"><input id="studentName" class="inp" autocomplete="off" placeholder="اكتب اسمك هنا ✏️" style="text-align:center;max-width:340px;margin:0 auto;display:block;"></div>
+    <style>
+.lwmethod{background:#fff8e1;border:2px dashed #e3c069;border-radius:14px;padding:10px 12px;margin:12px 0;line-height:1.9;font-size:.95rem}
+details.lw{background:#f6faff;border:2px solid #cfe0f5;border-radius:16px;margin:10px 0;overflow:hidden;text-align:start}
+details.lw>summary{cursor:pointer;font-weight:800;padding:12px 14px;font-size:1.05rem;color:#1f4f82;list-style:none}
+details.lw>summary::-webkit-details-marker{display:none}
+.lwn{display:inline-block;background:#2f6fb0;color:#fff;border-radius:50%;width:26px;height:26px;text-align:center;line-height:26px;font-size:.9rem;margin-inline-end:4px}
+.lwbody{padding:4px 14px 14px;font-weight:normal}
+.lwf{background:linear-gradient(135deg,#1e6b52,#2f6fb0);color:#fff;border-radius:14px;padding:10px 12px;line-height:2;font-weight:700;transition:filter .2s}
+.lwr{margin:6px 0}.lwr small{opacity:.85;font-weight:400}
+.lwf table.mt{background:#fff;color:#233042}.lwf .figbox div{color:#fff}.lwf>div:not(.lwr){color:#fff !important}
+.lwf.cov{filter:blur(9px);user-select:none}
+.lwcover{display:block;margin:8px auto;background:#fff;border:2px solid #2f6fb0;color:#1f4f82;border-radius:12px;padding:8px 12px;font-weight:700;cursor:pointer;font-family:inherit}
+.lwq{background:#fff;border-radius:12px;padding:7px 11px;margin-top:8px;font-size:.9rem;color:#3b4a63}
+.lwex{background:#eafaf0;border-radius:12px;padding:9px 11px;margin-top:8px;line-height:2}
+.lwx{background:#fff;border-radius:10px;padding:7px 10px;margin-top:7px}
+.lwtip{background:#fff4d6;border-radius:12px;padding:9px 11px;margin-top:8px;line-height:1.9}
+</style>
+<div class="lwmethod">🧠 <strong>طريقة «شاهد ← مثّل ← غطِّ ← اكتب ← صحّح»</strong><br>
+١) <strong>شاهد</strong> القانون والرسم الملوّن.<br>٢) <strong>مثّل</strong>: تتبّع أمثلة الكتاب خطوة خطوة.<br>٣) اضغط <strong>غطِّ</strong>.<br>٤) <strong>اكتب</strong> القانون بخط يدك.<br>٥) <strong>صحّح</strong> بالمقارنة، ثم حلّ تمارين الحفظ في الأسفل.<br>
+<span style="font-size:.88rem;color:#6f7a93">نص القانون داخل «» من الكتاب (حُذفت أغلب الحركات)، والجداول منقولة من جداول الكتاب. الأمثلة من صفحات الكتاب، وترتيب خطواتها بصياغة مختصرة من إعداد الصفحة. والرسوم وعبارات «تذكّر» من إعداد الصفحة.</span></div>
+<div style="text-align:center;font-weight:800;color:#1f4f82;margin-top:10px">📚 بطاقات القوانين (٢٠ بطاقة)</div>
+<details class="lw" open><summary><span class="lwn">١</span> ✍️ كتابة العبارات والمعادلات (٣-١)</summary>
+<div class="lwbody">
+<div class="lwf" id="lwf0"><div class="lwr">«عادة ما تشير بعض الجمل والعباراتِ إلى عمليات حسابيَّة تشمل الجمع، والطَّرح، والضَّرب، والقسمة» <small>(ص ٩٤)</small></div><div class="lwr">«المعادلة هي جملة رياضية تحتوي على إشارة المساواة. وعند كتابة جملة لفظية على صورة معادلة رياضية، يمكنك استعمال إشارة المساواة (=) عوضًا عن كلمة (يساوي).» <small>(ص ٩٥)</small></div><div class="lwr">«(أقل من العدد بمقدار ٦) لا تكتب إلا على الشكل: س − ٦.» <small>(ص ٩٥)</small></div></div>
+<button class="lwcover" onclick="lwCover(0)">🙈 غطِّ القاعدة واكتبها من ذاكرتك / أظهرها</button>
+<div class="lwq">🎨 <strong>الرسم الملوّن:</strong> تلخيص بصري من إعداد الصفحة.</div>
+<svg viewBox="0 0 320 208" width="100%" style="max-width:440px;display:block;margin:8px auto;background:#fff;border-radius:14px;border:1px solid #e3e8f2" role="img" aria-label="ملخص ملوّن"><rect x="178" y="6" width="136" height="34" rx="8" fill="#e8f7ee" stroke="#157a45" stroke-width="1.5"/><text x="246" y="28" text-anchor="middle" direction="rtl" font-size="11" font-weight="800" fill="#157a45">المجموع · أكبر من</text><rect x="6" y="6" width="166" height="34" rx="8" fill="#e8f7ee" stroke="#157a45" stroke-width="1.5"/><text x="89" y="28" text-anchor="middle" direction="rtl" font-size="12.5" font-weight="700" fill="#233042">جمع +</text><rect x="178" y="46" width="136" height="34" rx="8" fill="#fde8e6" stroke="#c0392b" stroke-width="1.5"/><text x="246" y="68" text-anchor="middle" direction="rtl" font-size="13" font-weight="800" fill="#c0392b">الفرق · أقل من</text><rect x="6" y="46" width="166" height="34" rx="8" fill="#fde8e6" stroke="#c0392b" stroke-width="1.5"/><text x="89" y="68" text-anchor="middle" direction="rtl" font-size="12.5" font-weight="700" fill="#233042">طرح −</text><rect x="178" y="86" width="136" height="34" rx="8" fill="#e8f1fb" stroke="#1f5f99" stroke-width="1.5"/><text x="246" y="108" text-anchor="middle" direction="rtl" font-size="11" font-weight="800" fill="#1f5f99">ناتج ضرب · أضعاف</text><rect x="6" y="86" width="166" height="34" rx="8" fill="#e8f1fb" stroke="#1f5f99" stroke-width="1.5"/><text x="89" y="108" text-anchor="middle" direction="rtl" font-size="12.5" font-weight="700" fill="#233042">ضرب ×</text><rect x="178" y="126" width="136" height="34" rx="8" fill="#fff4d6" stroke="#8e5a00" stroke-width="1.5"/><text x="246" y="148" text-anchor="middle" direction="rtl" font-size="13" font-weight="800" fill="#8e5a00">ناتج قسمة · جزء</text><rect x="6" y="126" width="166" height="34" rx="8" fill="#fff4d6" stroke="#8e5a00" stroke-width="1.5"/><text x="89" y="148" text-anchor="middle" direction="rtl" font-size="12.5" font-weight="700" fill="#233042">قسمة ÷</text><rect x="178" y="166" width="136" height="34" rx="8" fill="#f1eafb" stroke="#6b3fa0" stroke-width="1.5"/><text x="246" y="188" text-anchor="middle" direction="rtl" font-size="13" font-weight="800" fill="#6b3fa0">يساوي</text><rect x="6" y="166" width="166" height="34" rx="8" fill="#f1eafb" stroke="#6b3fa0" stroke-width="1.5"/><text x="89" y="188" text-anchor="middle" direction="rtl" font-size="12.5" font-weight="700" fill="#233042">=  (تصبح معادلة)</text></svg>
+<div class="lwex">✏️ <strong>أمثلة من الكتاب خطوة بخطوة:</strong><div class="lwx"><strong>«مع خالد خمسة ريالات زيادة على ما مع حمد»</strong> <small>(ص ٩٤)</small><div class="mline">لتكن س تمثّل عدد الريالات التي مع حمد.</div><div class="mline">العبارة الجبرية: س + ٥</div></div><div class="lwx"><strong>«أقل من العدد بـ ٦ يساوي ٢٠»</strong> <small>(ص ٩٥)</small><div class="mline">س تمثّل العدد.</div><div class="mline">المعادلة: س − ٦ = ٢٠</div></div><div class="lwx"><strong>«ثلاثة أمثال عمر أحمد يساوي ١٢»</strong> <small>(ص ٩٥)</small><div class="mline">ص تمثّل عمر أحمد.</div><div class="mline">المعادلة: ٣ص = ١٢</div></div></div>
+<div class="lwtip">🧠 <strong>تذكّر (صياغة مساعدة):</strong> اختر رمزًا للمجهول أولًا، ثم ترجم الكلمات. «أقل من … بمقدار» تبدأ بالرمز ثم الطرح.</div>
+</div></details>
+<details class="lw"><summary><span class="lwn">٢</span> ➖ خاصية الطرح للمساواة (٣-٢)</summary>
+<div class="lwbody">
+<div class="lwf" id="lwf1"><div class="lwr">«إذا طرحت العدد نفسه من كلا طرفي المعادلة يبقى طرفا المعادلة متساويين.» <small>(ص ١٠٣)</small></div><div class="lwr">«إذا أ = ب ، فإنّ أ − جـ = ب − جـ» <small>(ص ١٠٣)</small></div></div>
+<button class="lwcover" onclick="lwCover(1)">🙈 غطِّ القاعدة واكتبها من ذاكرتك / أظهرها</button>
+<div class="lwq">🎨 <strong>الرسم الملوّن:</strong> تلخيص بصري من إعداد الصفحة.</div>
+<svg viewBox="0 0 320 150" width="100%" style="max-width:440px;display:block;margin:8px auto;background:#fff;border-radius:14px;border:1px solid #e3e8f2" role="img" aria-label="ميزان: نطرح ٢ من الطرفين"><path d="M160 52 L135 132 H185 Z" fill="#cbd5e6"/><rect x="40" y="48" width="240" height="7" rx="3" fill="#52627f"/><rect x="18" y="14" width="112" height="34" rx="8" fill="#e8f1fb" stroke="#1f5f99" stroke-width="1.5"/><text x="74" y="36" text-anchor="middle" direction="rtl" font-size="14" font-weight="800" fill="#1f5f99">٦</text><rect x="190" y="14" width="112" height="34" rx="8" fill="#e8f1fb" stroke="#1f5f99" stroke-width="1.5"/><text x="246" y="36" text-anchor="middle" direction="rtl" font-size="14" font-weight="800" fill="#1f5f99">س + ٢</text><text x="160" y="36" text-anchor="middle" direction="rtl" font-size="20" font-weight="800" fill="#233042">=</text><rect x="18" y="66" width="112" height="32" rx="8" fill="#fde8e6" stroke="#c0392b" stroke-width="1.5"/><text x="74" y="87" text-anchor="middle" direction="rtl" font-size="14" font-weight="800" fill="#c0392b">− ٢</text><rect x="190" y="66" width="112" height="32" rx="8" fill="#fde8e6" stroke="#c0392b" stroke-width="1.5"/><text x="246" y="87" text-anchor="middle" direction="rtl" font-size="14" font-weight="800" fill="#c0392b">− ٢</text><text x="160" y="146" text-anchor="middle" direction="rtl" font-size="11" font-weight="700" fill="#5b6478">العملية نفسها على الطرفين = يبقى الميزان متوازنًا</text></svg>
+<div class="lwex">✏️ <strong>أمثلة من الكتاب خطوة بخطوة:</strong><div class="lwx"><strong>حلّ: س + ٩ = ٨</strong> <small>(ص ١٠٤)</small><div class="mline">اطرح ٩ من كل طرف:</div><div class="mline">س + ٩ − ٩ = ٨ − ٩</div><div class="mline">س = −١</div><div class="mline">التحقق: −١ + ٩ = ٨ ✓</div></div><div class="lwx"><strong>السمكتان: ٣٠ = ٢١ + جـ</strong> <small>(ص ١٠٤)</small><div class="mline">اطرح ٢١ من كلا الطرفين: ٣٠ − ٢١ = جـ</div><div class="mline">جـ = ٩ ، أي طول السمكة المهرّج ٩ سم.</div><div class="mline">التحقق: ٢١ + ٩ = ٣٠ ✓</div></div></div>
+<div class="lwtip">🧠 <strong>تذكّر (صياغة مساعدة):</strong> في المعادلة جمع؟ فكّه بالطرح من الطرفين.</div>
+</div></details>
+<details class="lw"><summary><span class="lwn">٣</span> ➕ خاصية الإضافة للمساواة (٣-٢)</summary>
+<div class="lwbody">
+<div class="lwf" id="lwf2"><div class="lwr">«إذا أضفت العدد نفسه إلى طرفي المعادلة، فإنّ طرفيها يبقيان متساويين.» <small>(ص ١٠٥)</small></div><div class="lwr">«إذا كانت أ = ب ، فإنّ أ + جـ = ب + جـ» <small>(ص ١٠٥)</small></div></div>
+<button class="lwcover" onclick="lwCover(2)">🙈 غطِّ القاعدة واكتبها من ذاكرتك / أظهرها</button>
+<div class="lwq">🎨 <strong>الرسم الملوّن:</strong> تلخيص بصري من إعداد الصفحة.</div>
+<svg viewBox="0 0 320 150" width="100%" style="max-width:440px;display:block;margin:8px auto;background:#fff;border-radius:14px;border:1px solid #e3e8f2" role="img" aria-label="ميزان: نضيف ٢ إلى الطرفين"><path d="M160 52 L135 132 H185 Z" fill="#cbd5e6"/><rect x="40" y="48" width="240" height="7" rx="3" fill="#52627f"/><rect x="18" y="14" width="112" height="34" rx="8" fill="#e8f1fb" stroke="#1f5f99" stroke-width="1.5"/><text x="74" y="36" text-anchor="middle" direction="rtl" font-size="14" font-weight="800" fill="#1f5f99">٤</text><rect x="190" y="14" width="112" height="34" rx="8" fill="#e8f1fb" stroke="#1f5f99" stroke-width="1.5"/><text x="246" y="36" text-anchor="middle" direction="rtl" font-size="14" font-weight="800" fill="#1f5f99">س − ٢</text><text x="160" y="36" text-anchor="middle" direction="rtl" font-size="20" font-weight="800" fill="#233042">=</text><rect x="18" y="66" width="112" height="32" rx="8" fill="#e8f7ee" stroke="#157a45" stroke-width="1.5"/><text x="74" y="87" text-anchor="middle" direction="rtl" font-size="14" font-weight="800" fill="#157a45">+ ٢</text><rect x="190" y="66" width="112" height="32" rx="8" fill="#e8f7ee" stroke="#157a45" stroke-width="1.5"/><text x="246" y="87" text-anchor="middle" direction="rtl" font-size="14" font-weight="800" fill="#157a45">+ ٢</text><text x="160" y="146" text-anchor="middle" direction="rtl" font-size="11" font-weight="700" fill="#5b6478">العملية نفسها على الطرفين = يبقى الميزان متوازنًا</text></svg>
+<div class="lwex">✏️ <strong>أمثلة من الكتاب خطوة بخطوة:</strong><div class="lwx"><strong>حلّ: س − ٢ = ١</strong> <small>(ص ١٠٥)</small><div class="mline">أضف ٢ إلى كلا الطرفين: س = ١ + ٢</div><div class="mline">س = ٣</div><div class="mline">التحقق: ٣ − ٢ = ١ ✓</div></div><div class="lwx"><strong>ثمن القميص: ٤٥ = س − ١٤</strong> <small>(ص ١٠٥)</small><div class="mline">أضف ١٤ لكلا الطرفين: ٤٥ + ١٤ = س</div><div class="mline">س = ٥٩ ، أي ثمن القميص ٥٩ ريالًا.</div><div class="mline">التحقق: ٥٩ − ١٤ = ٤٥ ✓</div></div></div>
+<div class="lwtip">🧠 <strong>تذكّر (صياغة مساعدة):</strong> في المعادلة طرح؟ فكّه بالإضافة إلى الطرفين.</div>
+</div></details>
+<details class="lw"><summary><span class="lwn">٤</span> ➗ معادلات الضرب وخاصية القسمة (٣-٣)</summary>
+<div class="lwbody">
+<div class="lwf" id="lwf3"><div class="lwr">«المعادلات مثل ٣س = ٦ ، تُسمَّى معادلات الضرب؛ لأنَّ العبارة ٣س تعني ٣ ضرب س.» <small>(ص ١٠٩)</small></div><div class="lwr">«إذا قسمت كلَّ طرف من المعادلة على عدد غير الصِّفر، فإنَّ طرفَي المعادلة يبقيان متساويين.» <small>(ص ١٠٩)</small></div><div class="lwr">«إذا كانت أ = ب ، جـ ≠ ٠ ، فإنّ <span class="frac"><span class="fn">أ</span><span class="fd">جـ</span></span> = <span class="frac"><span class="fn">ب</span><span class="fd">جـ</span></span>» <small>(ص ١٠٩)</small></div></div>
+<button class="lwcover" onclick="lwCover(3)">🙈 غطِّ القاعدة واكتبها من ذاكرتك / أظهرها</button>
+<div class="lwq">🎨 <strong>الرسم الملوّن:</strong> تلخيص بصري من إعداد الصفحة.</div>
+<svg viewBox="0 0 320 150" width="100%" style="max-width:440px;display:block;margin:8px auto;background:#fff;border-radius:14px;border:1px solid #e3e8f2" role="img" aria-label="ميزان: نقسم الطرفين على ٢"><path d="M160 52 L135 132 H185 Z" fill="#cbd5e6"/><rect x="40" y="48" width="240" height="7" rx="3" fill="#52627f"/><rect x="18" y="14" width="112" height="34" rx="8" fill="#e8f1fb" stroke="#1f5f99" stroke-width="1.5"/><text x="74" y="36" text-anchor="middle" direction="rtl" font-size="14" font-weight="800" fill="#1f5f99">−٦</text><rect x="190" y="14" width="112" height="34" rx="8" fill="#e8f1fb" stroke="#1f5f99" stroke-width="1.5"/><text x="246" y="36" text-anchor="middle" direction="rtl" font-size="14" font-weight="800" fill="#1f5f99">٢س</text><text x="160" y="36" text-anchor="middle" direction="rtl" font-size="20" font-weight="800" fill="#233042">=</text><rect x="18" y="66" width="112" height="32" rx="8" fill="#e8f1fb" stroke="#1f5f99" stroke-width="1.5"/><text x="74" y="87" text-anchor="middle" direction="rtl" font-size="14" font-weight="800" fill="#1f5f99">÷ ٢</text><rect x="190" y="66" width="112" height="32" rx="8" fill="#e8f1fb" stroke="#1f5f99" stroke-width="1.5"/><text x="246" y="87" text-anchor="middle" direction="rtl" font-size="14" font-weight="800" fill="#1f5f99">÷ ٢</text><text x="160" y="146" text-anchor="middle" direction="rtl" font-size="11" font-weight="700" fill="#5b6478">العملية نفسها على الطرفين = يبقى الميزان متوازنًا</text></svg>
+<div class="lwex">✏️ <strong>أمثلة من الكتاب خطوة بخطوة:</strong><div class="lwx"><strong>حلّ: ٢٠ = ٤س</strong> <small>(ص ١١٠)</small><div class="mline">اقسم كلا الطرفين على ٤: <span class="frac"><span class="fn">٢٠</span><span class="fd">٤</span></span> = <span class="frac"><span class="fn">٤س</span><span class="fd">٤</span></span></div><div class="mline">س = ٥</div><div class="mline">التحقق: ٤ × ٥ = ٢٠ ✓</div></div><div class="lwx"><strong>حلّ: −٨ص = ٢٤</strong> <small>(ص ١١٠)</small><div class="mline">اقسم كلا الطرفين على −٨</div><div class="mline">ص = ٢٤ ÷ (−٨) = −٣</div><div class="mline">التحقق: −٨ × (−٣) = ٢٤ ✓</div></div><div class="lwx"><strong>الرسائل: ٥ = ٠,١٠ × م</strong> <small>(ص ١١٠)</small><div class="mline">اقسم كلا الطرفين على ٠,١٠</div><div class="mline">م = ٥ ÷ ٠,١٠ = ٥٠ رسالة.</div><div class="mline">التحقق: ٠,١٠ × ٥٠ = ٥ ✓</div></div></div>
+<div class="lwtip">🧠 <strong>تذكّر (صياغة مساعدة):</strong> اقسم على المعامل بإشارته (إن كان −٨ فاقسم على −٨).</div>
+</div></details>
+<details class="lw"><summary><span class="lwn">٥</span> ⏪ استراتيجية الحل عكسيًّا (٣-٤)</summary>
+<div class="lwbody">
+<div class="lwf" id="lwf4"><div class="lwr">«ابدأ بالنتيجة النهائية، ثمّ حلّ عكسيًّا.» <small>(ص ١١٤)</small></div></div>
+<button class="lwcover" onclick="lwCover(4)">🙈 غطِّ القاعدة واكتبها من ذاكرتك / أظهرها</button>
+<div class="lwq">🎨 <strong>الرسم الملوّن:</strong> تلخيص بصري من إعداد الصفحة.</div>
+<svg viewBox="0 0 320 154" width="100%" style="max-width:440px;display:block;margin:8px auto;background:#fff;border-radius:14px;border:1px solid #e3e8f2" role="img" aria-label="خطوات الحل عكسيًا لمسألة طارق"><rect x="30" y="4" width="260" height="34" rx="8" fill="#f1eafb" stroke="#6b3fa0" stroke-width="1.5"/><text x="160" y="26" text-anchor="middle" direction="rtl" font-size="14" font-weight="800" fill="#6b3fa0">النتيجة النهائية: ٧,٧٥ ريالات</text><text x="160" y="53" text-anchor="middle" direction="rtl" font-size="11" font-weight="700" fill="#5b6478">▼ + ٢٢ (ما أنفقه في المكتبة)</text><rect x="30" y="60" width="260" height="34" rx="8" fill="#e8f1fb" stroke="#1f5f99" stroke-width="1.5"/><text x="160" y="82" text-anchor="middle" direction="rtl" font-size="14" font-weight="800" fill="#1f5f99">٢٩,٧٥ ريالًا</text><text x="160" y="109" text-anchor="middle" direction="rtl" font-size="11" font-weight="700" fill="#5b6478">▼ + ٥,٥٠ (ما أنفقه في المطعم)</text><rect x="30" y="116" width="260" height="34" rx="8" fill="#e8f7ee" stroke="#157a45" stroke-width="1.5"/><text x="160" y="138" text-anchor="middle" direction="rtl" font-size="11.5" font-weight="800" fill="#157a45">المبلغ في البداية: ٣٥,٢٥ ريالًا</text></svg>
+<div class="lwex">✏️ <strong>أمثلة من الكتاب خطوة بخطوة:</strong><div style="font-size:.85rem;color:#5b6478">في درس الاستراتيجية مثال محلول واحد.</div><div class="lwx"><strong>طارق: أنفق ٥,٥٠ ريالات في مطعم، وأربعة أضعاف هذا المبلغ في المكتبة، وبقي معه ٧,٧٥ ريالات. كم كان معه؟</strong> <small>(ص ١١٤)</small><div class="mline">أنفق في المكتبة: ٥,٥٠ × ٤ = ٢٢ ريالًا.</div><div class="mline">ارجع خطوة: ٧,٧٥ + ٢٢ = ٢٩,٧٥</div><div class="mline">ارجع خطوة أخرى: ٢٩,٧٥ + ٥,٥٠ = ٣٥,٢٥ ريالًا.</div><div class="mline">التحقق: ٣٥,٢٥ − ٥,٥٠ = ٢٩,٧٥ ، ثم ٢٩,٧٥ − ٢٢ = ٧,٧٥ ✓</div></div></div>
+<div class="lwtip">🧠 <strong>تذكّر (صياغة مساعدة):</strong> امشِ من النهاية إلى البداية، واعكس كل عملية.</div>
+</div></details>
+<details class="lw"><summary><span class="lwn">٦</span> 2️⃣ المعادلات ذات الخطوتين (٣-٥)</summary>
+<div class="lwbody">
+<div class="lwf" id="lwf5"><div class="lwr">«المعادلات ذات الخطوتين فيها عمليتان مختلفتان.» <small>(ص ١١٧)</small></div><div class="lwr">«الخطوة ١: تخلَّصْ من الجمع بالطَّرح أو العكس. الخطوة ٢: تخلَّصْ من الضَّرب بالقسمة أو العكس.» <small>(ص ١١٨)</small></div></div>
+<button class="lwcover" onclick="lwCover(5)">🙈 غطِّ القاعدة واكتبها من ذاكرتك / أظهرها</button>
+<div class="lwq">🎨 <strong>الرسم الملوّن:</strong> تلخيص بصري من إعداد الصفحة.</div>
+<svg viewBox="0 0 320 154" width="100%" style="max-width:440px;display:block;margin:8px auto;background:#fff;border-radius:14px;border:1px solid #e3e8f2" role="img" aria-label="خطوتا الحل"><rect x="30" y="4" width="260" height="34" rx="8" fill="#f1eafb" stroke="#6b3fa0" stroke-width="1.5"/><text x="160" y="26" text-anchor="middle" direction="rtl" font-size="14" font-weight="800" fill="#6b3fa0">٣س + ٢ = ٢٣</text><text x="160" y="53" text-anchor="middle" direction="rtl" font-size="11" font-weight="700" fill="#5b6478">▼ الخطوة ١: اطرح ٢ من الطرفين</text><rect x="30" y="60" width="260" height="34" rx="8" fill="#e8f1fb" stroke="#1f5f99" stroke-width="1.5"/><text x="160" y="82" text-anchor="middle" direction="rtl" font-size="14" font-weight="800" fill="#1f5f99">٣س = ٢١</text><text x="160" y="109" text-anchor="middle" direction="rtl" font-size="11" font-weight="700" fill="#5b6478">▼ الخطوة ٢: اقسم الطرفين على ٣</text><rect x="30" y="116" width="260" height="34" rx="8" fill="#e8f7ee" stroke="#157a45" stroke-width="1.5"/><text x="160" y="138" text-anchor="middle" direction="rtl" font-size="14" font-weight="800" fill="#157a45">س = ٧</text></svg>
+<div class="lwex">✏️ <strong>أمثلة من الكتاب خطوة بخطوة:</strong><div class="lwx"><strong>حلّ: ٣س + ٢ = ٢٣</strong> <small>(ص ١١٧)</small><div class="mline">اطرح ٢ من الطرفين: ٣س = ٢١</div><div class="mline">اقسم الطرفين على ٣: س = ٧</div><div class="mline">التحقق: ٣ × ٧ + ٢ = ٢٣ ✓</div></div><div class="lwx"><strong>حلّ: −٢ص − ٧ = ٣</strong> <small>(ص ١١٨)</small><div class="mline">أضف ٧ لكل طرف: −٢ص = ١٠</div><div class="mline">اقسم الطرفين على −٢: ص = −٥</div><div class="mline">التحقق: −٢ × (−٥) − ٧ = ٣ ✓</div></div><div class="lwx"><strong>حفلة خالد: ٢٧٠ + ٨,٥٠ن = ٣٢١</strong> <small>(ص ١١٩)</small><div class="mline">اطرح ٢٧٠ من الطرفين: ٨,٥٠ن = ٥١</div><div class="mline">اقسم الطرفين على ٨,٥٠: ن = ٦ أصدقاء.</div><div class="mline">التحقق: ٢٧٠ + ٨,٥٠ × ٦ = ٣٢١ ✓</div></div></div>
+<div class="lwtip">🧠 <strong>تذكّر (صياغة مساعدة):</strong> أولًا الجمع أو الطرح، ثم الضرب أو القسمة.</div>
+</div></details>
+<details class="lw"><summary><span class="lwn">٧</span> 🟥 محيط المستطيل (٣-٦)</summary>
+<div class="lwbody">
+<div class="lwf" id="lwf6"><div class="lwr">«المسافة حول شكل هندسي تُسمّى المحيط.» <small>(ص ١٢٢)</small></div><div class="lwr">«محيط المستطيل (مح) هو مِثْلا مجموع الطول (ل) والعرض (ض). مح = ٢ل + ٢ض = ٢(ل + ض)» <small>(ص ١٢٢)</small></div></div>
+<button class="lwcover" onclick="lwCover(6)">🙈 غطِّ القاعدة واكتبها من ذاكرتك / أظهرها</button>
+<div class="lwq">🎨 <strong>الرسم الملوّن:</strong> تلخيص بصري من إعداد الصفحة.</div>
+<svg viewBox="0 0 320 150" width="100%" style="max-width:440px;display:block;margin:8px auto;background:#fff;border-radius:14px;border:1px solid #e3e8f2" role="img" aria-label="محيط المستطيل"><rect x="90" y="30" width="140" height="80" fill="#fff" stroke="#c0392b" stroke-width="5"/><text x="160" y="22" text-anchor="middle" direction="rtl" font-size="13" font-weight="700" fill="#233042">ل (الطول)</text><text x="262" y="75" text-anchor="middle" direction="rtl" font-size="15" font-weight="800" fill="#233042">ض</text><text x="160" y="136" text-anchor="middle" direction="rtl" font-size="13" font-weight="800" fill="#c0392b">المحيط: المسافة حوله ← مح = ٢ل + ٢ض</text></svg>
+<div class="lwex">✏️ <strong>أمثلة من الكتاب خطوة بخطوة:</strong><div class="lwx"><strong>مستطيل طوله ١٥ سم وعرضه ٤ سم</strong> <small>(ص ١٢٢)</small><div class="mline">مح = ٢ل + ٢ض = ٢ × ١٥ + ٢ × ٤</div><div class="mline">مح = ٣٠ + ٨ = ٣٨ سم</div></div><div class="lwx"><strong>حديقة عرضها ٨ م ومحيطها ٤٠ م، فما طولها؟</strong> <small>(ص ١٢٣)</small><div class="mline">٤٠ = ٢ل + ٢ × ٨ ، أي ٤٠ = ٢ل + ١٦</div><div class="mline">اطرح ١٦ من الطرفين: ٢٤ = ٢ل</div><div class="mline">اقسم على ٢: ل = ١٢ م</div><div class="mline">التحقق: ٢ × ١٢ + ٢ × ٨ = ٤٠ ✓</div></div></div>
+<div class="lwtip">🧠 <strong>تذكّر (صياغة مساعدة):</strong> المحيط «حول» الشكل، ووحدته وحدة طول: سم، م.</div>
+</div></details>
+<details class="lw"><summary><span class="lwn">٨</span> 🟦 مساحة المستطيل (٣-٦)</summary>
+<div class="lwbody">
+<div class="lwf" id="lwf7"><div class="lwr">«المسافة حول مستطيل هي محيطه، وقياس المنطقة المحصورة داخله هي مساحته.» <small>(ص ١٢٣)</small></div><div class="lwr">«مساحة المستطيل (م) هي ناتج ضرب طوله (ل) في عرضه (ض). م = ل × ض» <small>(ص ١٢٣)</small></div></div>
+<button class="lwcover" onclick="lwCover(7)">🙈 غطِّ القاعدة واكتبها من ذاكرتك / أظهرها</button>
+<div class="lwq">🎨 <strong>الرسم الملوّن:</strong> تلخيص بصري من إعداد الصفحة.</div>
+<svg viewBox="0 0 320 150" width="100%" style="max-width:440px;display:block;margin:8px auto;background:#fff;border-radius:14px;border:1px solid #e3e8f2" role="img" aria-label="مساحة المستطيل"><rect x="90" y="30" width="140" height="80" fill="#cfe3fb" stroke="#1f5f99" stroke-width="2"/><line x1="110" y1="30" x2="110" y2="110" stroke="#7fa6d4"/><line x1="130" y1="30" x2="130" y2="110" stroke="#7fa6d4"/><line x1="150" y1="30" x2="150" y2="110" stroke="#7fa6d4"/><line x1="170" y1="30" x2="170" y2="110" stroke="#7fa6d4"/><line x1="190" y1="30" x2="190" y2="110" stroke="#7fa6d4"/><line x1="210" y1="30" x2="210" y2="110" stroke="#7fa6d4"/><line x1="90" y1="50" x2="230" y2="50" stroke="#7fa6d4"/><line x1="90" y1="70" x2="230" y2="70" stroke="#7fa6d4"/><line x1="90" y1="90" x2="230" y2="90" stroke="#7fa6d4"/><text x="160" y="22" text-anchor="middle" direction="rtl" font-size="13" font-weight="700" fill="#233042">ل (الطول)</text><text x="262" y="75" text-anchor="middle" direction="rtl" font-size="15" font-weight="800" fill="#233042">ض</text><text x="160" y="136" text-anchor="middle" direction="rtl" font-size="13" font-weight="800" fill="#1f5f99">المساحة: ما بداخل المستطيل ← م = ل × ض</text></svg>
+<div class="lwex">✏️ <strong>أمثلة من الكتاب خطوة بخطوة:</strong><div class="lwx"><strong>طاولة لعبة القطار: ل = ١٢٤ سم ، ض = ٨٩ سم</strong> <small>(ص ١٢٣)</small><div class="mline">م = ل × ض = ١٢٤ × ٨٩</div><div class="mline">م = ١١٠٣٦ سم²</div></div><div class="lwx"><strong>مساحة مستطيل ٥٣,٩٤ م² وطوله ٨,٧ م، فما عرضه؟</strong> <small>(ص ١٢٤)</small><div class="mline">٥٣,٩٤ = ٨,٧ × ض</div><div class="mline">اقسم الطرفين على ٨,٧: ض = ٦,٢ م</div><div class="mline">التحقق: ٨,٧ × ٦,٢ = ٥٣,٩٤ ✓</div></div></div>
+<div class="lwtip">🧠 <strong>تذكّر (صياغة مساعدة):</strong> المساحة «داخل» الشكل، ووحدتها مربعة: سم²، م².</div>
+</div></details>
+<details class="lw"><summary><span class="lwn">٩</span> 📈 التمثيل البياني للدوال (٣-٧)</summary>
+<div class="lwbody">
+<div class="lwf" id="lwf8"><div class="lwr">«يتكوَّن التمثيل البياني للدالَّة من النقاط على المستوى الإحداثي والتي تُناظِر جميع الأزواج المرتَّبة على الصيغة (مُدخلة، مُخرجة).» <small>(ص ١٢٩)</small></div><div class="lwr">«إنَّ حلَّ معادلة بمتغيِّرين يتكوَّن من عددين، (لكلِّ متغيِّر عدد) بحيث يجعلان المعادلة صحيحة. ويُكتب الحلُّ على شكل زوج مُرتَّب <span class="nw">(س ، ص)</span>.» <small>(ص ١٣٠)</small></div><div class="lwr">«نحتاج إلى أي نقطتين لتمثيل المستقيم بيانيًّا. ويمكن تمثيل نقاط أكثر؛ للحصول على دقة أكثر.» <small>(ص ١٣٠)</small></div><div class="lwr">«وتُسمَّى مثل هذه المعادلة معادلة خطيَّة؛ لأنها تُمثَّل بيانيًّا بخطٍّ مستقيم.» <small>(ص ١٣٠)</small></div></div>
+<button class="lwcover" onclick="lwCover(8)">🙈 غطِّ القاعدة واكتبها من ذاكرتك / أظهرها</button>
+<div class="lwq">🎨 <strong>الرسم الملوّن:</strong> تلخيص بصري من إعداد الصفحة.</div>
+<div style="text-align:center"><span class="figbox" style="display:block"><svg viewBox="0 0 284 288" width="284" role="img" aria-label="تمثيل المعادلة ص = ٢س + ١" style="max-width:100%;height:auto;" direction="ltr"><rect x="0" y="0" width="284" height="288" fill="#fff"/><line x1="34" y1="34" x2="34" y2="254" stroke="#d5dce8"/><line x1="58" y1="34" x2="58" y2="254" stroke="#d5dce8"/><line x1="82" y1="34" x2="82" y2="254" stroke="#d5dce8"/><line x1="106" y1="34" x2="106" y2="254" stroke="#d5dce8"/><line x1="130" y1="34" x2="130" y2="254" stroke="#d5dce8"/><line x1="154" y1="34" x2="154" y2="254" stroke="#d5dce8"/><line x1="178" y1="34" x2="178" y2="254" stroke="#d5dce8"/><line x1="202" y1="34" x2="202" y2="254" stroke="#d5dce8"/><line x1="226" y1="34" x2="226" y2="254" stroke="#d5dce8"/><line x1="250" y1="34" x2="250" y2="254" stroke="#d5dce8"/><line x1="34" y1="34" x2="250" y2="34" stroke="#d5dce8"/><line x1="34" y1="56" x2="250" y2="56" stroke="#d5dce8"/><line x1="34" y1="78" x2="250" y2="78" stroke="#d5dce8"/><line x1="34" y1="100" x2="250" y2="100" stroke="#d5dce8"/><line x1="34" y1="122" x2="250" y2="122" stroke="#d5dce8"/><line x1="34" y1="144" x2="250" y2="144" stroke="#d5dce8"/><line x1="34" y1="166" x2="250" y2="166" stroke="#d5dce8"/><line x1="34" y1="188" x2="250" y2="188" stroke="#d5dce8"/><line x1="34" y1="210" x2="250" y2="210" stroke="#d5dce8"/><line x1="34" y1="232" x2="250" y2="232" stroke="#d5dce8"/><line x1="34" y1="254" x2="250" y2="254" stroke="#d5dce8"/><line x1="28" y1="210" x2="258" y2="210" stroke="#222" stroke-width="1.6"/><line x1="130" y1="260" x2="130" y2="26" stroke="#222" stroke-width="1.6"/><path d="M264 210 l-8 -4 v8z M130 20 l-4 8 h8z" fill="#222"/><text x="270" y="214" font-size="13" text-anchor="middle" fill="#1f2a44" direction="rtl">س</text><text x="144" y="22" font-size="13" text-anchor="middle" fill="#1f2a44" direction="rtl">ص</text><text x="121" y="223" font-size="11" text-anchor="middle" fill="#1f2a44" direction="rtl">م</text><line x1="96.4" y1="249.6" x2="211.60000000000002" y2="38.39999999999998" stroke="#1d6fd6" stroke-width="2"/><circle cx="106" cy="232" r="3.6" fill="#c0392b"/><text x="70" y="236" font-size="11" text-anchor="middle" fill="#c0392b" direction="rtl">(−١ ، −١)</text><circle cx="130" cy="188" r="3.6" fill="#c0392b"/><text x="160" y="194" font-size="11" text-anchor="middle" fill="#c0392b" direction="rtl">(٠ ، ١)</text><circle cx="154" cy="144" r="3.6" fill="#c0392b"/><text x="186" y="150" font-size="11" text-anchor="middle" fill="#c0392b" direction="rtl">(١ ، ٣)</text><circle cx="178" cy="100" r="3.6" fill="#c0392b"/><text x="210" y="106" font-size="11" text-anchor="middle" fill="#c0392b" direction="rtl">(٢ ، ٥)</text></svg></span><div style="font-size:.82rem;color:#5b6478">ص = ٢س + ١ (أعيد رسمه من مثال ص ١٣٠)</div></div>
+<div class="lwex">✏️ <strong>أمثلة من الكتاب خطوة بخطوة:</strong><div class="lwx"><strong>مثّل بيانيًّا: ص = ٢س + ١</strong> <small>(ص ١٣٠)</small><div class="mline">اختر قيمًا للمدخلة س: ٢ ، ١ ، ٠ ، −١</div><div class="mline">عوّض: ص = ٥ ، ٣ ، ١ ، −١</div><div class="mline">الأزواج المرتبة: <span class="nw">(٢ ، ٥)</span> ، <span class="nw">(١ ، ٣)</span> ، <span class="nw">(٠ ، ١)</span> ، <span class="nw">(−١ ، −١)</span></div><div class="mline">عيّن النقاط وارسم المستقيم المارّ بها.</div><div class="mline">التحقق: <span class="nw">(٣ ، ٧)</span> على المستقيم لأن ٢ × ٣ + ١ = ٧ ✓</div></div><div class="lwx"><strong>سبّاح: ف = ١٠٠ن (ف المسافة بالأمتار، ن الدقائق)</strong> <small>(ص ١٣١)</small><div class="mline">اختر أربع قيم موجبة لـ ن: ١ ، ٢ ، ٣ ، ٤</div><div class="mline">ف = ١٠٠ ، ٢٠٠ ، ٣٠٠ ، ٤٠٠</div><div class="mline">الأزواج <span class="nw">(ن ، ف)</span>: <span class="nw">(١ ، ١٠٠)</span> ، <span class="nw">(٢ ، ٢٠٠)</span> ، <span class="nw">(٣ ، ٣٠٠)</span> ، <span class="nw">(٤ ، ٤٠٠)</span></div><div class="mline">عيّن النقاط وارسم خطًّا مستقيمًا يمرّ بها.</div></div></div>
+<div class="lwtip">🧠 <strong>تذكّر (صياغة مساعدة):</strong> جدول: س ← عوّض ← ص ← زوج <span class="nw">(س ، ص)</span> ← نقطة.</div>
+</div></details>
+<details class="lw"><summary><span class="lwn">١٠</span> ⚖️ النسبة وأبسط صورة (٤-١)</summary>
+<div class="lwbody">
+<div class="lwf" id="lwf9"><div class="lwr">«النِّسبة هي مقارنة بين كميتين باستعمال القسمة.» <small>(ص ١٤٠)</small></div><div class="lwr">«أ إلى ب = أ : ب = <span class="frac"><span class="fn">أ</span><span class="fd">ب</span></span>» <small>(ص ١٤٠)</small></div><div class="lwr">«تعبِّر النِّسبة عن علاقة جزء بجزء، أو جزء بكلّ، أو كلّ بجزء، وتُكتب عادة على صورة كسر في أبسط صورة.» <small>(ص ١٤٠)</small></div></div>
+<button class="lwcover" onclick="lwCover(9)">🙈 غطِّ القاعدة واكتبها من ذاكرتك / أظهرها</button>
+<div class="lwq">🎨 <strong>الرسم الملوّن:</strong> تلخيص بصري من إعداد الصفحة.</div>
+<svg viewBox="0 0 320 128" width="100%" style="max-width:440px;display:block;margin:8px auto;background:#fff;border-radius:14px;border:1px solid #e3e8f2" role="img" aria-label="ملخص ملوّن"><rect x="178" y="6" width="136" height="34" rx="8" fill="#e8f1fb" stroke="#1f5f99" stroke-width="1.5"/><text x="246" y="28" text-anchor="middle" direction="rtl" font-size="13" font-weight="800" fill="#1f5f99">٣ إلى ٤</text><rect x="6" y="6" width="166" height="34" rx="8" fill="#e8f1fb" stroke="#1f5f99" stroke-width="1.5"/><text x="89" y="28" text-anchor="middle" direction="rtl" font-size="12.5" font-weight="700" fill="#233042">بالكلمة «إلى»</text><rect x="178" y="46" width="136" height="34" rx="8" fill="#e8f7ee" stroke="#157a45" stroke-width="1.5"/><text x="246" y="68" text-anchor="middle" direction="rtl" font-size="13" font-weight="800" fill="#157a45">٣ : ٤</text><rect x="6" y="46" width="166" height="34" rx="8" fill="#e8f7ee" stroke="#157a45" stroke-width="1.5"/><text x="89" y="68" text-anchor="middle" direction="rtl" font-size="12.5" font-weight="700" fill="#233042">بالنقطتين</text><rect x="178" y="86" width="136" height="34" rx="8" fill="#fff4d6" stroke="#8e5a00" stroke-width="1.5"/><text x="246" y="108" text-anchor="middle" direction="rtl" font-size="13" font-weight="800" fill="#8e5a00">كسر: ٣ على ٤</text><rect x="6" y="86" width="166" height="34" rx="8" fill="#fff4d6" stroke="#8e5a00" stroke-width="1.5"/><text x="89" y="108" text-anchor="middle" direction="rtl" font-size="12.5" font-weight="700" fill="#233042">البسط هو المذكور أولًا</text></svg>
+<div class="lwex">✏️ <strong>أمثلة من الكتاب خطوة بخطوة:</strong><div style="font-size:.85rem;color:#5b6478">في ص ١٤٠ مثال محلول واحد على كتابة النسبة في أبسط صورة.</div><div class="lwx"><strong>التوابل: ٤ ملاعق ليمون مجفف إلى ٦ ملاعق كزبرة</strong> <small>(ص ١٤٠)</small><div class="mline"><span class="frac"><span class="fn">٤</span><span class="fd">٦</span></span> ، اقسم البسط والمقام على ٢</div><div class="mline">= <span class="frac"><span class="fn">٢</span><span class="fd">٣</span></span></div><div class="mline">لكل وحدتين من الليمون ٣ وحدات من الكزبرة.</div></div></div>
+<div class="lwtip">🧠 <strong>تذكّر (صياغة مساعدة):</strong> حافظ على الترتيب: ما ذُكر أولًا يكتب في البسط.</div>
+</div></details>
+<details class="lw"><summary><span class="lwn">١١</span> 🟰 النسب المتكافئة (٤-١)</summary>
+<div class="lwbody">
+<div class="lwf" id="lwf10"><div class="lwr">«النِّسب التي تعبِّر عن العلاقة بين الكميَّتين نفسيهما تُسمَّى النِّسب المتكافئة، ويكون لها القيمة نفسها.» <small>(ص ١٤١)</small></div></div>
+<button class="lwcover" onclick="lwCover(10)">🙈 غطِّ القاعدة واكتبها من ذاكرتك / أظهرها</button>
+<div class="lwq">🎨 <strong>الرسم الملوّن:</strong> تلخيص بصري من إعداد الصفحة.</div>
+<svg viewBox="0 0 320 128" width="100%" style="max-width:440px;display:block;margin:8px auto;background:#fff;border-radius:14px;border:1px solid #e3e8f2" role="img" aria-label="ملخص ملوّن"><rect x="178" y="6" width="136" height="34" rx="8" fill="#e8f7ee" stroke="#157a45" stroke-width="1.5"/><text x="246" y="28" text-anchor="middle" direction="rtl" font-size="13" font-weight="800" fill="#157a45">الطريقة ١</text><rect x="6" y="6" width="166" height="34" rx="8" fill="#e8f7ee" stroke="#157a45" stroke-width="1.5"/><text x="89" y="28" text-anchor="middle" direction="rtl" font-size="12.5" font-weight="700" fill="#233042">بسّط النسبتين وقارن</text><rect x="178" y="46" width="136" height="34" rx="8" fill="#e8f1fb" stroke="#1f5f99" stroke-width="1.5"/><text x="246" y="68" text-anchor="middle" direction="rtl" font-size="13" font-weight="800" fill="#1f5f99">الطريقة ٢</text><rect x="6" y="46" width="166" height="34" rx="8" fill="#e8f1fb" stroke="#1f5f99" stroke-width="1.5"/><text x="89" y="68" text-anchor="middle" direction="rtl" font-size="12.5" font-weight="700" fill="#233042">ابحث عن عامل يربطهما</text><rect x="178" y="86" width="136" height="34" rx="8" fill="#fff4d6" stroke="#8e5a00" stroke-width="1.5"/><text x="246" y="108" text-anchor="middle" direction="rtl" font-size="13" font-weight="800" fill="#8e5a00">النتيجة</text><rect x="6" y="86" width="166" height="34" rx="8" fill="#fff4d6" stroke="#8e5a00" stroke-width="1.5"/><text x="89" y="108" text-anchor="middle" direction="rtl" font-size="12.5" font-weight="700" fill="#233042">القيمة نفسها ← متكافئتان</text></svg>
+<div class="lwex">✏️ <strong>أمثلة من الكتاب خطوة بخطوة:</strong><div class="lwx"><strong>٢٥٠ كلم في ٤ ساعات ، و٥٠٠ كلم في ٨ ساعات</strong> <small>(ص ١٤١)</small><div class="mline"><span class="frac"><span class="fn">٢٥٠</span><span class="fd">٤</span></span> = <span class="frac"><span class="fn">١٢٥</span><span class="fd">٢</span></span> ، و<span class="frac"><span class="fn">٥٠٠</span><span class="fd">٨</span></span> = <span class="frac"><span class="fn">١٢٥</span><span class="fd">٢</span></span></div><div class="mline">الناتجان متساويان، إذن النسبتان متكافئتان.</div></div><div class="lwx"><strong>سامي أخطأ ٣٢ من ٩٣ ، وأحمد أخطأ ١١ من ٣١</strong> <small>(ص ١٤١)</small><div class="mline">اضرب بسط نسبة أحمد ومقامها في ٣: <span class="frac"><span class="fn">١١</span><span class="fd">٣١</span></span> = <span class="frac"><span class="fn">٣٣</span><span class="fd">٩٣</span></span></div><div class="mline">بما أن <span class="frac"><span class="fn">٣٢</span><span class="fd">٩٣</span></span> ≠ <span class="frac"><span class="fn">٣٣</span><span class="fd">٩٣</span></span> فالنسبتان غير متكافئتين.</div></div></div>
+<div class="lwtip">🧠 <strong>تذكّر (صياغة مساعدة):</strong> العملية نفسها (ضرب أو قسمة) على البسط والمقام، لا الجمع.</div>
+</div></details>
+<details class="lw"><summary><span class="lwn">١٢</span> ⏱️ المعدل ومعدل الوحدة (٤-٢)</summary>
+<div class="lwbody">
+<div class="lwf" id="lwf11"><div class="lwr">«تُسمّى النسبة التي تقارن بين كميّتين لهما وحدتان مختلفتان تسمى بالمعدل.» <small>(ص ١٤٥)</small></div><div class="lwr">«عند تبسيط المعدل بحيث يصبح مقامه مساويًا ١، فإنّه يُسمّى معدل الوحدة.» <small>(ص ١٤٥)</small></div><div class="lwr">«احسب معدل الوحدة، ثم اضربه في ٤٠ لإيجاد عدد الهدايا التي يمكن أن تغلفها في ٤٠ دقيقة.» <small>(ص ١٤٧)</small></div></div>
+<button class="lwcover" onclick="lwCover(11)">🙈 غطِّ القاعدة واكتبها من ذاكرتك / أظهرها</button>
+<div class="lwq">🎨 <strong>الرسم الملوّن:</strong> تلخيص بصري من إعداد الصفحة.</div>
+<svg viewBox="0 0 320 98" width="100%" style="max-width:440px;display:block;margin:8px auto;background:#fff;border-radius:14px;border:1px solid #e3e8f2" role="img" aria-label="من المعدل إلى معدل الوحدة"><rect x="30" y="4" width="260" height="34" rx="8" fill="#f1eafb" stroke="#6b3fa0" stroke-width="1.5"/><text x="160" y="26" text-anchor="middle" direction="rtl" font-size="14" font-weight="800" fill="#6b3fa0">معدل: ٨٤٠ ريالًا لكل ٤٠ ساعة</text><text x="160" y="53" text-anchor="middle" direction="rtl" font-size="11" font-weight="700" fill="#5b6478">▼ اقسم البسط والمقام على ٤٠</text><rect x="30" y="60" width="260" height="34" rx="8" fill="#e8f7ee" stroke="#157a45" stroke-width="1.5"/><text x="160" y="82" text-anchor="middle" direction="rtl" font-size="11.5" font-weight="800" fill="#157a45">معدل الوحدة: ٢١ ريالًا لكل ساعة (المقام ١)</text></svg>
+<div class="lwex">✏️ <strong>أمثلة من الكتاب خطوة بخطوة:</strong><div class="lwx"><strong>٨٤٠ ريالًا مقابل ٤٠ ساعة عمل</strong> <small>(ص ١٤٥)</small><div class="mline"><span class="frac"><span class="fn">٨٤٠</span><span class="fd">٤٠</span></span> ، اقسم البسط والمقام على ٤٠</div><div class="mline">= <span class="frac"><span class="fn">٢١</span><span class="fd">١</span></span> ، أي ٢١ ريالًا / ساعة.</div></div><div class="lwx"><strong>كيس حلوى: ٨ قطع بريالين</strong> <small>(ص ١٤٦)</small><div class="mline"><span class="frac"><span class="fn">٢</span><span class="fd">٨</span></span> ، اقسم البسط والمقام على ٨</div><div class="mline">= <span class="frac"><span class="fn">٠,٢٥</span><span class="fd">١</span></span> ، أي ثمن القطعة ٠,٢٥ ريال.</div></div><div class="lwx"><strong>منال تغلّف ٣ هدايا في ١٢ دقيقة، فكم في ٤٠ دقيقة؟</strong> <small>(ص ١٤٧)</small><div class="mline">معدل الوحدة: ٣ ÷ ١٢ = ٠,٢٥ هدية لكل دقيقة.</div><div class="mline">اضرب في ٤٠: ٠,٢٥ × ٤٠ = ١٠ هدايا.</div></div></div>
+<div class="lwtip">🧠 <strong>تذكّر (صياغة مساعدة):</strong> المقام يصير ١، والمطلوب «لكل واحد» هو الذي في المقام.</div>
+</div></details>
+<details class="lw"><summary><span class="lwn">١٣</span> 📏 التحويل بين الوحدات الإنجليزية (٤-٣)</summary>
+<div class="lwbody">
+<div class="lwf" id="lwf12"><div class="lwr">«يمكنك الضَّرب في هذه النسبة لتحوِّل من وحدة إلى أخرى أصغر منها.» <small>(ص ١٥١)</small></div><div class="lwr">«للتَّحويل من وحدة إلى أخرى أكبر منها، نضرب في مقلوب النسبة المناسبة.» <small>(ص ١٥١)</small></div><div style="font-weight:800;color:#1f4f82;margin-top:8px;font-size:.92rem">📋 جدول الوحدات الإنجليزية (ص ١٥٠)</div><span class="figbox"><table class="mt"><tr><th>النوع</th><th>الوحدة الأكبر = الأصغر</th></tr><tr><td>الطول</td><td>١ قدم = ١٢ بوصة</td></tr><tr><td>الطول</td><td>١ ياردة = ٣ أقدام</td></tr><tr><td>الطول</td><td>١ ميل = ٥٢٨٠ قدمًا</td></tr><tr><td>الكتلة</td><td>١ رطل = ١٦ أوقية</td></tr><tr><td>الكتلة</td><td>١ طن = ٢٠٠٠ رطل</td></tr></table></span></div>
+<button class="lwcover" onclick="lwCover(12)">🙈 غطِّ القاعدة واكتبها من ذاكرتك / أظهرها</button>
+<div class="lwq">🎨 <strong>الرسم الملوّن:</strong> تلخيص بصري من إعداد الصفحة.</div>
+<svg viewBox="0 0 320 128" width="100%" style="max-width:440px;display:block;margin:8px auto;background:#fff;border-radius:14px;border:1px solid #e3e8f2" role="img" aria-label="ملخص ملوّن"><rect x="178" y="6" width="136" height="34" rx="8" fill="#e8f7ee" stroke="#157a45" stroke-width="1.5"/><text x="246" y="28" text-anchor="middle" direction="rtl" font-size="11" font-weight="800" fill="#157a45">من أكبر إلى أصغر</text><rect x="6" y="6" width="166" height="34" rx="8" fill="#e8f7ee" stroke="#157a45" stroke-width="1.5"/><text x="89" y="28" text-anchor="middle" direction="rtl" font-size="10.5" font-weight="700" fill="#233042">اضرب في النسبة (مقامها ١)</text><rect x="178" y="46" width="136" height="34" rx="8" fill="#fde8e6" stroke="#c0392b" stroke-width="1.5"/><text x="246" y="68" text-anchor="middle" direction="rtl" font-size="11" font-weight="800" fill="#c0392b">من أصغر إلى أكبر</text><rect x="6" y="46" width="166" height="34" rx="8" fill="#fde8e6" stroke="#c0392b" stroke-width="1.5"/><text x="89" y="68" text-anchor="middle" direction="rtl" font-size="12.5" font-weight="700" fill="#233042">اضرب في مقلوب النسبة</text><rect x="178" y="86" width="136" height="34" rx="8" fill="#fff4d6" stroke="#8e5a00" stroke-width="1.5"/><text x="246" y="108" text-anchor="middle" direction="rtl" font-size="13" font-weight="800" fill="#8e5a00">دائمًا</text><rect x="6" y="86" width="166" height="34" rx="8" fill="#fff4d6" stroke="#8e5a00" stroke-width="1.5"/><text x="89" y="108" text-anchor="middle" direction="rtl" font-size="12.5" font-weight="700" fill="#233042">اختصر الوحدة المتشابهة</text></svg>
+<div class="lwex">✏️ <strong>أمثلة من الكتاب خطوة بخطوة:</strong><div class="lwx"><strong>حوّل ٢٠ قدمًا إلى بوصات</strong> <small>(ص ١٥١)</small><div class="mline">٢٠ قدمًا × <span class="frac"><span class="fn">١٢ بوصة</span><span class="fd">١ قدم</span></span></div><div class="mline">= ٢٠ × ١٢ بوصة = ٢٤٠ بوصة.</div></div><div class="lwx"><strong>كم ياردة في ٤ <span class="frac"><span class="fn">١</span><span class="fd">٢</span></span> أقدام من القماش؟</strong> <small>(ص ١٥١)</small><div class="mline">اضرب في المقلوب:</div><div class="mline">٤ <span class="frac"><span class="fn">١</span><span class="fd">٢</span></span> أقدام × <span class="frac"><span class="fn">١ ياردة</span><span class="fd">٣ أقدام</span></span></div><div class="mline">اكتب ٤ <span class="frac"><span class="fn">١</span><span class="fd">٢</span></span> كسرًا غير فعلي: <span class="frac"><span class="fn">٩</span><span class="fd">٢</span></span> × <span class="frac"><span class="fn">١</span><span class="fd">٣</span></span></div><div class="mline">= <span class="frac"><span class="fn">٣</span><span class="fd">٢</span></span> ياردة = ١ <span class="frac"><span class="fn">١</span><span class="fd">٢</span></span> ياردة.</div></div><div class="lwx"><strong>طائرة مروحية: ١٥٨ ميلًا / ساعة، فكم ميلًا / ثانية؟</strong> <small>(ص ١٥٢)</small><div class="mline">١ ساعة = ٣٦٠٠ ثانية.</div><div class="mline"><span class="frac"><span class="fn">١٥٨ ميلًا</span><span class="fd">١ ساعة</span></span> × <span class="frac"><span class="fn">١ ساعة</span><span class="fd">٣٦٠٠ ثانية</span></span></div><div class="mline">≈ ٠,٠٤ ميل / ثانية.</div></div></div>
+<div class="lwtip">🧠 <strong>تذكّر (صياغة مساعدة):</strong> ضع الوحدة التي تريد حذفها في المقام لتُختصر.</div>
+</div></details>
+<details class="lw"><summary><span class="lwn">١٤</span> 🔟 التحويل بين الوحدات المترية (٤-٤)</summary>
+<div class="lwbody">
+<div class="lwf" id="lwf13"><div class="lwr">«يُعدُّ النظام المتري في القياس نظامًا عشريًّا، وفي هذا النظام يُعدُّ المتر (م) الوحدة الأساسية للطول.» <small>(ص ١٥٥)</small></div><div class="lwr">«يُعدُّ اللِّتر (ل) الوحدة الأساسيَّة للسَّعة، كما يُعدُّ الكيلوجرام (كجم) الوحدة الأساسيَّة لقياس الكتلة» <small>(ص ١٥٥)</small></div><div class="lwr">«(الكيلوجرام = ١٠٠٠ جرام).» <small>(ص ١٥٥)</small></div><div class="lwr">«عند التحويل من وحدة كبيرة إلى وحدة أصغر، اضرب في قوى العدد ١٠ الصحيحة الموجبة. وعند التحويل من وحدة صغيرة إلى وحدة أكبر اقسم على قوى العدد ١٠ الصحيحة الموجبة.» <small>(ص ١٥٥)</small></div><div style="font-weight:800;color:#1f4f82;margin-top:8px;font-size:.92rem">📋 وحدات الطول والسعة والكتلة المترية (ص ١٥٥)</div><span class="figbox"><table class="mt"><tr><th>الوحدة</th><th>العلاقة</th></tr><tr><td>الكيلومتر</td><td>١ كلم = ١٠٠٠ م</td></tr><tr><td>السنتمتر</td><td>١ سم = ٠,٠١ م ، ١ م = ١٠٠ سم</td></tr><tr><td>الملمتر</td><td>١ ملم = ٠,٠٠١ م ، ١ م = ١٠٠٠ ملم</td></tr><tr><td>اللتر</td><td>١ ل = ١٠٠٠ ملل</td></tr><tr><td>الكيلوجرام</td><td>١ كجم = ١٠٠٠ جم</td></tr></table></span></div>
+<button class="lwcover" onclick="lwCover(13)">🙈 غطِّ القاعدة واكتبها من ذاكرتك / أظهرها</button>
+<div class="lwq">🎨 <strong>الرسم الملوّن:</strong> تلخيص بصري من إعداد الصفحة.</div>
+<svg viewBox="0 0 320 128" width="100%" style="max-width:440px;display:block;margin:8px auto;background:#fff;border-radius:14px;border:1px solid #e3e8f2" role="img" aria-label="ملخص ملوّن"><rect x="178" y="6" width="136" height="34" rx="8" fill="#e8f7ee" stroke="#157a45" stroke-width="1.5"/><text x="246" y="28" text-anchor="middle" direction="rtl" font-size="11" font-weight="800" fill="#157a45">من كبيرة إلى صغيرة</text><rect x="6" y="6" width="166" height="34" rx="8" fill="#e8f7ee" stroke="#157a45" stroke-width="1.5"/><text x="89" y="28" text-anchor="middle" direction="rtl" font-size="12.5" font-weight="700" fill="#233042">× (١٠ ، ١٠٠ ، ١٠٠٠)</text><rect x="178" y="46" width="136" height="34" rx="8" fill="#fde8e6" stroke="#c0392b" stroke-width="1.5"/><text x="246" y="68" text-anchor="middle" direction="rtl" font-size="11" font-weight="800" fill="#c0392b">من صغيرة إلى كبيرة</text><rect x="6" y="46" width="166" height="34" rx="8" fill="#fde8e6" stroke="#c0392b" stroke-width="1.5"/><text x="89" y="68" text-anchor="middle" direction="rtl" font-size="12.5" font-weight="700" fill="#233042">÷ (١٠ ، ١٠٠ ، ١٠٠٠)</text><rect x="178" y="86" width="136" height="34" rx="8" fill="#e8f1fb" stroke="#1f5f99" stroke-width="1.5"/><text x="246" y="108" text-anchor="middle" direction="rtl" font-size="13" font-weight="800" fill="#1f5f99">الأساس</text><rect x="6" y="86" width="166" height="34" rx="8" fill="#e8f1fb" stroke="#1f5f99" stroke-width="1.5"/><text x="89" y="108" text-anchor="middle" direction="rtl" font-size="10.5" font-weight="700" fill="#233042">المتر · اللتر · الكيلوجرام</text></svg>
+<div class="lwex">✏️ <strong>أمثلة من الكتاب خطوة بخطوة:</strong><div class="lwx"><strong>حوّل ٤,٥ لترات إلى ملّلترات</strong> <small>(ص ١٥٥)</small><div class="mline">١ ل = ١٠٠٠ ملل</div><div class="mline">٤,٥ × ١٠٠٠ = ٤٥٠٠ ملل</div></div><div class="lwx"><strong>حوّل ٥٠٠ ملم إلى أمتار</strong> <small>(ص ١٥٦)</small><div class="mline">١ ملم = ٠,٠٠١ م</div><div class="mline">٥٠٠ × ٠,٠٠١ = ٠,٥ م</div></div><div class="lwx"><strong>أقصى كتلة للجمل ٦٩٠ كجم، فكم جرامًا؟</strong> <small>(ص ١٥٦)</small><div class="mline">١ كجم = ١٠٠٠ جم</div><div class="mline">٦٩٠ × ١٠٠٠ = ٦٩٠٠٠٠ جم</div></div></div>
+<div class="lwtip">🧠 <strong>تذكّر (صياغة مساعدة):</strong> الوحدة الأصغر تحتاج عددًا أكبر: اضرب.</div>
+</div></details>
+<details class="lw"><summary><span class="lwn">١٥</span> 🔁 التحويل بين النظامين الإنجليزي والمتري (٤-٤)</summary>
+<div class="lwbody">
+<div class="lwf" id="lwf14"><div class="lwr">«لتحويل القياسات بين الوحدات الإنجليزية والوحدات المترية، استعمل العلاقات في الجدول أدناه.» <small>(ص ١٥٦)</small></div><div style="font-weight:800;color:#1f4f82;margin-top:8px;font-size:.92rem">📋 العلاقات بين الوحدات الإنجليزية والمترية (ص ١٥٦)</div><span class="figbox"><table class="mt"><tr><th>الإنجليزية</th><th>المترية (≈)</th></tr><tr><td>١ بوصة</td><td>٢,٥٤ سم</td></tr><tr><td>١ قدم</td><td>٠,٣٠ م</td></tr><tr><td>١ ياردة</td><td>٠,٩١ م</td></tr><tr><td>١ ميل</td><td>١,٦١ كلم</td></tr><tr><td>١ رطل</td><td>٤٥٣,٦ جم</td></tr><tr><td>١ رطل</td><td>٠,٤٥٣٦ كجم</td></tr><tr><td>١ طن</td><td>٩٠٧,٢ كجم</td></tr><tr><td>١ كوب</td><td>٢٣٦,٥٩ ملل</td></tr><tr><td>١ جالون</td><td>٣,٧٩ ل</td></tr></table></span></div>
+<button class="lwcover" onclick="lwCover(14)">🙈 غطِّ القاعدة واكتبها من ذاكرتك / أظهرها</button>
+<div class="lwq">🎨 <strong>الرسم الملوّن:</strong> تلخيص بصري من إعداد الصفحة.</div>
+<svg viewBox="0 0 320 128" width="100%" style="max-width:440px;display:block;margin:8px auto;background:#fff;border-radius:14px;border:1px solid #e3e8f2" role="img" aria-label="ملخص ملوّن"><rect x="178" y="6" width="136" height="34" rx="8" fill="#e8f7ee" stroke="#157a45" stroke-width="1.5"/><text x="246" y="28" text-anchor="middle" direction="rtl" font-size="11" font-weight="800" fill="#157a45">من إنجليزي إلى متري</text><rect x="6" y="6" width="166" height="34" rx="8" fill="#e8f7ee" stroke="#157a45" stroke-width="1.5"/><text x="89" y="28" text-anchor="middle" direction="rtl" font-size="12.5" font-weight="700" fill="#233042">اضرب في العدد المقابل</text><rect x="178" y="46" width="136" height="34" rx="8" fill="#fde8e6" stroke="#c0392b" stroke-width="1.5"/><text x="246" y="68" text-anchor="middle" direction="rtl" font-size="11" font-weight="800" fill="#c0392b">من متري إلى إنجليزي</text><rect x="6" y="46" width="166" height="34" rx="8" fill="#fde8e6" stroke="#c0392b" stroke-width="1.5"/><text x="89" y="68" text-anchor="middle" direction="rtl" font-size="12.5" font-weight="700" fill="#233042">اضرب في (١ على العدد)</text><rect x="178" y="86" width="136" height="34" rx="8" fill="#fff4d6" stroke="#8e5a00" stroke-width="1.5"/><text x="246" y="108" text-anchor="middle" direction="rtl" font-size="13" font-weight="800" fill="#8e5a00">العلامة</text><rect x="6" y="86" width="166" height="34" rx="8" fill="#fff4d6" stroke="#8e5a00" stroke-width="1.5"/><text x="89" y="108" text-anchor="middle" direction="rtl" font-size="12.5" font-weight="700" fill="#233042">≈ لأن النتيجة تقريبية</text></svg>
+<div class="lwex">✏️ <strong>أمثلة من الكتاب خطوة بخطوة:</strong><div class="lwx"><strong>حوّل ١٧,٢٢ بوصة إلى سنتمترات (لأقرب جزء من مئة)</strong> <small>(ص ١٥٧)</small><div class="mline">١ بوصة ≈ ٢,٥٤ سم</div><div class="mline">١٧,٢٢ × ٢,٥٤ = ٤٣,٧٣٨٨</div><div class="mline">≈ ٤٣,٧٤ سم</div></div><div class="lwx"><strong>حوّل ٨٢٨,٥ ملل إلى أكواب</strong> <small>(ص ١٥٧)</small><div class="mline">١ كوب ≈ ٢٣٦,٥٩ ملل</div><div class="mline">٨٢٨,٥ × <span class="frac"><span class="fn">١ كوب</span><span class="fd">٢٣٦,٥٩ ملل</span></span></div><div class="mline">≈ ٣,٥ أكواب.</div></div></div>
+<div class="lwtip">🧠 <strong>تذكّر (صياغة مساعدة):</strong> اقرأ الجدول من الصف الصحيح، ثم قرّر: ضرب أم قسمة.</div>
+</div></details>
+<details class="lw"><summary><span class="lwn">١٦</span> ✖️ التناسب والضرب التبادلي (٤-٥)</summary>
+<div class="lwbody">
+<div class="lwf" id="lwf15"><div class="lwr">«التَّناسب هو حالة تتساوى فيها نسبتان أو معدلان على الأقلّ.» <small>(ص ١٦١)</small></div><div class="lwr">«<span class="frac"><span class="fn">أ</span><span class="fd">ب</span></span> = <span class="frac"><span class="fn">جـ</span><span class="fd">د</span></span> ، حيث ب ، د ≠ ٠» <small>(ص ١٦١)</small></div><div class="lwr">«تكون الكميَّتان متناسبتَيْن إذا كان لهما معدَّل ثابت أو نسبة ثابتة.» <small>(ص ١٦١)</small></div><div class="lwr">«ناتجا الضَّرب التَّبادلي لأيِّ تناسب يكونان متساويين» <small>(ص ١٦١)</small></div><div class="lwr">«يُسمَّى الناتجان أ د ، ب جـ ناتجي الضَّرب التَّبادلي لهذا التَّناسب.» <small>(ص ١٦١)</small></div><div class="lwr">«يمكنك أيضًا استعمال الضَّرب التَّبادلي لإيجاد القيمة المجهولة في تناسب، وهذا ما يُعرف بحلِّ التَّناسب.» <small>(ص ١٦٢)</small></div></div>
+<button class="lwcover" onclick="lwCover(15)">🙈 غطِّ القاعدة واكتبها من ذاكرتك / أظهرها</button>
+<div class="lwq">🎨 <strong>الرسم الملوّن:</strong> تلخيص بصري من إعداد الصفحة.</div>
+<svg viewBox="0 0 320 130" width="100%" style="max-width:440px;display:block;margin:8px auto;background:#fff;border-radius:14px;border:1px solid #e3e8f2" role="img" aria-label="الضرب التبادلي"><rect x="40" y="12" width="70" height="34" rx="8" fill="#e8f7ee" stroke="#157a45" stroke-width="1.5"/><text x="75" y="35" text-anchor="middle" direction="rtl" font-size="16" font-weight="800" fill="#157a45">جـ</text><rect x="40" y="72" width="70" height="34" rx="8" fill="#e8f1fb" stroke="#1f5f99" stroke-width="1.5"/><text x="75" y="95" text-anchor="middle" direction="rtl" font-size="16" font-weight="800" fill="#1f5f99">د</text><rect x="210" y="12" width="70" height="34" rx="8" fill="#e8f1fb" stroke="#1f5f99" stroke-width="1.5"/><text x="245" y="35" text-anchor="middle" direction="rtl" font-size="16" font-weight="800" fill="#1f5f99">أ</text><rect x="210" y="72" width="70" height="34" rx="8" fill="#e8f7ee" stroke="#157a45" stroke-width="1.5"/><text x="245" y="95" text-anchor="middle" direction="rtl" font-size="16" font-weight="800" fill="#157a45">ب</text><line x1="40" y1="59" x2="110" y2="59" stroke="#233042" stroke-width="2"/><line x1="210" y1="59" x2="280" y2="59" stroke="#233042" stroke-width="2"/><circle cx="160" cy="59" r="14" fill="#fff" stroke="#233042"/><text x="160" y="66" text-anchor="middle" direction="rtl" font-size="20" font-weight="800" fill="#233042">=</text><line x1="210" y1="29" x2="110" y2="89" stroke="#1f5f99" stroke-width="2.5" stroke-dasharray="6 4"/><line x1="110" y1="29" x2="210" y2="89" stroke="#157a45" stroke-width="2.5" stroke-dasharray="6 4"/><text x="160" y="124" text-anchor="middle" direction="rtl" font-size="14" font-weight="800" fill="#233042">أ × د = ب × جـ</text></svg>
+<div class="lwex">✏️ <strong>أمثلة من الكتاب خطوة بخطوة:</strong><div class="lwx"><strong>حلّ: <span class="frac"><span class="fn">٢١</span><span class="fd">٥</span></span> = <span class="frac"><span class="fn">جـ</span><span class="fd">٧</span></span></strong> <small>(ص ١٦٢)</small><div class="mline">الضرب التبادلي: ٢١ × ٧ = ٥ × جـ</div><div class="mline">١٤٧ = ٥جـ</div><div class="mline">اقسم على ٥: جـ = ٢٩,٤</div></div><div class="lwx"><strong>سعيد: ٤ دورات في ٦٤ ثانية ، و٥ دورات في ٧٦ ثانية، هل هي متناسبة؟</strong> <small>(ص ١٦٢)</small><div class="mline">٦٤ × ٥ = ٣٢٠ ، و٤ × ٧٦ = ٣٠٤</div><div class="mline">٣٢٠ ≠ ٣٠٤ ، إذن ليست متناسبة.</div></div><div class="lwx"><strong>من كل ١٨ مصابًا يتلقى ٢ العلاج، فكم من ٧٢؟</strong> <small>(ص ١٦٣)</small><div class="mline"><span class="frac"><span class="fn">٢</span><span class="fd">١٨</span></span> = <span class="frac"><span class="fn">س</span><span class="fd">٧٢</span></span></div><div class="mline">٢ × ٧٢ = ١٨ × س ، أي ١٤٤ = ١٨س</div><div class="mline">س = ٨ أشخاص.</div></div></div>
+<div class="lwtip">🧠 <strong>تذكّر (صياغة مساعدة):</strong> رتّب البسطين من النوع نفسه، والمقامين من النوع نفسه، ثم اضرب بشكل متقاطع.</div>
+</div></details>
+<details class="lw"><summary><span class="lwn">١٧</span> 🖍️ استراتيجية الرسم (٤-٦)</summary>
+<div class="lwbody">
+<div class="lwf" id="lwf16"><div class="lwr">«فكرة الدرس: أحلُّ المسائل باستعمال استراتيجية «الرسم».» <small>(ص ١٦٧)</small></div></div>
+<button class="lwcover" onclick="lwCover(16)">🙈 غطِّ القاعدة واكتبها من ذاكرتك / أظهرها</button>
+<div class="lwq">🎨 <strong>الرسم الملوّن:</strong> تلخيص بصري من إعداد الصفحة.</div>
+<svg viewBox="0 0 320 154" width="100%" style="max-width:440px;display:block;margin:8px auto;background:#fff;border-radius:14px;border:1px solid #e3e8f2" role="img" aria-label="ارتفاعات الكرة"><rect x="30" y="4" width="260" height="34" rx="8" fill="#f1eafb" stroke="#6b3fa0" stroke-width="1.5"/><text x="160" y="26" text-anchor="middle" direction="rtl" font-size="14" font-weight="800" fill="#6b3fa0">ارتفاع البداية: ١٢ م</text><text x="160" y="53" text-anchor="middle" direction="rtl" font-size="11" font-weight="700" fill="#5b6478">▼ نصف السابق</text><rect x="30" y="60" width="260" height="34" rx="8" fill="#e8f1fb" stroke="#1f5f99" stroke-width="1.5"/><text x="160" y="82" text-anchor="middle" direction="rtl" font-size="11.5" font-weight="800" fill="#1f5f99">الارتداد ١: ٦ م — الارتداد ٢: ٣ م</text><text x="160" y="109" text-anchor="middle" direction="rtl" font-size="11" font-weight="700" fill="#5b6478">▼ نصف السابق</text><rect x="30" y="116" width="260" height="34" rx="8" fill="#e8f7ee" stroke="#157a45" stroke-width="1.5"/><text x="160" y="138" text-anchor="middle" direction="rtl" font-size="11.5" font-weight="800" fill="#157a45">الارتداد ٣: متر ونصف ، والرابع: ثلاثة أرباع م</text></svg>
+<div class="lwex">✏️ <strong>أمثلة من الكتاب خطوة بخطوة:</strong><div style="font-size:.85rem;color:#5b6478">في درس الاستراتيجية مثال محلول واحد. وخطوات الكتاب: افهم ← خطّط ← حلّ ← تحقّق.</div><div class="lwx"><strong>كرة أُلقيت من ١٢ م، وترتد كل مرة إلى نصف الارتفاع الذي سقطت منه. ما ارتفاع الارتداد الرابع؟</strong> <small>(ص ١٦٧)</small><div class="mline">ارسم الارتدادات واحدًا بعد الآخر.</div><div class="mline">٦ م ، ثم ٣ م ، ثم ١ <span class="frac"><span class="fn">١</span><span class="fd">٢</span></span> م ، ثم <span class="frac"><span class="fn">٣</span><span class="fd">٤</span></span> م.</div><div class="mline">التحقق بالضرب في <span class="frac"><span class="fn">١</span><span class="fd">٢</span></span> أربع مرات:</div><div class="mline">١٢ × <span class="frac"><span class="fn">١</span><span class="fd">٢</span></span> × <span class="frac"><span class="fn">١</span><span class="fd">٢</span></span> × <span class="frac"><span class="fn">١</span><span class="fd">٢</span></span> × <span class="frac"><span class="fn">١</span><span class="fd">٢</span></span></div><div class="mline">= <span class="frac"><span class="fn">١٢</span><span class="fd">١٦</span></span> = <span class="frac"><span class="fn">٣</span><span class="fd">٤</span></span> م ✓</div></div></div>
+<div class="lwtip">🧠 <strong>تذكّر (صياغة مساعدة):</strong> ارسم المعطيات، ثم اقرأ الجواب من الرسم، ثم تحقّق بالحساب.</div>
+</div></details>
+<details class="lw"><summary><span class="lwn">١٨</span> 🗺️ مقياس الرسم وعامل المقياس (٤-٧)</summary>
+<div class="lwbody">
+<div class="lwf" id="lwf17"><div class="lwr">«تُستعمل مقاييس الرسم ومقاييس النماذج لتمثيل الأشياء التي تكون كبيرة جدًّا أو صغيرة جدا عندما ترسم بحجمها الحقيقيِّ.» <small>(ص ١٦٩)</small></div><div class="lwr">«ويعطي المقياس نسبة تقارن بين قياسات الرَّسم أو النموذج وقياسات الأشياء الحقيقية. فقياسات الرسم أو النموذج تتناسب مع القياسات الحقيقيَّة.» <small>(ص ١٦٩)</small></div><div class="lwr">«عند كتابة المقياس على صورة كسر في أبسط صورة دون وحدات فإنَّه يُسمَّى عامل المقياس.» <small>(ص ١٧١)</small></div></div>
+<button class="lwcover" onclick="lwCover(17)">🙈 غطِّ القاعدة واكتبها من ذاكرتك / أظهرها</button>
+<div class="lwq">🎨 <strong>الرسم الملوّن:</strong> تلخيص بصري من إعداد الصفحة.</div>
+<svg viewBox="0 0 320 128" width="100%" style="max-width:440px;display:block;margin:8px auto;background:#fff;border-radius:14px;border:1px solid #e3e8f2" role="img" aria-label="ملخص ملوّن"><rect x="178" y="6" width="136" height="34" rx="8" fill="#e8f1fb" stroke="#1f5f99" stroke-width="1.5"/><text x="246" y="28" text-anchor="middle" direction="rtl" font-size="13" font-weight="800" fill="#1f5f99">تناسب المقياس</text><rect x="6" y="6" width="166" height="34" rx="8" fill="#e8f1fb" stroke="#1f5f99" stroke-width="1.5"/><text x="89" y="28" text-anchor="middle" direction="rtl" font-size="10.5" font-weight="700" fill="#233042">رسم ÷ حقيقي = رسم ÷ حقيقي</text><rect x="178" y="46" width="136" height="34" rx="8" fill="#e8f7ee" stroke="#157a45" stroke-width="1.5"/><text x="246" y="68" text-anchor="middle" direction="rtl" font-size="13" font-weight="800" fill="#157a45">عامل المقياس</text><rect x="6" y="46" width="166" height="34" rx="8" fill="#e8f7ee" stroke="#157a45" stroke-width="1.5"/><text x="89" y="68" text-anchor="middle" direction="rtl" font-size="12.5" font-weight="700" fill="#233042">كسر مبسّط دون وحدات</text><rect x="178" y="86" width="136" height="34" rx="8" fill="#fde8e6" stroke="#c0392b" stroke-width="1.5"/><text x="246" y="108" text-anchor="middle" direction="rtl" font-size="13" font-weight="800" fill="#c0392b">قبل التبسيط</text><rect x="6" y="86" width="166" height="34" rx="8" fill="#fde8e6" stroke="#c0392b" stroke-width="1.5"/><text x="89" y="108" text-anchor="middle" direction="rtl" font-size="12.5" font-weight="700" fill="#233042">وحّد الوحدتين</text></svg>
+<div class="lwex">✏️ <strong>أمثلة من الكتاب خطوة بخطوة:</strong><div class="lwx"><strong>خريطة مقياسها ١ سم = ٢٤ كلم، والمسافة عليها بين مكة وجدة ٣ سم تقريبًا</strong> <small>(ص ١٦٩)</small><div class="mline"><span class="frac"><span class="fn">١ سم</span><span class="fd">٢٤ كلم</span></span> = <span class="frac"><span class="fn">٣ سم</span><span class="fd">ف</span></span></div><div class="mline">١ × ف = ٢٤ × ٣ ، أي ف = ٧٢ كلم تقريبًا.</div></div><div class="lwx"><strong>إعلان لهاتف طوله ١٠ سم بمقياس ٥ سم = ١ سم</strong> <small>(ص ١٧١)</small><div class="mline"><span class="frac"><span class="fn">٥ سم</span><span class="fd">١ سم</span></span> = <span class="frac"><span class="fn">س</span><span class="fd">١٠ سم</span></span></div><div class="mline">٥ × ١٠ = ١ × س ، أي طوله في الإعلان ٥٠ سم.</div></div><div class="lwx"><strong>عامل المقياس لنموذج طائرة: ١ سم = ٦ أمتار</strong> <small>(ص ١٧١)</small><div class="mline">حوّل: ٦ م = ٦٠٠ سم</div><div class="mline"><span class="frac"><span class="fn">١ سم</span><span class="fd">٦٠٠ سم</span></span> = <span class="frac"><span class="fn">١</span><span class="fd">٦٠٠</span></span></div></div></div>
+<div class="lwtip">🧠 <strong>تذكّر (صياغة مساعدة):</strong> اكتب دائمًا الرسم (أو النموذج) في البسط والحقيقي في المقام، كما في المقياس.</div>
+</div></details>
+<details class="lw"><summary><span class="lwn">١٩</span> 💯 من النسبة المئوية إلى الكسر (٤-٨)</summary>
+<div class="lwbody">
+<div class="lwf" id="lwf18"><div class="lwr">«يمكن كتابة النسب المئوية، مثل ٢٦٪ على صورة كسور اعتيادية مقاماتها ١٠٠، ثم اختصارها إلى أبسط صورة.» <small>(ص ١٧٦)</small></div></div>
+<button class="lwcover" onclick="lwCover(18)">🙈 غطِّ القاعدة واكتبها من ذاكرتك / أظهرها</button>
+<div class="lwq">🎨 <strong>الرسم الملوّن:</strong> تلخيص بصري من إعداد الصفحة.</div>
+<svg viewBox="0 0 320 154" width="100%" style="max-width:440px;display:block;margin:8px auto;background:#fff;border-radius:14px;border:1px solid #e3e8f2" role="img" aria-label="من النسبة المئوية إلى الكسر"><rect x="30" y="4" width="260" height="34" rx="8" fill="#f1eafb" stroke="#6b3fa0" stroke-width="1.5"/><text x="160" y="26" text-anchor="middle" direction="rtl" font-size="14" font-weight="800" fill="#6b3fa0">١٩٠٪</text><text x="160" y="53" text-anchor="middle" direction="rtl" font-size="11" font-weight="700" fill="#5b6478">▼ ضع العدد على ١٠٠</text><rect x="30" y="60" width="260" height="34" rx="8" fill="#e8f1fb" stroke="#1f5f99" stroke-width="1.5"/><text x="160" y="82" text-anchor="middle" direction="rtl" font-size="14" font-weight="800" fill="#1f5f99">١٩٠ على ١٠٠</text><text x="160" y="109" text-anchor="middle" direction="rtl" font-size="11" font-weight="700" fill="#5b6478">▼ اختصر إلى أبسط صورة</text><rect x="30" y="116" width="260" height="34" rx="8" fill="#e8f7ee" stroke="#157a45" stroke-width="1.5"/><text x="160" y="138" text-anchor="middle" direction="rtl" font-size="14" font-weight="800" fill="#157a45">١٩ على ١٠ = ١ و ٩ أعشار</text></svg>
+<div class="lwex">✏️ <strong>أمثلة من الكتاب خطوة بخطوة:</strong><div class="lwx"><strong>اكتب ١٩٠٪ على صورة كسر في أبسط صورة</strong> <small>(ص ١٧٦)</small><div class="mline"><span class="frac"><span class="fn">١٩٠</span><span class="fd">١٠٠</span></span> = <span class="frac"><span class="fn">١٩</span><span class="fd">١٠</span></span> = ١ <span class="frac"><span class="fn">٩</span><span class="fd">١٠</span></span></div></div><div class="lwx"><strong>اكتب ثمانية وثلثًا بالمئة (٨ <span class="frac"><span class="fn">١</span><span class="fd">٣</span></span> ٪) على صورة كسر</strong> <small>(ص ١٧٦)</small><div class="mline">٨ <span class="frac"><span class="fn">١</span><span class="fd">٣</span></span> ÷ ١٠٠ = <span class="frac"><span class="fn">٢٥</span><span class="fd">٣</span></span> ÷ ١٠٠</div><div class="mline">= <span class="frac"><span class="fn">٢٥</span><span class="fd">٣</span></span> × <span class="frac"><span class="fn">١</span><span class="fd">١٠٠</span></span> = <span class="frac"><span class="fn">٢٥</span><span class="fd">٣٠٠</span></span> = <span class="frac"><span class="fn">١</span><span class="fd">١٢</span></span></div></div></div>
+<div class="lwtip">🧠 <strong>تذكّر (صياغة مساعدة):</strong> «٪» تعني «على ١٠٠». وإذا زادت النسبة على ١٠٠٪ فالعدد أكبر من ١.</div>
+</div></details>
+<details class="lw"><summary><span class="lwn">٢٠</span> 🔄 من الكسر إلى النسبة المئوية (٤-٨)</summary>
+<div class="lwbody">
+<div class="lwf" id="lwf19"><div class="lwr">«اضرب البسط والمقام في عددٍ بحيث يصبح المقام مساويًا ١٠٠، وإذا لم يكن المقام قاسمًا أو عاملًا للعدد ١٠٠، فيمكنك كتابة الكسر الاعتيادي على صورة نسبة مئوية باستعمال التناسب.» <small>(ص ١٧٧)</small></div><div class="lwr">«يمكنك أيضًا كتابة الكسر الاعتيادي على صورة نسبة مئوية عن طريق كتابة الكسر الاعتيادي أولًا على صورة كسر عشري، ثم كتابة الكسر العشري على صورة نسبة مئوية.» <small>(ص ١٧٨)</small></div></div>
+<button class="lwcover" onclick="lwCover(19)">🙈 غطِّ القاعدة واكتبها من ذاكرتك / أظهرها</button>
+<div class="lwq">🎨 <strong>الرسم الملوّن:</strong> تلخيص بصري من إعداد الصفحة.</div>
+<svg viewBox="0 0 320 128" width="100%" style="max-width:440px;display:block;margin:8px auto;background:#fff;border-radius:14px;border:1px solid #e3e8f2" role="img" aria-label="ملخص ملوّن"><rect x="178" y="6" width="136" height="34" rx="8" fill="#e8f7ee" stroke="#157a45" stroke-width="1.5"/><text x="246" y="28" text-anchor="middle" direction="rtl" font-size="11" font-weight="800" fill="#157a45">المقام عامل للـ ١٠٠</text><rect x="6" y="6" width="166" height="34" rx="8" fill="#e8f7ee" stroke="#157a45" stroke-width="1.5"/><text x="89" y="28" text-anchor="middle" direction="rtl" font-size="10.5" font-weight="700" fill="#233042">اضرب البسط والمقام ليصير ١٠٠</text><rect x="178" y="46" width="136" height="34" rx="8" fill="#e8f1fb" stroke="#1f5f99" stroke-width="1.5"/><text x="246" y="68" text-anchor="middle" direction="rtl" font-size="13" font-weight="800" fill="#1f5f99">أيّ كسر</text><rect x="6" y="46" width="166" height="34" rx="8" fill="#e8f1fb" stroke="#1f5f99" stroke-width="1.5"/><text x="89" y="68" text-anchor="middle" direction="rtl" font-size="12.5" font-weight="700" fill="#233042">تناسب: الكسر = س على ١٠٠</text><rect x="178" y="86" width="136" height="34" rx="8" fill="#fff4d6" stroke="#8e5a00" stroke-width="1.5"/><text x="246" y="108" text-anchor="middle" direction="rtl" font-size="13" font-weight="800" fill="#8e5a00">عبر العشري</text><rect x="6" y="86" width="166" height="34" rx="8" fill="#fff4d6" stroke="#8e5a00" stroke-width="1.5"/><text x="89" y="108" text-anchor="middle" direction="rtl" font-size="10.5" font-weight="700" fill="#233042">اقسم ثم اضرب في ١٠٠ وأضف ٪</text></svg>
+<div class="lwex">✏️ <strong>أمثلة من الكتاب خطوة بخطوة:</strong><div class="lwx"><strong><span class="frac"><span class="fn">٤</span><span class="fd">١٥</span></span> نسبة مئوية (لأقرب جزء من مئة)</strong> <small>(ص ١٧٧)</small><div class="mline"><span class="frac"><span class="fn">٤</span><span class="fd">١٥</span></span> = <span class="frac"><span class="fn">ن</span><span class="fd">١٠٠</span></span></div><div class="mline">٤٠٠ = ١٥ن ، أي ن ≈ ٢٦,٦٧</div><div class="mline">إذن ≈ ٢٦,٦٧ ٪</div></div><div class="lwx"><strong><span class="frac"><span class="fn">٨٩</span><span class="fd">١٠٠٠٠٠</span></span> نسبة مئوية</strong> <small>(ص ١٧٧)</small><div class="mline"><span class="frac"><span class="fn">٨٩</span><span class="fd">١٠٠٠٠٠</span></span> = <span class="frac"><span class="fn">س</span><span class="fd">١٠٠</span></span></div><div class="mline">٨٩٠٠ = ١٠٠٠٠٠س ، أي س = ٠,٠٨٩</div><div class="mline">إذن ٠,٠٨٩ ٪</div></div><div class="lwx"><strong><span class="frac"><span class="fn">٥</span><span class="fd">٦</span></span> و<span class="frac"><span class="fn">٣</span><span class="fd">٥</span></span> عن طريق الكسر العشري</strong> <small>(ص ١٧٨)</small><div class="mline"><span class="frac"><span class="fn">٥</span><span class="fd">٦</span></span> = ٠,٨٣٣٣٣… ≈ ٨٣,٣٣ ٪</div><div class="mline"><span class="frac"><span class="fn">٣</span><span class="fd">٥</span></span> = ٠,٦ = ٦٠ ٪</div></div></div>
+<div class="lwtip">🧠 <strong>تذكّر (صياغة مساعدة):</strong> راجع المعقولية: ٤ على ١٥ قريب من ربع، أي قريب من ٢٥٪ (ص ١٧٧).</div>
+</div></details>
+<script>function lwCover(i){var e=document.getElementById('lwf'+i);if(e)e.classList.toggle('cov');}</script>
+<div style="text-align:center;margin-top:14px;font-weight:bold;color:#6f7a93;">ثم اختر تمرين الحفظ للبدء:</div>
+    <div id="markazi2Box" style="margin-top:18px;border-top:2px dashed #7fc9b6;padding-top:14px;">
+      <div style="text-align:center;font-weight:bold;color:#1e7a5e;"><span style="background:#dff7ef;border:1px solid #4fbf9a;border-radius:10px;padding:2px 10px;margin-inline-end:6px;">✨ جديد</span>تمارين حفظ القوانين</div>
+      <div class="small" style="text-align:center;margin-top:5px;">أسئلة «اكتب القاعدة» و«حلّ بالخطوات» ✍️ ومعها إكمال واختيار وصح وخطأ. اكتب على ورقتك أولًا ثم أظهر الإجابة. مسائل الحل من تمارين «تحقق من فهمك» في الكتاب، وحلولها من إعداد الصفحة.</div>
+      <div class="row" id="markazi2Buttons" style="margin-top:8px;"></div>
+      <button class="btn-main" style="margin-top:8px;background:linear-gradient(135deg,#1e7a5e,#2fa884);" onclick="startQuiz('nr')">📚 كل الأسئلة</button>
+    </div>
+    <div id="hasHistory" class="hide" style="text-align:center;margin-top:10px;">
+      <button class="btn-soft" onclick="showDashboard()">📊 لوحة المتابعة</button></div>
+  </div>
+
+  <div id="quiz" class="card hide">
+    <div class="topbar"><span class="unit-badge" id="unitBadge"></span><span class="pill" id="scorePill">⭐ ٠ / ٠</span></div>
+    <div class="progress"><div id="bar"></div></div>
+    <p class="small" id="qcount"></p>
+    <div class="typetag" id="typeTag"></div>
+    <div class="qtext" id="qtext"></div>
+    <p class="hint" id="qhint"></p>
+    <div id="opts"></div>
+    <div id="fb" class="fb"></div>
+    <div id="alarm" class="alarm">⛔ أجب عن السؤال أولاً قبل الانتقال</div>
+    <div class="row" style="margin-top:14px;">
+      <button class="btn-soft" onclick="confirmReset()">↺ إعادة من البداية</button>
+      <button class="btn-check" id="checkBtn" onclick="checkInput()" style="display:none;">تحقّق ✓</button>
+      <button class="btn-next" id="nextBtn" onclick="next()" disabled>التالي ➜</button>
+    </div>
+  </div>
+
+  <div id="results" class="card hide">
+    <div class="star" id="resEmoji">🎉</div>
+    <h1 id="resTitle">أحسنت! 🌟</h1>
+    <p class="sub" id="resLine"></p>
+    <div id="resBreakdown"></div>
+    <h3 style="margin-top:18px;">📊 تقرير وليّ الأمر</h3>
+    <div id="reportArea"></div>
+    <div class="row" style="margin-top:16px;">
+      <button class="btn-soft" onclick="goHome()">🏠 القائمة الرئيسية</button>
+      <button class="btn-soft" onclick="confirmReset()">↺ إعادة المحاولة</button>
+      <button class="btn-soft" onclick="clearHistory()">🗑️ مسح السجل</button></div>
+  </div>
+</div>
+
+<!-- ===== بنك الأسئلة في khalid-m1-math-rules.questions.js — عدّل ذلك الملف لإضافة/تغيير الأسئلة ===== -->
+<script src="config.js"></script>
+<script src="analytics.js"></script>
+<script src="khalid-m1-math-rules.questions.js?v=20261127a"></script>
+<script>
+const STORAGE_KEY = "khalid_m1_math_rules_attempts";
+const SUBJECT_KEY = "m1-math-rules";
+const TYPELABEL = {mcq:"✏️ اختر الإجابة الصحيحة", fill:"🔡 أكمل الفراغ", tf:"✅ صح أو خطأ", match:"🔗 صِلْ العمودين", essay:"✍️ سؤال مقالي"};
+
+
+/* ===== المحرّك (نفس محرّك نسخة الإنجليزي) ===== */
+let i=0, score=0, answered=false, startTime=0, perUnit={}, perType={}, wrongItems=[], studentName='', QUESTIONS=[], currentForm='', SAMPLE_SIZE=25;
+const ARDIG=s=>String(s).replace(/[0-9]/g,d=>"٠١٢٣٤٥٦٧٨٩"[d]);
+const norm=s=>{let t=(s||"").toString().trim().replace(/[٠-٩]/g,d=>"٠١٢٣٤٥٦٧٨٩".indexOf(d)).replace(/[۰-۹]/g,d=>"۰۱۲۳۴۵۶۷۸۹".indexOf(d)).replace(/[‎‏؜‪-‮⁦-⁩ـ]/g,'').replace(/[−–—﹣－‐‑‒]/g,'-').replace(/\s+/g,'').replace(/(\d)[,،٫](?=\d)/g,'$1.').replace(/[.،,]+$/,'').replace(/^[ء-ي]=/,'');if(/^\d+(\.\d+)?-$/.test(t))t='-'+t.slice(0,-1);if(/^-?(\d+(\.\d+)?|\.\d+)$/.test(t))t=String(parseFloat(t));return t;};
+/* نص خالٍ من الوسوم للتقرير: الكسر يُكتب «بسط على مقام» والرسوم تُحذف */
+function _plain(h){return String(h||'').replace(/<span class="figbox">[\s\S]*?<\/(svg|table)><\/span>/g,' ').replace(/<span class="frac"><span class="fn">([\s\S]*?)<\/span><span class="fd">([\s\S]*?)<\/span><\/span>/g,'($1 على $2)').replace(/<\/(div|li)>/g,' ').replace(/<[^>]+>/g,'').replace(/\s+/g,' ').trim();}
+/* الكسور تأتي جاهزة من البنك، فلا تحويل آليًّا هنا */
+function _frac(s){return s;}
+
+function show(id){['intro','quiz','results'].forEach(s=>document.getElementById(s).classList.add('hide'));
+  document.getElementById(id).classList.remove('hide'); window.scrollTo(0,0);}
+function goHome(){show('intro');try{renderFormStatus();}catch(e){}
+  try{if(typeof _countHit==='function')_countHit(SUBJECT_KEY);}catch(e){}}
+(function(){var _p=loadProgress();if(_p.name){var _ne=document.getElementById('studentName');if(_ne)_ne.value=_p.name;}if(_p.attempts&&_p.attempts.length){document.getElementById('hasHistory').classList.remove('hide');}try{renderFormStatus();}catch(e){}})();
+function startQuiz(form){var _e=document.getElementById('studentName');var _n=_e?(''+_e.value).trim():'';if(!_n){if(_e){_e.style.borderColor='#ff6b6b';_e.focus();}alert('اكتب اسمك أولاً للبدء 🙂');return;}studentName=_n;currentForm=form||'r';QUESTIONS=buildSample(currentForm);try{if(typeof _countHit==='function')_countHit(SUBJECT_KEY+'-f'+currentForm);}catch(e){};if(!QUESTIONS.length){return;}i=0;score=0;answered=false;perUnit={};perType={};wrongItems=[];startTime=Date.now();show('quiz');render();}
+
+function _rngSeed(s){var x=(s*9301+49297)%233280;return function(){x=(x*9301+49297)%233280;return x/233280;};}
+function _shufR(a,rnd){a=a.slice();for(var j=a.length-1;j>0;j--){var k=Math.floor(rnd()*(j+1));var t=a[j];a[j]=a[k];a[k]=t;}return a;}
+function _poolFor(mk){return mk?(typeof MARKAZI!=='undefined'?MARKAZI.slice():[]):(typeof POOL!=='undefined'?POOL.slice():[]);}
+function _m2pool(){return (typeof MARKAZI2!=='undefined'&&MARKAZI2)?MARKAZI2.slice():[];}
+function _m2sets(){return (typeof MARKAZI2_SETS!=='undefined'&&MARKAZI2_SETS&&MARKAZI2_SETS.length)?MARKAZI2_SETS.slice():(function(){var ns={};_m2pool().forEach(function(q){ns[q.s]=1;});return Object.keys(ns).map(function(n){return {n:parseInt(n,10),title:'نموذج جديد '+ARDIG(n)};}).sort(function(a,b){return a.n-b.n;});})();}
+function _withGen(base){if(typeof GENERATORS!=='undefined'){for(var g=0;g<GENERATORS.length;g++){try{var it=GENERATORS[g].make();if(it){it.u=it.u||GENERATORS[g].u;base.push(it);}}catch(e){}}}return base;}
+function _formSize(t){var s=Math.ceil(t/12);if(s<15)s=15;if(s>30)s=30;return s;}
+function _byUnitOrder(items,seedNum){var groups={},order=[];items.forEach(function(q){var u=q.u||'-';if(!groups[u]){groups[u]=[];order.push(u);}groups[u].push(q);});var r=_rngSeed(seedNum||12345);order.forEach(function(u){groups[u]=_shufR(groups[u],r);});order=_shufR(order,_rngSeed((seedNum||12345)+7));var out=[],i=0,more=true;while(more){more=false;for(var k=0;k<order.length;k++){var g=groups[order[k]];if(i<g.length){out.push(g[i]);more=true;}}i++;}return out;}
+function formCount(mk){var ord=_byUnitOrder(_poolFor(mk),mk?9001:12345);return Math.max(1,Math.ceil(ord.length/_formSize(ord.length)));}
+function buildSample(form){
+  if(typeof form==='string'&&form.charAt(0)==='n'){var nk=form.slice(1);var all=_m2pool();if(nk==='r'){return _shufR(all,Math.random);}var sn=parseInt(nk,10)||1;return all.filter(function(q){return String(q.s)===String(sn);});}
+  var mk=(typeof form==='string'&&form.charAt(0)==='m');var key=mk?form.slice(1):form;if(key==='r'){return _shufR(_withGen(_poolFor(mk)),Math.random);}var ord=_byUnitOrder(_poolFor(mk),mk?9001:12345);var size=_formSize(ord.length);var n=Math.max(1,Math.ceil(ord.length/size));var idx=((parseInt(key,10)||1)-1);if(idx<0)idx=0;idx=idx%n;return ord.slice(idx*size,(idx+1)*size);}
+function _mkFormBtn(label,form,extra){return '<button class="btn-main" style="font-size:1.02rem;padding:11px;'+(extra||'')+'" onclick="startQuiz(\''+form+'\')">'+label+'</button>';}
+function renderForms(){var AR=(document.documentElement.getAttribute('dir')==='rtl');var fb=document.getElementById('formButtons');if(fb){var n=formCount(false),h='';for(var k=1;k<=n;k++){h+=_mkFormBtn((AR?('نموذج '+ARDIG(k)):('Form '+k)),''+k);}fb.innerHTML=h;}var mb=document.getElementById('markaziButtons');if(mb&&typeof MARKAZI!=='undefined'&&MARKAZI&&MARKAZI.length){var m=formCount(true),h2='';for(var j=1;j<=m;j++){h2+=_mkFormBtn((AR?('مركزي '+ARDIG(j)):('Central '+j)),'m'+j,'background:linear-gradient(135deg,#8a6d1f,#b8860b);');}mb.innerHTML=h2;}
+  var nb=document.getElementById('markazi2Buttons');if(nb){var sets=_m2sets();var h3='';for(var z=0;z<sets.length;z++){var st=sets[z];h3+=_mkFormBtn(st.title||('نموذج جديد '+ARDIG(st.n)),'n'+st.n,'background:linear-gradient(135deg,#1e7a5e,#2fa884);');}nb.innerHTML=h3;}}
+try{renderForms();}catch(e){}
+function renderFormStatus(){
+  try{
+    var p=loadProgress();var atts=p.attempts||[];
+    var isAr=document.documentElement.getAttribute('dir')==='rtl';
+    var fb=document.getElementById('formButtons');
+    if(fb){var nf=formCount(false);var btns=fb.querySelectorAll('button');
+      for(var k=1;k<=nf;k++){var btn=btns[k-1];if(!btn)continue;
+        var done=atts.filter(function(a){return String(a.form)===String(k);});
+        if(done.length){var last=done[done.length-1];var pct=Math.round(last.correct/last.total*100);
+          if(!btn.querySelector('.fstatus')){var sp=document.createElement('span');sp.className='fstatus';
+            sp.style.cssText='display:block;font-size:.75rem;margin-top:2px;';
+            sp.textContent='✅ '+ARDIG(pct)+'%'+(done.length>1?' · '+ARDIG(done.length)+' مرّات':'');btn.appendChild(sp);}
+          btn.style.background='linear-gradient(135deg,#1e6e50,#2a8f6e)';}}}
+    var mb=document.getElementById('markaziButtons');
+    if(mb){var nm=(typeof MARKAZI!=='undefined'&&MARKAZI&&MARKAZI.length)?formCount(true):0;
+      var mbtns=mb.querySelectorAll('button');
+      for(var j=1;j<=nm;j++){var bm=mbtns[j-1];if(!bm)continue;
+        var dm=atts.filter(function(a){return a.form==='m'+j;});
+        if(dm.length){var lm=dm[dm.length-1];var pm=Math.round(lm.correct/lm.total*100);
+          if(!bm.querySelector('.fstatus')){var sm=document.createElement('span');sm.className='fstatus';
+            sm.style.cssText='display:block;font-size:.75rem;margin-top:2px;';
+            sm.textContent='✅ '+ARDIG(pm)+'%'+(dm.length>1?' · '+ARDIG(dm.length)+' مرّات':'');bm.appendChild(sm);}
+          bm.style.background='linear-gradient(135deg,#5a3d00,#8a6d1f)';}}}
+    var nb=document.getElementById('markazi2Buttons');
+    if(nb){var sets=_m2sets();var nbtns=nb.querySelectorAll('button');
+      for(var z=0;z<sets.length;z++){var bn=nbtns[z];if(!bn)continue;var sid='n'+sets[z].n;
+        var dn=atts.filter(function(a){return String(a.form)===sid;});
+        if(dn.length){var ln=dn[dn.length-1];var pn=Math.round(ln.correct/ln.total*100);
+          if(!bn.querySelector('.fstatus')){var sn2=document.createElement('span');sn2.className='fstatus';
+            sn2.style.cssText='display:block;font-size:.75rem;margin-top:2px;';
+            sn2.textContent='✅ '+ARDIG(pn)+'%'+(dn.length>1?' · '+ARDIG(dn.length)+' مرّات':'');bn.appendChild(sn2);}
+          bn.style.background='linear-gradient(135deg,#155c46,#1e7a5e)';}}}
+    var n2=formCount(false);var seenIds={};var doneIds=[];
+    atts.forEach(function(a){var f=String(a.form||'');
+      if(f&&f!=='r'&&f!=='?'&&!/^[mn]/.test(f)&&!seenIds[f]){seenIds[f]=1;doneIds.push(f);}});
+    var sumEl=document.getElementById('progressSummary');
+    if(sumEl&&n2>0){
+      sumEl.textContent=isAr?('✅ '+ARDIG(doneIds.length)+' من '+ARDIG(n2)+' نماذج مكتملة'):('✅ '+doneIds.length+' of '+n2+' forms done');
+      sumEl.style.display='';}
+  }catch(e){}
+}
+function showDashboard(){
+  var p=loadProgress();var atts=p.attempts||[];
+  var isAr=document.documentElement.getAttribute('dir')==='rtl';
+  show('results');
+  document.getElementById('resEmoji').textContent='📊';
+  document.getElementById('resTitle').textContent=isAr?'لوحة المتابعة':'Progress Dashboard';
+  document.getElementById('resLine').textContent=(p.name||(isAr?'الطالب':'Student'))+(isAr?' — سجلّ الاختبارات':' — Exam Records');
+  document.getElementById('resBreakdown').innerHTML='';
+  var n=formCount(false);
+  var nm=(typeof MARKAZI!=='undefined'&&MARKAZI&&MARKAZI.length)?formCount(true):0;
+  var allForms=[];
+  for(var k=1;k<=n;k++)allForms.push({id:String(k),label:isAr?('نموذج '+ARDIG(k)):('Form '+k)});
+  for(var j=1;j<=nm;j++)allForms.push({id:'m'+j,label:isAr?('مركزي '+ARDIG(j)):('Central '+j)});
+  var _ns=_m2sets();for(var z=0;z<_ns.length;z++)allForms.push({id:'n'+_ns[z].n,label:(_ns[z].title||(isAr?('نموذج جديد '+ARDIG(_ns[z].n)):('New set '+_ns[z].n)))});
+  if(atts.some(function(a){return a.form==='r';}))allForms.push({id:'r',label:isAr?'كل الأسئلة':'All Questions'});
+  var h='<table style="width:100%;border-collapse:collapse;font-size:.92rem;"><tr>'
+    +'<th>'+(isAr?'النموذج':'Form')+'</th>'
+    +'<th>'+(isAr?'آخر محاولة':'Last Attempt')+'</th>'
+    +'<th>'+(isAr?'النتيجة':'Score')+'</th>'
+    +'<th>'+(isAr?'الوقت':'Time')+'</th>'
+    +'<th>×</th></tr>';
+  var doneCt=0;
+  allForms.forEach(function(f){
+    var done=atts.filter(function(a){return String(a.form)===f.id;});
+    if(done.length){doneCt++;var last=done[done.length-1];
+      var pct=Math.round(last.correct/last.total*100);
+      var star=pct>=80?'🌟':pct>=60?'👍':'💪';
+      h+='<tr style="background:#f0faf5;"><td><b>'+f.label+'</b></td>'
+        +'<td style="font-size:.8rem;direction:ltr;text-align:center;">'+last.date+'</td>'
+        +'<td>'+star+' '+ARDIG(last.correct)+'/'+ARDIG(last.total)+' ('+ARDIG(pct)+'%)</td>'
+        +'<td>'+fmt(last.sec)+'</td><td>'+ARDIG(done.length)+'</td></tr>';
+    }else{
+      h+='<tr style="color:#bbb;"><td>'+f.label+'</td>'
+        +'<td colspan="4" style="text-align:center;">'+(isAr?'□ لم يُكمَل بعد':'□ not taken yet')+'</td></tr>';}
+  });
+  h+='</table>';
+  if(doneCt>0){
+    var scList=atts.filter(function(a){return a.total>0;}).map(function(a){return Math.round(a.correct/a.total*100);});
+    var avg=Math.round(scList.reduce(function(a,b){return a+b;},0)/(scList.length||1));
+    h+='<div class="parent" style="margin-top:10px;">📈 '
+      +(isAr?'<b>متوسط الدرجات:</b> ':'<b>Avg score:</b> ')
+      +ARDIG(avg)+'% · '
+      +(isAr?'اكتمل '+ARDIG(doneCt)+' من '+ARDIG(allForms.length)+' نموذج':'Completed '+doneCt+'/'+allForms.length+' forms')
+      +'</div>';}
+  document.getElementById('reportArea').innerHTML=h;
+}
+function _formLabelAR(f){if(!f)return'';if(f.charAt(0)==='n'){var sn=f.slice(1);if(sn==='r')return'كل الأسئلة الجديدة';var _t=_m2sets().filter(function(x){return String(x.n)===String(sn);})[0];return _t?_t.title:('نموذج جديد '+ARDIG(sn));}if(f.charAt(0)==='m'){var s=f.slice(1);return s==='r'?'كل أسئلة المركزي':'مركزي '+ARDIG(s);}return f==='r'?'كل الأسئلة':'نموذج '+ARDIG(f);}
+function _formLabelEN(f){if(!f)return'';if(f.charAt(0)==='n'){var sn=f.slice(1);return sn==='r'?'All new sets':'New set '+sn;}if(f.charAt(0)==='m'){var s=f.slice(1);return s==='r'?'All central':'Central '+s;}return f==='r'?'All questions':'Form '+f;}
+(function(){var _mb=document.getElementById('markaziBox');if(_mb&&(typeof MARKAZI==='undefined'||!MARKAZI||!MARKAZI.length)){_mb.style.display='none';}})();
+(function(){var _m2=document.getElementById('markazi2Box');if(_m2&&!_m2pool().length){_m2.style.display='none';}})();
+function render(){
+  answered=false; const Q=QUESTIONS[i];
+  document.getElementById('unitBadge').textContent=Q.u;
+  document.getElementById('scorePill').textContent='⭐ '+ARDIG(score)+' / '+ARDIG(i);
+  document.getElementById('qcount').textContent='السؤال '+ARDIG(i+1)+' من '+ARDIG(QUESTIONS.length);
+  document.getElementById('bar').style.width=(i/QUESTIONS.length*100)+'%';
+  document.getElementById('typeTag').textContent=TYPELABEL[Q.type]||'';
+  document.getElementById('qtext').innerHTML=_frac(Q.q);
+  document.getElementById('qhint').innerHTML=_frac(Q.hint?('💭 '+Q.hint):'');
+  document.getElementById('fb').className='fb'; document.getElementById('fb').innerHTML='';
+  document.getElementById('alarm').classList.remove('show');
+  document.getElementById('nextBtn').disabled=true;
+  document.getElementById('nextBtn').textContent=(i===QUESTIONS.length-1)?'إنهاء 🏁':'التالي ➜';
+  document.getElementById('checkBtn').style.display=(Q.type==='mcq'||Q.type==='tf')?'none':'';
+  document.getElementById('checkBtn').textContent=(Q.type==='essay')?'أظهر الإجابة النموذجية ✍️':'تحقّق ✓';
+  const ob=document.getElementById('opts'); ob.innerHTML='';
+  if(Q.type==='mcq') renderMCQ(Q,ob);
+  else if(Q.type==='tf') renderTF(Q,ob);
+  else if(Q.type==='fill') renderFill(Q,ob);
+  else if(Q.type==='match') renderMatch(Q,ob);
+  else if(Q.type==='essay') renderEssay(Q,ob);
+}
+function renderEssay(Q,ob){const ta=document.createElement('textarea');ta.className='essayBox';ta.id='essayInp';ta.placeholder='اكتب إجابتك هنا بأسلوبك…';ob.appendChild(ta);setTimeout(()=>ta.focus(),60);}
+function renderMCQ(Q,ob){Q.opts.forEach((o,k)=>{const b=document.createElement('button');b.className='opt';b.innerHTML=_frac(o);b.onclick=()=>{
+   lockOpts(); ob.querySelectorAll('.opt').forEach((bb,idx)=>{if(idx===Q.a)bb.classList.add('correct');if(idx===k&&k!==Q.a)bb.classList.add('wrong');});
+   grade(k===Q.a,Q.opts[Q.a],Q);};ob.appendChild(b);});}
+function renderTF(Q,ob){[['صح ✓',true],['خطأ ✗',false]].forEach(([lbl,val])=>{const b=document.createElement('button');
+   b.className='opt tf '+(val?'t':'f');b.textContent=lbl;b.onclick=()=>{lockOpts();grade(val===Q.a,(Q.a?'صح':'خطأ'),Q);};ob.appendChild(b);});}
+function renderFill(Q,ob){const inp=document.createElement('input');inp.className='inp';inp.id='fillInp';inp.placeholder='اكتب الإجابة هنا…';inp.autocomplete='off';
+   inp.onkeydown=e=>{if(e.key==='Enter')checkInput();};ob.appendChild(inp);setTimeout(()=>inp.focus(),60);}
+function renderMatch(Q,ob){const rights=shuffle(Q.pairs.map(p=>p[1]));
+   Q.pairs.forEach(p=>{const row=document.createElement('div');row.className='matchrow';row.dataset.correct=p[1];
+     const l=document.createElement('div');l.className='lft';l.textContent=p[0];row.appendChild(l);
+     const sel=document.createElement('select');sel.innerHTML='<option value="">— اختر —</option>'+rights.map(r=>'<option>'+r+'</option>').join('');
+     row.appendChild(sel);ob.appendChild(row);});}
+function checkInput(){if(answered)return;const Q=QUESTIONS[i];
+  if(Q.type==='essay'){const v=document.getElementById('essayInp');if(v)v.disabled=true;
+    document.getElementById('checkBtn').style.display='none';
+    const fb=document.getElementById('fb');fb.className='fb warn show';
+    fb.innerHTML='<b>📝 الإجابة النموذجية</b>'+_frac(Q.right)+'<div class="parent">✍️ قارن إجابتك بالإجابة النموذجية بنفسك، ثم اختر بأمانة:</div>'+
+      '<div class="selfgrade"><button class="btn-ok" onclick="gradeEssay(true)">إجابتي صحيحة ✅</button>'+
+      '<button class="btn-no" onclick="gradeEssay(false)">أحتاج مراجعة 🔁</button></div>';
+    return;}
+  if(Q.type==='fill'){const v=document.getElementById('fillInp').value;if(!v.trim()){alarm();return;}
+    var nv=norm(v);var _g=Q.accept.map(norm).indexOf(nv)>=0;var _a=(!_g&&Q.ok&&Q.ok.map(norm).indexOf(nv)>=0);document.getElementById('fillInp').style.borderColor=_g?'var(--green)':(_a?'#f5a623':'var(--red)');
+    document.getElementById('fillInp').disabled=true;grade(_g?true:(_a?'warn':false),Q.accept[0],Q);}
+  else if(Q.type==='match'){const rows=document.querySelectorAll('.matchrow');let all=true,filled=true;
+    rows.forEach(r=>{const s=r.querySelector('select');if(!s.value)filled=false;});
+    if(!filled){alarm();return;}
+    rows.forEach(r=>{const s=r.querySelector('select');const ok=s.value===r.dataset.correct;r.classList.add(ok?'ok':'no');if(!ok)all=false;s.disabled=true;});
+    grade(all,Q.pairs.map(p=>p[0]+' ⟵ '+p[1]).join(' ، '),Q);}
+}
+function gradeEssay(correct){if(answered)return;const Q=QUESTIONS[i];answered=true;
+  perType[Q.type]=(perType[Q.type]||{c:0,t:0});perType[Q.type].t++;
+  const uk=Q.u;perUnit[uk]=perUnit[uk]||{c:0,t:0};perUnit[uk].t++;
+  if(correct){score++;perUnit[uk].c++;perType[Q.type].c++;}
+  else{wrongItems.push({u:Q.u,q:_plain(Q.q),ans:_plain(Q.right),exp:'راجِع الإجابة النموذجية أعلاه.'});}
+  document.getElementById('scorePill').textContent='⭐ '+ARDIG(score)+' / '+ARDIG(i+1);
+  document.querySelectorAll('.selfgrade button').forEach(b=>b.disabled=true);
+  document.getElementById('nextBtn').disabled=false;}
+function alarm(){const a=document.getElementById('alarm');a.classList.add('show');setTimeout(()=>a.classList.remove('show'),1500);}
+function lockOpts(){document.querySelectorAll('#opts .opt').forEach(b=>b.classList.add('locked'));}
+function grade(correct,correctText,Q){answered=true; perType[Q.type]=(perType[Q.type]||{c:0,t:0}); perType[Q.type].t++; if(correct===true||correct==='warn'){perType[Q.type].c++;} else {wrongItems.push({u:Q.u,q:_plain(Q.q),ans:_plain(correctText),exp:_plain(Q.wrong)});}document.getElementById('checkBtn').style.display='none';
+  const uk=Q.u;perUnit[uk]=perUnit[uk]||{c:0,t:0};perUnit[uk].t++;const fb=document.getElementById('fb');
+  if(correct===true){score++;perUnit[uk].c++;fb.className='fb right show';fb.innerHTML='<b>✅ إجابة صحيحة</b>'+_frac(Q.right);}else if(correct==='warn'){score++;perUnit[uk].c++;fb.className='fb warn show';fb.innerHTML='<b>🟠 صحيحة — والأفضل كتابتها بالكامل</b>'+_frac(Q.right)+'<div class="parent">📝 الصيغة المفضّلة: «<b>'+_frac(correctText)+'</b>».</div>';}
+  else{fb.className='fb bad show';fb.innerHTML='<b>❌ ليست صحيحة</b>'+_frac(Q.wrong)+
+    '<div class="parent">👨‍👩‍👧 <strong>لوليّ الأمر:</strong> الإجابة الصحيحة: «<strong>'+_frac(correctText)+'</strong>». راجِعا السؤال معاً.</div>';}
+  document.getElementById('scorePill').textContent='⭐ '+ARDIG(score)+' / '+ARDIG(i+1);
+  document.getElementById('nextBtn').disabled=false;
+}
+function next(){if(!answered){alarm();return;}i++;if(i>=QUESTIONS.length)finish();else render();}
+function finish(){const dur=Math.round((Date.now()-startTime)/1000),wrong=QUESTIONS.length-score,wrongPct=Math.round(wrong/QUESTIONS.length*100);
+  const a=loadHistory();a.push({no:a.length+1,date:new Date().toLocaleString('ar'),form:currentForm||'r',total:QUESTIONS.length,correct:score,wrongPct,sec:dur});saveHistory(a);
+  show('results');const pct=Math.round(score/QUESTIONS.length*100);
+  document.getElementById('resEmoji').textContent=pct>=80?'🎉🌟':pct>=50?'😊👍':'💪📚';
+  document.getElementById('resTitle').textContent=(pct>=80?'🌟':pct>=50?'👍':'💪')+' '+studentName+'!';
+  document.getElementById('resLine').innerHTML='النتيجة: <b>'+ARDIG(score)+' / '+ARDIG(QUESTIONS.length)+'</b> ('+ARDIG(pct)+'%) · الزمن: '+fmt(dur);
+  let bd='<div style="margin-top:8px;">';for(const[k,v]of Object.entries(perUnit))bd+='<span class="pill">'+k.split('·')[0].trim()+': '+ARDIG(v.c)+'/'+ARDIG(v.t)+'</span>';bd+='</div>';
+  document.getElementById('resBreakdown').innerHTML=bd;renderFullReport(dur);}
+function showReport(standalone){if(standalone){show('results');document.getElementById('resEmoji').textContent='📊';
+   document.getElementById('resTitle').textContent='تقرير وليّ الأمر';document.getElementById('resLine').textContent='';document.getElementById('resBreakdown').innerHTML='';}
+  const a=loadHistory();let h='<p class="small">عدد المحاولات: <b>'+ARDIG(a.length)+'</b></p>';
+  if(a.length){h+='<table><tr><th>#</th><th>التاريخ</th><th>النتيجة</th><th>نسبة الخطأ</th><th>الزمن</th></tr>';
+    a.slice().reverse().forEach(x=>h+='<tr><td>'+ARDIG(x.no)+'</td><td>'+x.date+'</td><td>'+ARDIG(x.correct)+'/'+ARDIG(x.total)+'</td><td>'+ARDIG(x.wrongPct)+'%</td><td>'+fmt(x.sec)+'</td></tr>');
+    h+='</table>';const f=a[0];h+='<div class="parent">⭐ <b>المحاولة الأولى:</b> '+ARDIG(f.correct)+'/'+ARDIG(f.total)+' · نسبة الخطأ '+ARDIG(f.wrongPct)+'% · الزمن '+fmt(f.sec)+'. (محفوظة لمتابعة التقدّم)</div>';}
+  document.getElementById('reportArea').innerHTML=h;}
+function fmt(s){const m=Math.floor(s/60),x=s%60;return (m?ARDIG(m)+' د ':'')+ARDIG(x)+' ث';}
+function shuffle(a){a=a.slice();for(let j=a.length-1;j>0;j--){const k=Math.floor(Math.random()*(j+1));[a[j],a[k]]=[a[k],a[j]];}return a;}
+
+var NL=String.fromCharCode(10);
+var TYPENAME={mcq:'اختيار من متعدد',tf:'صح/خطأ',fill:'إكمال',match:'توصيل',reorder:'ترتيب',spell:'إملاء'};
+function _pc(c,t){return t?Math.round(c/t*100):0;}
+function injectPrintCSS(){if(document.getElementById('printcss'))return;var st=document.createElement('style');st.id='printcss';st.textContent='@media print{body *{visibility:hidden!important}#printable,#printable *{visibility:visible!important}#printable{position:absolute;inset:0;width:100%;padding:8mm;font-size:13px;color:#000}.noprint{display:none!important}#printable table{border-collapse:collapse;width:100%;margin:6px 0}#printable th,#printable td{border:1px solid #888;padding:4px 8px;text-align:right}}';document.head.appendChild(st);}
+function reportData(dur){var total=QUESTIONS.length,correct=score,wrong=total-correct;
+  var units=Object.keys(perUnit).map(function(k){var v=perUnit[k];return {u:k,c:v.c,t:v.t,p:_pc(v.c,v.t)};});
+  var types=Object.keys(perType).map(function(k){var v=perType[k];return {ty:k,c:v.c,t:v.t,p:_pc(v.c,v.t)};});
+  var weak=units.filter(function(u){return u.p<100;}).sort(function(a,b){return a.p-b.p;});
+  return {total:total,correct:correct,wrong:wrong,p:_pc(correct,total),dur:dur,units:units,types:types,weak:weak,started:new Date(startTime),ended:new Date()};}
+function renderFullReport(dur){injectPrintCSS();var d=reportData(dur);var subj=document.title+(currentForm?(' · '+_formLabelAR(currentForm)):'');
+  var h='<div id="printable" style="text-align:right;direction:rtl;">';
+  h+='<h2 style="margin:.2em 0;">📊 تقرير وليّ الأمر</h2><p style="margin:.2em 0;"><b>الطالب:</b> '+(studentName||'-')+'</p><p style="margin:.2em 0;color:#555;">'+subj+'</p>';
+  h+='<table><tr><th>التاريخ والوقت</th><td>'+d.started.toLocaleString('ar')+'</td></tr>';
+  h+='<tr><th>الزمن المستغرق</th><td>'+fmt(d.dur)+'</td></tr>';
+  h+='<tr><th>عدد الأسئلة</th><td>'+ARDIG(d.total)+'</td></tr>';
+  h+='<tr><th>إجابات صحيحة</th><td>'+ARDIG(d.correct)+'</td></tr>';
+  h+='<tr><th>إجابات خاطئة</th><td>'+ARDIG(d.wrong)+'</td></tr>';
+  h+='<tr><th>النسبة المئوية</th><td>'+ARDIG(d.p)+'%</td></tr></table>';
+  h+='<h3>الأداء حسب الوحدة</h3><table><tr><th>الوحدة</th><th>صحيح/الكل</th><th>النسبة</th></tr>';
+  d.units.forEach(function(u){h+='<tr><td>'+u.u+'</td><td>'+ARDIG(u.c)+'/'+ARDIG(u.t)+'</td><td>'+ARDIG(u.p)+'%</td></tr>';});h+='</table>';
+
+
+  if(d.weak.length){h+='<h3>👀 ركّزوا هنا (الوحدات الأكثر خطأً)</h3><ul>';d.weak.forEach(function(u){h+='<li>'+u.u+' — '+ARDIG(u.p)+'%</li>';});h+='</ul>';}
+  if(wrongItems.length){h+='<h3>الأسئلة التي أُخطئ فيها ('+ARDIG(wrongItems.length)+')</h3><ol style="padding-inline-start:18px;">';
+    wrongItems.forEach(function(w){h+='<li style="margin-bottom:6px;"><div>'+w.u+'</div><div>'+_frac(w.q)+'</div><div style="color:#137333;">الإجابة الصحيحة: '+_frac(w.ans)+'</div>'+(w.exp?'<div style="color:#7a5b00;">💡 '+_frac(w.exp)+'</div>':'')+'</li>';});h+='</ol>';}
+  else{h+='<p style="color:#137333;font-weight:bold;">ممتاز! لا توجد أخطاء. 🌟</p>';}
+  h+='<p style="color:#999;font-size:.82rem;">أُنشئ التقرير في '+d.ended.toLocaleString('ar')+'</p></div>';
+  h+='<div class="noprint" style="margin-top:14px;display:flex;gap:8px;flex-wrap:wrap;justify-content:center;">'+
+     '<button class="btn-soft" onclick="printReport()">🖨️ حفظ PDF / طباعة</button>'+
+     '<button class="btn-soft" onclick="copyReport()">📋 نسخ التقرير</button>'+
+     '<button class="btn-soft" onclick="downloadReport()">⬇️ تنزيل التقرير (نصي)</button><button class="btn-soft" onclick="shareReport()">📤 مشاركة (واتساب…)</button></div>';
+  if(typeof LOG_ENDPOINT!=='undefined'&&LOG_ENDPOINT){h+='<div class="noprint" style="margin-top:14px;background:#fff8e6;border:2px dashed #ffd166;border-radius:12px;padding:10px;"><div style="font-weight:bold;margin-bottom:6px;">📝 ملاحظة لوليّ الأمر (تصل للمعلّم):</div><textarea id="parentNote" rows="2" style="width:100%;border-radius:10px;border:2px solid #e7eef7;padding:8px;font-family:inherit;font-size:1rem;"></textarea><button class="btn-soft" style="margin-top:6px;" onclick="sendNote()">✉️ إرسال الملاحظة للمعلّم</button></div>';} var a=loadHistory();
+  if(a.length){h+='<div class="noprint"><h3>سجلّ المحاولات ('+ARDIG(a.length)+')</h3><table><tr><th>#</th><th>التاريخ</th><th>النتيجة</th><th>نسبة الخطأ</th><th>الزمن</th></tr>';
+    a.slice().reverse().forEach(function(x){h+='<tr><td>'+ARDIG(x.no)+'</td><td>'+x.date+'</td><td>'+ARDIG(x.correct)+'/'+ARDIG(x.total)+'</td><td>'+ARDIG(x.wrongPct)+'%</td><td>'+fmt(x.sec)+'</td></tr>';});h+='</table></div>';}
+  document.getElementById('reportArea').innerHTML=h;
+  window._reportText=reportText(d,subj);sendLog(d);}
+function reportText(d,subj){var L=[];L.push('تقرير وليّ الأمر — '+subj);L.push('الطالب: '+(studentName||'-'));L.push('التاريخ والوقت: '+d.started.toLocaleString('ar'));
+  L.push('الزمن المستغرق: '+fmt(d.dur));L.push('النتيجة: '+d.correct+' / '+d.total+' ('+d.p+'%)');L.push('إجابات خاطئة: '+d.wrong);
+  L.push('');L.push('الأداء حسب الوحدة:');d.units.forEach(function(u){L.push('  - '+u.u+': '+u.c+'/'+u.t+' ('+u.p+'%)');});
+
+  if(d.weak.length){L.push('');L.push('نقاط تحتاج مراجعة:');d.weak.forEach(function(u){L.push('  - '+u.u+' ('+u.p+'%)');});}
+  if(wrongItems.length){L.push('');L.push('الأسئلة التي أُخطئ فيها:');wrongItems.forEach(function(w,n){L.push('  '+(n+1)+') ['+w.u+'] '+w.q+' ← الصحيح: '+w.ans+(w.exp?(NL+'      💡 '+w.exp):''));});}
+  return L.join(NL);}
+var SHARE_TITLE='تقرير الطالب';var NOTE_EMPTY='اكتب الملاحظة أولاً.';var NOTE_OFF='الإرسال غير مُفعّل بعد.';var NOTE_OK='تم إرسال ملاحظتك للمعلّم، شكراً ✅';var NOTE_FAIL='تعذّر الإرسال.';
+function shareReport(){var t=window._reportText||'';if(navigator.share){navigator.share({title:SHARE_TITLE,text:t}).catch(function(){});}else{window.open('https://wa.me/?text='+encodeURIComponent(t),'_blank');}}
+function sendLog(d){try{if(typeof LOG_ENDPOINT==='undefined'||!LOG_ENDPOINT)return;fetch(LOG_ENDPOINT,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({kind:'attempt',name:studentName||'',subject:document.title,score:d.correct,total:d.total,wrongPct:_pc(d.wrong,d.total),timeSec:d.dur,weak:d.weak.map(function(u){return u.u+' ('+u.p+'%)';}).join('; '),date:d.started.toISOString(),note:''})}).catch(function(){});}catch(e){}}
+function sendNote(){var el=document.getElementById('parentNote');var n=el?(''+el.value).trim():'';if(!n){alert(NOTE_EMPTY);return;}if(typeof LOG_ENDPOINT==='undefined'||!LOG_ENDPOINT){alert(NOTE_OFF);return;}try{fetch(LOG_ENDPOINT,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({kind:'note',name:studentName||'',subject:document.title,note:n,date:new Date().toISOString()})}).catch(function(){});alert(NOTE_OK);if(el)el.value='';}catch(e){alert(NOTE_FAIL);}}
+function printReport(){window.print();}
+function copyReport(){var t=window._reportText||'';if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(t).then(function(){alert('تم نسخ التقرير ✅');},function(){_fbCopy(t);});}else{_fbCopy(t);}}
+function _fbCopy(t){var ta=document.createElement('textarea');ta.value=t;document.body.appendChild(ta);ta.select();try{document.execCommand('copy');alert('تم نسخ التقرير ✅');}catch(e){alert('انسخ يدوياً:'+NL+NL+t);}document.body.removeChild(ta);}
+function downloadReport(){var t=window._reportText||'';var blob=new Blob([t],{type:'text/plain;charset=utf-8'});var url=URL.createObjectURL(blob);var a=document.createElement('a');a.href=url;a.download='تقرير-'+document.title.slice(0,20)+'.txt';document.body.appendChild(a);a.click();document.body.removeChild(a);setTimeout(function(){URL.revokeObjectURL(url);},1500);}
+
+function loadProgress(){try{var v2=JSON.parse(localStorage.getItem(STORAGE_KEY+'_v2'));if(v2&&v2.attempts)return v2;var old=JSON.parse(localStorage.getItem(STORAGE_KEY));if(old&&old.length)return {name:'',attempts:old.map(function(a){return Object.assign({form:'?'},a);})};}catch(e){}return {name:'',attempts:[]};}
+function saveProgress(p){try{localStorage.setItem(STORAGE_KEY+'_v2',JSON.stringify(p));}catch(e){}}
+function loadHistory(){return loadProgress().attempts;}
+function saveHistory(a){var p=loadProgress();p.attempts=a;if(typeof studentName!=='undefined'&&studentName)p.name=studentName;saveProgress(p);}
+function confirmReset(){if(confirm('هل تريدين إعادة الاختبار من البداية؟'))startQuiz();}
+function clearHistory(){if(confirm('مسح تقرير وليّ الأمر المحفوظ؟')){localStorage.removeItem(STORAGE_KEY);localStorage.removeItem(STORAGE_KEY+'_v2');show('intro');try{renderFormStatus();}catch(e){};}}
+</script>
+</body>
+</html>
