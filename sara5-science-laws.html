@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>مفاهيم وقوانين العلوم — الصف الخامس الابتدائي</title>
+<!--
+  سارة — الصف الخامس الابتدائي — مفاهيم وقوانين العلوم (حفظ ومراجعة وكتابة)
+  المصدر: كتاب العلوم — الجزء الأول (ص ٨٦–١٧٩). البنك في sara5-science-laws.questions.js
+-->
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@600;700;800&display=swap');
+  h1,h2,h3{font-family:'Cairo','Segoe UI',Tahoma,Arial,sans-serif;font-weight:800;letter-spacing:.2px;}
+  :root{--pink:#2f8f86;--purple:#284b6d;--blue:#2f6fb0;--green:#2e8f72;--yellow:#e3c069;--red:#cf5b3f;--ink:#233042;--soft:#f3f7fb;}
+  *{box-sizing:border-box;}
+  html{-webkit-text-size-adjust:100%;}
+  body{margin:0;font-family:"Segoe UI",Tahoma,"Geeza Pro",sans-serif;color:var(--ink);
+       background:linear-gradient(135deg,#eef2f7,#e8eef4 55%,#edf2f1);min-height:100vh;
+       padding:calc(16px + env(safe-area-inset-top)) calc(14px + env(safe-area-inset-right)) calc(16px + env(safe-area-inset-bottom)) calc(14px + env(safe-area-inset-left));}
+  button,select,input,.chip{touch-action:manipulation;-webkit-tap-highlight-color:rgba(0,0,0,0);font-family:inherit;}
+  .wrap{max-width:780px;margin:0 auto;}
+  .card{background:#fff;border-radius:26px;padding:24px;box-shadow:0 14px 40px rgba(90,120,180,.22);}
+  h1{margin:.2em 0;font-size:1.6rem;text-align:center;}
+  .sub{text-align:center;color:#6f7a93;margin-bottom:14px;font-size:1rem;}
+  button{cursor:pointer;border:none;border-radius:16px;font-size:1.08rem;padding:12px 18px;transition:transform .08s;}
+  button:active{transform:scale(.97);}
+  .btn-main{background:linear-gradient(135deg,var(--blue),var(--green));color:#fff;font-weight:bold;box-shadow:0 6px 16px rgba(76,201,240,.4);width:100%;font-size:1.25rem;padding:16px;}
+  .pill{display:inline-block;background:var(--yellow);color:#6b4e00;border-radius:999px;padding:5px 14px;font-weight:bold;font-size:.92rem;margin:3px;}
+  .typetag{display:inline-block;background:#e7f0ff;color:#2f6fb0;border-radius:999px;padding:3px 14px;font-size:.9rem;font-weight:bold;margin-bottom:8px;}
+  .unit-badge{background:linear-gradient(135deg,var(--purple),var(--pink));color:#fff;border-radius:14px;padding:8px 16px;font-weight:bold;display:inline-block;font-size:1rem;}
+  .qtext{font-size:1.35rem;font-weight:bold;margin:6px 0;line-height:1.7;}
+  .hint{color:#7f8aa6;font-size:1.02rem;margin-bottom:12px;}
+  .opt{display:block;width:100%;text-align:right;background:var(--soft);border:3px solid #e7eef7;color:var(--ink);margin:9px 0;font-size:1.2rem;overflow-wrap:break-word;}
+  .opt:hover{border-color:var(--blue);}
+  .opt.correct{background:#d6f7ec;border-color:var(--green);}
+  .opt.wrong{background:#ffe0e0;border-color:var(--red);}
+  .opt.locked{pointer-events:none;opacity:.92;}
+  .tf{display:inline-block;width:46%;margin:2%;font-size:1.3rem;font-weight:bold;}
+  .tf.t{background:#e3fbf1;color:#1f8f6f;border:3px solid #a7e8d2;}
+  .tf.f{background:#ffeaea;color:#c0392b;border:3px solid #ffc2c2;}
+  .inp{font-size:1.25rem;padding:10px 14px;border-radius:12px;border:3px solid #e7eef7;width:100%;text-align:center;}
+  .essayBox{font-size:1.12rem;padding:12px 14px;border-radius:14px;border:3px solid #e7eef7;width:100%;min-height:110px;font-family:inherit;resize:vertical;}
+  .selfgrade{display:flex;gap:10px;margin-top:10px;}
+  .selfgrade button{flex:1;}
+  .btn-ok{background:linear-gradient(135deg,var(--green),#4fd19a);color:#fff;font-weight:bold;}
+  .btn-no{background:linear-gradient(135deg,var(--red),#ff9472);color:#fff;font-weight:bold;}
+  .matchrow{display:flex;align-items:center;gap:10px;margin:8px 0;flex-wrap:wrap;}
+  .matchrow .lft{flex:1;min-width:150px;background:var(--soft);border-radius:10px;padding:8px 12px;font-size:1.05rem;}
+  .matchrow select{font-size:1rem;padding:8px;border-radius:10px;border:3px solid #e7eef7;min-width:160px;flex:1;}
+  .matchrow.ok .lft{background:#d6f7ec;} .matchrow.no .lft{background:#ffe0e0;}
+  .fb{border-radius:16px;padding:14px 16px;margin-top:12px;font-size:1.08rem;line-height:1.7;display:none;}
+  .fb.show{display:block;animation:pop .3s;}
+  .fb.right{background:#e3fbf1;border:2px solid var(--green);}
+  .fb.bad{background:#fff0f0;border:2px solid var(--red);}
+  .fb.warn{background:#fff4e0;border:2px solid #f5a623;color:#8a5a00;}
+  .fb b{display:block;margin-bottom:4px;font-size:1.12rem;}
+  .parent{margin-top:10px;background:#fff8e6;border:2px dashed #ffd166;border-radius:12px;padding:10px 12px;font-size:1rem;color:#7a5b00;}
+  @keyframes pop{from{transform:scale(.9);opacity:0;}to{transform:scale(1);opacity:1;}}
+  @keyframes shake{0%,100%{transform:translateX(0);}25%{transform:translateX(-8px);}75%{transform:translateX(8px);}}
+  .shake{animation:shake .4s;}
+  .topbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;flex-wrap:wrap;gap:8px;}
+  .progress{height:16px;background:#eee;border-radius:999px;overflow:hidden;margin:8px 0 4px;}
+  .progress>div{height:100%;background:linear-gradient(90deg,var(--green),var(--blue));width:0;transition:width .4s;}
+  .row{display:flex;gap:10px;flex-wrap:wrap;}.row button{flex:1;}
+  .btn-soft{background:#eef3ff;color:var(--purple);font-weight:bold;}
+  .btn-check{background:linear-gradient(135deg,var(--yellow),#ffb14e);color:#6b4e00;font-weight:bold;}
+  .btn-next{background:linear-gradient(135deg,var(--green),var(--blue));color:#fff;font-weight:bold;}
+  .btn-next:disabled{filter:grayscale(.7);opacity:.5;cursor:not-allowed;}
+  .alarm{background:var(--red);color:#fff;border-radius:12px;padding:10px 14px;margin-top:10px;font-weight:bold;display:none;text-align:center;}
+  .alarm.show{display:block;animation:shake .4s;}
+  table{width:100%;border-collapse:collapse;margin-top:10px;font-size:.95rem;}
+  th,td{border:1px solid #e6ecf5;padding:7px;text-align:center;}th{background:var(--purple);color:#fff;}
+  .star{font-size:2.6rem;text-align:center;}.small{font-size:.9rem;color:#8a93ad;}.hide{display:none;}
+  #reportArea{overflow-x:auto;}
+  @media (max-width:560px){
+    .card{padding:16px;border-radius:20px;} h1{font-size:1.3rem;} .qtext{font-size:1.18rem;}
+    .opt{font-size:1.1rem;padding:12px 14px;} .tf{width:100%;margin:6px 0;}
+    .matchrow{flex-direction:column;align-items:stretch;} .matchrow select,.matchrow .lft{width:100%;}
+    .row{flex-direction:column;} .row button{width:100%;} table{font-size:.85rem;} th,td{padding:5px;}
+  }
+  /* ===== كسور على هيئة الكتاب: بسط فوق، خط، مقام تحت ===== */
+  .frac{display:inline-flex;flex-direction:column;align-items:center;justify-content:center;
+        vertical-align:-0.45em;margin:0 .14em;line-height:1.05;text-align:center;}
+  .frac>.fn{display:block;padding:0 .3em;border-bottom:.12em solid currentColor;}
+  .frac>.fd{display:block;padding:.04em .3em 0;}
+  .opt .frac,.qtext .frac{vertical-align:-0.5em;}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div id="intro" class="card">
+    <div class="star">🧠🔬✍️</div>
+    <h1>أهلاً بك! 🌟</h1>
+    <p class="sub">مفاهيم وقوانين العلوم — الصف الخامس الابتدائي: احفظيها، ومثّليها، واكتبيها</p>
+    <div style="text-align:center;margin:8px 0;">
+      <span class="pill">🌍 الأنظمة البيئية والتكيف</span><span class="pill">🔄 الدورات والتغيرات</span><span class="pill">🏔️ أرضنا المتغيرة</span><span class="pill">⚡ مصادر الطاقة</span>
+    </div>
+    <div style="text-align:center;margin:8px 0;" class="small">أنواع الأسئلة: ✏️ اختيار · 🔡 إكمال · ✅ صح/خطأ · 🔗 توصيل · ✍️ مقالي</div>
+    <div class="parent">💡 <b>للطالبة:</b> أجيبي ثم اضغطي «تحقّق». للأسئلة المقالية ✍️ اكتبي إجابتك بنفسك ثم اضغطي «أظهر الإجابة» وقارنيها بإجابتك بأمانة. اقرئي الصندوق الأخضر (لماذا الإجابة صحيحة) أو الوردي (الشرح والتصحيح).
+      لا يمكنك الانتقال إلى السؤال التالي قبل الإجابة. في النهاية يوجد تقرير محفوظ لوليّ الأمر لمتابعة تقدّمك.</div>
+    <div style="margin-top:10px;"><input id="studentName" class="inp" autocomplete="off" placeholder="اكتبي اسمك هنا ✏️" style="text-align:center;max-width:340px;margin:0 auto;display:block;"></div>
+    <style>
+.lwmethod{background:#fff8e1;border:2px dashed #e3c069;border-radius:14px;padding:10px 12px;margin:12px 0;line-height:1.9;font-size:.95rem}
+details.lw{background:#f6faff;border:2px solid #cfe0f5;border-radius:16px;margin:10px 0;overflow:hidden}
+details.lw>summary{cursor:pointer;font-weight:800;padding:12px 14px;font-size:1.02rem;color:#1f4f82;list-style:none}
+details.lw>summary::-webkit-details-marker{display:none}
+.lwn{display:inline-block;background:#2f6fb0;color:#fff;border-radius:50%;width:26px;height:26px;text-align:center;line-height:26px;font-size:.9rem;margin-inline-end:4px}
+.lwbody{padding:4px 14px 14px}
+.lwf{background:linear-gradient(135deg,#1e7a5e,#2f6fb0);color:#fff;border-radius:14px;padding:12px;text-align:center;font-size:1.05rem;font-weight:800;line-height:1.9;transition:filter .2s}
+.lwf.cov{filter:blur(9px);user-select:none}
+.lwcover{display:block;margin:8px auto;background:#fff;border:2px solid #2f6fb0;color:#1f4f82;border-radius:12px;padding:8px 12px;font-weight:700;cursor:pointer;font-family:inherit}
+.lwq{background:#fff;border-radius:12px;padding:9px 11px;margin-top:8px;font-size:.95rem;line-height:1.8;color:#3b4a63}
+.lwm{margin-top:5px;color:#3b4a63}
+.lwcap{font-size:.75rem;color:#8a93a8;text-align:center;margin-top:8px}
+.lwex{background:#eafaf0;border-radius:12px;padding:9px 11px;margin-top:8px;line-height:1.8}
+.lwtip{background:#fff4d6;border-radius:12px;padding:9px 11px;margin-top:8px;line-height:1.8}
+details.lw.hidecover .lwq,details.lw.hidecover svg,details.lw.hidecover .lwex,details.lw.hidecover .lwtip{filter:blur(9px)}
+</style>
+<div class="lwmethod">🧠 <strong>طريقة «شاهد ← مثّل ← غطِّ ← اكتب ← صحّح»</strong><br>
+١) <strong>شاهدي</strong> المفهوم والرسم.<br>٢) <strong>مثّليه</strong> بيدك: ارسمي الشكل أو اذكري مثالًا.<br>٣) اضغطي <strong>غطّي</strong>.<br>٤) <strong>اكتبي</strong> المفهوم بخط يدك.<br>٥) <strong>صحّحي</strong>: اكشفي البطاقة وقارني، ثم حلّي تمارين الحفظ في الأسفل.</div>
+<div style="text-align:center;font-weight:800;color:#1f4f82;margin-top:10px">📚 بطاقات المفاهيم والقوانين (٢٣ بطاقة)</div>
+<details class="lw" open><summary><span class="lwn">١</span> 🌍 النظام البيئي وعوامله</summary>
+<div class="lwbody">
+<div class="lwf" id="lwf0">النظام البيئي = مخلوقات حية (عوامل حيوية) + أشياء غير حية (عوامل لاحيوية) + تفاعلاتها معًا في بيئة معينة.</div>
+<button class="lwcover" onclick="lwCover(0)">🙈 غطّي وحاولي الكتابة من ذاكرتك</button>
+<div class="lwq">📖 <strong>من الكتاب:</strong><div class="lwm">«النظام البيئي يتشكل من المخلوقات الحية (العوامل الحيوية) والأشياء غير الحية (العوامل اللاحيوية) وتفاعلاتها معا في بيئة معينة.» <strong>(ص ٨٦)</strong></div><div class="lwm">«ومن العوامل اللاحيوية المحددة أيضا نوع التربة، والمأوى، وضوء الشمس.» <strong>(ص ٨٦)</strong></div></div>
+<div class="lwcap">رسم تلخيصي مبسّط أُعدّ للمذاكرة (ليس صورة من الكتاب)</div><svg viewBox="0 0 340 118" role="img" style="display:block;width:100%;max-width:420px;margin:8px auto;background:#fff;border:1px solid #e3e8f2;border-radius:14px;" xmlns="http://www.w3.org/2000/svg"><rect x="174" y="8" width="158" height="102" rx="9" fill="#e3f0ff" stroke="#2f6fb0" stroke-width="2"/><text x="253" y="29" text-anchor="middle" direction="rtl" font-size="13" font-weight="700" fill="#2f6fb0">عوامل حيوية</text><text x="253" y="54" text-anchor="middle" direction="rtl" font-size="12.5" font-weight="700" fill="#1d2b3a">المخلوقات الحية</text><rect x="8" y="8" width="158" height="102" rx="9" fill="#e6f7ec" stroke="#2e8f55" stroke-width="2"/><text x="87" y="29" text-anchor="middle" direction="rtl" font-size="13" font-weight="700" fill="#2e8f55">عوامل لاحيوية</text><text x="87" y="54" text-anchor="middle" direction="rtl" font-size="12.5" font-weight="700" fill="#1d2b3a">نوع التربة</text><text x="87" y="76" text-anchor="middle" direction="rtl" font-size="12.5" font-weight="700" fill="#1d2b3a">المأوى</text><text x="87" y="98" text-anchor="middle" direction="rtl" font-size="12.5" font-weight="700" fill="#1d2b3a">ضوء الشمس</text></svg>
+<div class="lwex">✏️ <strong>أمثلة:</strong> عوامل لاحيوية محددة يذكرها الكتاب (ص ٨٦): نوع التربة، والمأوى، وضوء الشمس.</div>
+<div class="lwtip">🧠 <strong>تذكّر:</strong> لا تنسي كلمة «تفاعلاتها».</div>
+</div></details>
+<details class="lw"><summary><span class="lwn">٢</span> 📍 الموطن والجماعة والعامل المحدد والسعة التحملية</summary>
+<div class="lwbody">
+<div class="lwf" id="lwf1">الموطن: مكان العيش والغذاء. الجماعة الحيوية: أفراد النوع الواحد. العامل المحدد: ما يتحكم في نمو الجماعات. السعة التحملية: أقصى عدد يدعمه النظام البيئي.</div>
+<button class="lwcover" onclick="lwCover(1)">🙈 غطّي وحاولي الكتابة من ذاكرتك</button>
+<div class="lwq">📖 <strong>من الكتاب:</strong><div class="lwm">«ويسمى المكان الذي يعيش فيه المخلوق الحي، ويحصل منه على الغذاء الموطن.» <strong>(ص ٨٨)</strong></div><div class="lwm">«ونقصد بالجماعة الحيوية جميع أفراد النوع الواحد التي تعيش في نظام بيئي.» <strong>(ص ٨٦)</strong></div><div class="lwm">«العامل المحدد هو أي عنصر يتحكم في معدل نمو الجماعات الحيوية (زيادة أو نقصانا).» <strong>(ص ٨٦)</strong></div><div class="lwm">«وتحدد العوامل الحيوية والعوامل اللاحيوية السعة التحملية لكل مجموعة من الجماعات الحيوية.» <strong>(ص ٨٧)</strong></div><div class="lwm">«ويقصد بها أقصى عدد من أفراد الجماعة الحيوية يمكن لنظام بيئي دعمه وإعالته» <strong>(ص ٨٧)</strong></div></div>
+<div class="lwcap">رسم تلخيصي مبسّط أُعدّ للمذاكرة (ليس صورة من الكتاب)</div><svg viewBox="0 0 340 96" role="img" style="display:block;width:100%;max-width:420px;margin:8px auto;background:#fff;border:1px solid #e3e8f2;border-radius:14px;" xmlns="http://www.w3.org/2000/svg"><rect x="257" y="8" width="75" height="80" rx="9" fill="#e3f0ff" stroke="#2f6fb0" stroke-width="2"/><text x="294.5" y="29" text-anchor="middle" direction="rtl" font-size="11" font-weight="700" fill="#2f6fb0">الموطن</text><text x="294.5" y="54" text-anchor="middle" direction="rtl" font-size="10" font-weight="700" fill="#1d2b3a">مكان</text><rect x="174" y="8" width="75" height="80" rx="9" fill="#e6f7ec" stroke="#2e8f55" stroke-width="2"/><text x="211.5" y="29" text-anchor="middle" direction="rtl" font-size="11" font-weight="700" fill="#2e8f55">الجماعة</text><text x="211.5" y="54" text-anchor="middle" direction="rtl" font-size="10" font-weight="700" fill="#1d2b3a">أفراد نوع</text><rect x="91" y="8" width="75" height="80" rx="9" fill="#fff3da" stroke="#c98a1a" stroke-width="2"/><text x="128.5" y="29" text-anchor="middle" direction="rtl" font-size="11" font-weight="700" fill="#c98a1a">العامل المحدد</text><text x="128.5" y="54" text-anchor="middle" direction="rtl" font-size="10" font-weight="700" fill="#1d2b3a">يتحكم</text><text x="128.5" y="76" text-anchor="middle" direction="rtl" font-size="10" font-weight="700" fill="#1d2b3a">في النمو</text><rect x="8" y="8" width="75" height="80" rx="9" fill="#fde8e4" stroke="#c0503a" stroke-width="2"/><text x="45.5" y="29" text-anchor="middle" direction="rtl" font-size="11" font-weight="700" fill="#c0503a">السعة</text><text x="45.5" y="54" text-anchor="middle" direction="rtl" font-size="10" font-weight="700" fill="#1d2b3a">أقصى عدد</text></svg>
+<div class="lwtip">🧠 <strong>تذكّر:</strong> أين؟ موطن. مَن؟ جماعة. ما الذي يتحكم؟ عامل محدد. كم؟ سعة.</div>
+</div></details>
+<details class="lw"><summary><span class="lwn">٣</span> 🤝 العلاقات بين المخلوقات الحية</summary>
+<div class="lwbody">
+<div class="lwf" id="lwf2">تبادل المنفعة: الاثنان يستفيدان. التعايش: يستفيد أحدهما ولا يتأذى الآخر. التطفل: يستفيد أحدهما ويتضرر الآخر. التكافل: يستفيد واحد على الأقل دون ضرر للباقين.</div>
+<button class="lwcover" onclick="lwCover(2)">🙈 غطّي وحاولي الكتابة من ذاكرتك</button>
+<div class="lwq">📖 <strong>من الكتاب:</strong><div class="lwm">«علاقة التكافل، وهي علاقة ممتدة بين نوعين أو أكثر من المخلوقات الحية، بحيث يستفيد منها أحد هذه المخلوقات على الأقل دون أن يسبب ذلك ضررا لباقي المخلوقات المشتركة في هذه العلاقة.» <strong>(ص ٩٠)</strong></div><div class="lwm">«تبادل المنفعة: هو أحد أشكال العلاقات التعاونية التي تنشأ بين مخلوقين حيين، بحيث يستفيد كل منهما من الآخر.» <strong>(ص ٩٠)</strong></div><div class="lwm">«علاقة التعايش، وهي علاقة بين مخلوقين حيين يستفيد منها أحدهما دون أن يسبب الأذى للآخر.» <strong>(ص ٩١)</strong></div><div class="lwm">«بعض العلاقات بين المخلوقات الحية تكون مفيدة لطرف ومضرة بالطرف الآخر، وتسمى علاقة التطفل؛ حيث يعيش الطفيل على المخلوق الحي الذي يتطفل عليه، ويستفيد منه، أو يعيش داخله.» <strong>(ص ٩٢)</strong></div></div>
+<div class="lwcap">رسم تلخيصي مبسّط أُعدّ للمذاكرة (ليس صورة من الكتاب)</div><svg viewBox="0 0 340 74" role="img" style="display:block;width:100%;max-width:420px;margin:8px auto;background:#fff;border:1px solid #e3e8f2;border-radius:14px;" xmlns="http://www.w3.org/2000/svg"><rect x="229.33333333333331" y="8" width="102.66666666666667" height="58" rx="9" fill="#e3f0ff" stroke="#2f6fb0" stroke-width="2"/><text x="280.66666666666663" y="29" text-anchor="middle" direction="rtl" font-size="13" font-weight="700" fill="#2f6fb0">تبادل المنفعة</text><text x="280.66666666666663" y="54" text-anchor="middle" direction="rtl" font-size="11" font-weight="700" fill="#1d2b3a">+ و +</text><rect x="118.66666666666666" y="8" width="102.66666666666667" height="58" rx="9" fill="#e6f7ec" stroke="#2e8f55" stroke-width="2"/><text x="170" y="29" text-anchor="middle" direction="rtl" font-size="13" font-weight="700" fill="#2e8f55">التعايش</text><text x="170" y="54" text-anchor="middle" direction="rtl" font-size="11" font-weight="700" fill="#1d2b3a">+ و 0</text><rect x="8" y="8" width="102.66666666666667" height="58" rx="9" fill="#fff3da" stroke="#c98a1a" stroke-width="2"/><text x="59.333333333333336" y="29" text-anchor="middle" direction="rtl" font-size="13" font-weight="700" fill="#c98a1a">التطفل</text><text x="59.333333333333336" y="54" text-anchor="middle" direction="rtl" font-size="11" font-weight="700" fill="#1d2b3a">+ و −</text></svg>
+<div class="lwex">✏️ <strong>أمثلة:</strong> من الكتاب (ص ٩٠–٩٢): تبادل المنفعة: النمل وشجرة الأكاسيا. التعايش: سمك الريمورا وسمك القرش. التطفل: الدودة الشريطية.</div>
+<div class="lwtip">🧠 <strong>تذكّر:</strong> اسألي: ماذا حدث للطرف الثاني؟</div>
+</div></details>
+<details class="lw"><summary><span class="lwn">٤</span> 🦎 التكيف: تركيبي وسلوكي</summary>
+<div class="lwbody">
+<div class="lwf" id="lwf3">التكيف نوعان: تركيبي (تغيرات في تراكيب الجسم الداخلية أو الخارجية)، وسلوكي (تعديل في سلوك المخلوق الحي).</div>
+<button class="lwcover" onclick="lwCover(3)">🙈 غطّي وحاولي الكتابة من ذاكرتك</button>
+<div class="lwq">📖 <strong>من الكتاب:</strong><div class="lwm">«والتكيف نوعان: تركيبي، وسلوكي.» <strong>(ص ٩٨)</strong></div><div class="lwm">«التكيفات التركيبية تغيرات في تراكيب الجسم الداخلية أو الخارجية. فلون الفرو، والأطراف الطويلة، والفكوك القوية، والقدرة على الركض السريع، جميعها تكيفات تركيبية.» <strong>(ص ٩٨)</strong></div><div class="lwm">«يسمى التعديل في سلوك المخلوق الحي التكيف السلوكي.» <strong>(ص ٩٩)</strong></div><div class="lwm">«وخف الجمل مسطح وكبير، ويساعده على السير في الصحراء دون أن تنغرس أرجله في الرمال.» <strong>(ص ٩٨)</strong></div><div class="lwm">«فالبط مثلا له أرجل مسطحة ملتصقة الأصابع، وهذا تكيف تركيبي يساعده على العوم في الماء.» <strong>(ص ٩٨)</strong></div><div class="lwm">«فالذئاب مثلا تتنقل في مجموعات؛ لتتمكن من اصطياد فريسة كبيرة لا يستطيع ذئب واحد اصطيادها بمفرده.» <strong>(ص ٩٩)</strong></div></div>
+<div class="lwcap">رسم تلخيصي مبسّط أُعدّ للمذاكرة (ليس صورة من الكتاب)</div><svg viewBox="0 0 340 118" role="img" style="display:block;width:100%;max-width:420px;margin:8px auto;background:#fff;border:1px solid #e3e8f2;border-radius:14px;" xmlns="http://www.w3.org/2000/svg"><rect x="174" y="8" width="158" height="102" rx="9" fill="#e3f0ff" stroke="#2f6fb0" stroke-width="2"/><text x="253" y="29" text-anchor="middle" direction="rtl" font-size="13" font-weight="700" fill="#2f6fb0">تركيبي (الجسم)</text><text x="253" y="54" text-anchor="middle" direction="rtl" font-size="12.5" font-weight="700" fill="#1d2b3a">خف الجمل</text><text x="253" y="76" text-anchor="middle" direction="rtl" font-size="12.5" font-weight="700" fill="#1d2b3a">أرجل البط</text><text x="253" y="98" text-anchor="middle" direction="rtl" font-size="12.5" font-weight="700" fill="#1d2b3a">لون الفرو</text><rect x="8" y="8" width="158" height="102" rx="9" fill="#e6f7ec" stroke="#2e8f55" stroke-width="2"/><text x="87" y="29" text-anchor="middle" direction="rtl" font-size="13" font-weight="700" fill="#2e8f55">سلوكي (التصرف)</text><text x="87" y="54" text-anchor="middle" direction="rtl" font-size="12.5" font-weight="700" fill="#1d2b3a">الذئاب في مجموعات</text><text x="87" y="76" text-anchor="middle" direction="rtl" font-size="12.5" font-weight="700" fill="#1d2b3a">الفيلة في قطعان</text><text x="87" y="98" text-anchor="middle" direction="rtl" font-size="12.5" font-weight="700" fill="#1d2b3a">الهجرة</text></svg>
+<div class="lwex">✏️ <strong>أمثلة:</strong> خف الجمل، وأرجل البط (ص ٩٨)، وتنقل الذئاب في مجموعات (ص ٩٩).</div>
+<div class="lwtip">🧠 <strong>تذكّر:</strong> تركيب الجسم ≠ تصرف الجسم.</div>
+</div></details>
+<details class="lw"><summary><span class="lwn">٥</span> 🎭 التمويه والتلون والتشابه والمحاكاة</summary>
+<div class="lwbody">
+<div class="lwf" id="lwf4">التمويه: محاكاة أشكال البيئة وألوانها فيصعب تمييز الحيوان. التلون والتشابه نوعان من التمويه. المحاكاة: التشبه بحيوان آخر للحماية.</div>
+<button class="lwcover" onclick="lwCover(4)">🙈 غطّي وحاولي الكتابة من ذاكرتك</button>
+<div class="lwq">📖 <strong>من الكتاب:</strong><div class="lwm">«تدافع بعض الحيوانات عن نفسها عن طريق محاكاة الأشكال والألوان الطبيعية في بيئتها؛ بحيث يصعب تمييزها من محيطها. وتسمى هذه العملية التمويه.» <strong>(ص ١٠٣)</strong></div><div class="lwm">«التلون نوع من أنواع التمويه؛ فلون الحيوان يساعده على الاندماج مع المكان الذي يعيش فيه للاحتماء من المفترسات.» <strong>(ص ١٠٣)</strong></div><div class="lwm">«كما تلجأ بعض الحيوانات إلى نوع آخر من التمويه يسمى التشابه، بحيث يتطابق لونها وشكلها وتركيبها مع البيئة.» <strong>(ص ١٠٣)</strong></div><div class="lwm">«والتكيف الذي يلجأ فيه حيوان إلى حماية نفسه عن طريق التشبه بحيوان آخر يسمى المحاكاة» <strong>(ص ١٠٤)</strong></div></div>
+<div class="lwcap">رسم تلخيصي مبسّط أُعدّ للمذاكرة (ليس صورة من الكتاب)</div><svg viewBox="0 0 340 118" role="img" style="display:block;width:100%;max-width:420px;margin:8px auto;background:#fff;border:1px solid #e3e8f2;border-radius:14px;" xmlns="http://www.w3.org/2000/svg"><rect x="174" y="8" width="158" height="102" rx="9" fill="#e3f0ff" stroke="#2f6fb0" stroke-width="2"/><text x="253" y="29" text-anchor="middle" direction="rtl" font-size="13" font-weight="700" fill="#2f6fb0">التمويه (يقلد المكان)</text><text x="253" y="54" text-anchor="middle" direction="rtl" font-size="12.5" font-weight="700" fill="#1d2b3a">التلون: اللون</text><text x="253" y="76" text-anchor="middle" direction="rtl" font-size="12.5" font-weight="700" fill="#1d2b3a">التشابه: اللون</text><text x="253" y="98" text-anchor="middle" direction="rtl" font-size="12.5" font-weight="700" fill="#1d2b3a">والشكل والتركيب</text><rect x="8" y="8" width="158" height="102" rx="9" fill="#e6f7ec" stroke="#2e8f55" stroke-width="2"/><text x="87" y="29" text-anchor="middle" direction="rtl" font-size="13" font-weight="700" fill="#2e8f55">المحاكاة</text><text x="87" y="54" text-anchor="middle" direction="rtl" font-size="12.5" font-weight="700" fill="#1d2b3a">يتشبه</text><text x="87" y="76" text-anchor="middle" direction="rtl" font-size="12.5" font-weight="700" fill="#1d2b3a">بحيوان آخر</text></svg>
+<div class="lwex">✏️ <strong>أمثلة:</strong> من الكتاب: الثعلب القطبي (تلون، ص ١٠٣)، وأفعى أم جنيب (تشابه، ص ١٠٣)، وأفعى الملك التي تشبه أفعى المرجان (محاكاة، ص ١٠٤).</div>
+<div class="lwtip">🧠 <strong>تذكّر:</strong> يقلّد المكان: تمويه. يقلّد حيوانًا: محاكاة.</div>
+</div></details>
+<details class="lw"><summary><span class="lwn">٦</span> ❄️ تكيف الحيوانات مع البرد والصحراء</summary>
+<div class="lwbody">
+<div class="lwf" id="lwf5">البرد: فراء سميكة ودهون إضافية. الصحراء: تنشط غالبًا في الليل وتلزم مأواها في النهار.</div>
+<button class="lwcover" onclick="lwCover(5)">🙈 غطّي وحاولي الكتابة من ذاكرتك</button>
+<div class="lwq">📖 <strong>من الكتاب:</strong><div class="lwm">«فالحيوانات التي تعيش في بيئة باردة تمتاز بفراء سميكة، وكمية من الدهون الإضافية في الجسم تبقيها دافئة.» <strong>(ص ١٠٢)</strong></div><div class="lwm">«أما حيوانات الصحراء فغالبا ما تنشط في الليل، وتلزم مأواها في النهار لتفادي درجات الحرارة العالية.» <strong>(ص ١٠٢)</strong></div><div class="lwm">«للبوم عينان كبيرتان تساعدانه على رؤية الفريسة في الظلام.» <strong>(ص ١٠٢)</strong></div></div>
+<div class="lwcap">رسم تلخيصي مبسّط أُعدّ للمذاكرة (ليس صورة من الكتاب)</div><svg viewBox="0 0 340 96" role="img" style="display:block;width:100%;max-width:420px;margin:8px auto;background:#fff;border:1px solid #e3e8f2;border-radius:14px;" xmlns="http://www.w3.org/2000/svg"><rect x="174" y="8" width="158" height="80" rx="9" fill="#e3f0ff" stroke="#2f6fb0" stroke-width="2"/><text x="253" y="29" text-anchor="middle" direction="rtl" font-size="13" font-weight="700" fill="#2f6fb0">البرد ❄️</text><text x="253" y="54" text-anchor="middle" direction="rtl" font-size="12.5" font-weight="700" fill="#1d2b3a">فراء سميكة</text><text x="253" y="76" text-anchor="middle" direction="rtl" font-size="12.5" font-weight="700" fill="#1d2b3a">دهون إضافية</text><rect x="8" y="8" width="158" height="80" rx="9" fill="#e6f7ec" stroke="#2e8f55" stroke-width="2"/><text x="87" y="29" text-anchor="middle" direction="rtl" font-size="13" font-weight="700" fill="#2e8f55">الصحراء ☀️</text><text x="87" y="54" text-anchor="middle" direction="rtl" font-size="12.5" font-weight="700" fill="#1d2b3a">نشاط ليلي</text><text x="87" y="76" text-anchor="middle" direction="rtl" font-size="12.5" font-weight="700" fill="#1d2b3a">مأوى في النهار</text></svg>
+<div class="lwex">✏️ <strong>أمثلة:</strong> من الكتاب (ص ١٠٢): عينا البوم الكبيرتان تساعدانه على رؤية الفريسة في الظلام.</div>
+<div class="lwtip">🧠 <strong>تذكّر:</strong> البرد: تدفئة. الحر: ابتعاد عن الشمس.</div>
+</div></details>
+<details class="lw"><summary><span class="lwn">٧</span> 💧 دورة الماء</summary>
+<div class="lwbody">
+<div class="lwf" id="lwf6">دورة الماء: حركة الماء المستمرة بين سطح الأرض والهواء. تبخر: سائل ← غاز. تكثف: غاز ← سائل. الهطول: برد وثلج ومطر.</div>
+<button class="lwcover" onclick="lwCover(6)">🙈 غطّي وحاولي الكتابة من ذاكرتك</button>
+<div class="lwq">📖 <strong>من الكتاب:</strong><div class="lwm">«دورة الماء: وهي حركة الماء المستمرة بين سطح الأرض والهواء.» <strong>(ص ١١٣)</strong></div><div class="lwm">«ويقصد بالتبخر تحول الماء من الحالة السائلة إلى الحالة الغازية» <strong>(ص ١١٦)</strong></div><div class="lwm">«والتكثف هو تحول المادة من الحالة الغازية إلى الحالة السائلة.» <strong>(ص ١١٦)</strong></div><div class="lwm">«ويكون الهطول عادة في ثلاثة أشكال: البرد، والثلج، والمطر.» <strong>(ص ١١٦)</strong></div><div class="lwm">«وتعرف المياه التي تتجمع فوق سطح الأرض بالمياه السطحية.» <strong>(ص ١١٦)</strong></div></div>
+<div class="lwcap">رسم تلخيصي مبسّط أُعدّ للمذاكرة (ليس صورة من الكتاب)</div><svg viewBox="0 0 360 250" role="img" aria-label="رسم دورة الماء بأربعة أرقام" style="display:block;width:100%;max-width:420px;margin:8px auto;border-radius:12px;" xmlns="http://www.w3.org/2000/svg"><rect width="360" height="250" fill="#dff1fd"/><circle cx="326" cy="32" r="18" fill="#fbc02d"/><g fill="#ffffff"><circle cx="102" cy="44" r="14"/><circle cx="120" cy="35" r="19"/><circle cx="140" cy="44" r="14"/><rect x="100" y="42" width="42" height="16" rx="8"/></g><g fill="#9aa7b4"><circle cx="44" cy="112" r="14"/><circle cx="62" cy="103" r="19"/><circle cx="82" cy="112" r="14"/><rect x="42" y="110" width="42" height="16" rx="8"/></g><polygon points="0,250 0,185 55,135 125,205 180,215 180,250" fill="#5d9c59"/><polygon points="40,150 55,135 70,150" fill="#fff"/><path d="M120,210 Q200,195 360,205 L360,250 L120,250 Z" fill="#2f86c9"/><line x1="46" y1="130" x2="40" y2="148" stroke="#2f6fb0" stroke-width="2.5"/><line x1="60" y1="130" x2="54" y2="148" stroke="#2f6fb0" stroke-width="2.5"/><line x1="74" y1="130" x2="68" y2="148" stroke="#2f6fb0" stroke-width="2.5"/><line x1="88" y1="130" x2="82" y2="148" stroke="#2f6fb0" stroke-width="2.5"/><path d="M300,202 L290,150" fill="none" stroke="#c0392b" stroke-width="3"/><polygon points="290,150 286.9,159.5 296.4,157.7" fill="#c0392b"/><path d="M318,202 L312,150" fill="none" stroke="#c0392b" stroke-width="3"/><polygon points="312,150 308.2,159.3 317.8,158.2" fill="#c0392b"/><path d="M295,48 Q230,20 158,38" fill="none" stroke="#1d2b3a" stroke-width="2.5"/><polygon points="158,38 167.7,40.5 165.4,31.2" fill="#1d2b3a"/><path d="M100,62 L82,86" fill="none" stroke="#1d2b3a" stroke-width="2.5"/><polygon points="82,86 91.1,81.9 83.4,76.1" fill="#1d2b3a"/><path d="M96,150 Q130,185 160,208" fill="none" stroke="#1d2b3a" stroke-width="2.5"/><polygon points="160,208 156.0,198.9 150.1,206.5" fill="#1d2b3a"/><circle cx="70" cy="34" r="15" fill="#fff" stroke="#1d2b3a" stroke-width="1.6"/><text x="70" y="40" text-anchor="middle" font-size="18" font-weight="bold" fill="#1d2b3a" direction="rtl">①</text><circle cx="122" cy="112" r="15" fill="#fff" stroke="#1d2b3a" stroke-width="1.6"/><text x="122" y="118" text-anchor="middle" font-size="18" font-weight="bold" fill="#1d2b3a" direction="rtl">②</text><circle cx="205" cy="226" r="15" fill="#fff" stroke="#1d2b3a" stroke-width="1.6"/><text x="205" y="232" text-anchor="middle" font-size="18" font-weight="bold" fill="#1d2b3a" direction="rtl">③</text><circle cx="302" cy="126" r="15" fill="#fff" stroke="#1d2b3a" stroke-width="1.6"/><text x="302" y="132" text-anchor="middle" font-size="18" font-weight="bold" fill="#1d2b3a" direction="rtl">④</text></svg><svg viewBox="0 0 340 52" role="img" style="display:block;width:100%;max-width:420px;margin:8px auto;background:#fff;border:1px solid #e3e8f2;border-radius:14px;" xmlns="http://www.w3.org/2000/svg"><rect x="257" y="8" width="75" height="36" rx="9" fill="#e3f0ff" stroke="#2f6fb0" stroke-width="2"/><text x="294.5" y="29" text-anchor="middle" direction="rtl" font-size="11" font-weight="700" fill="#2f6fb0">① تكاثف</text><rect x="174" y="8" width="75" height="36" rx="9" fill="#e6f7ec" stroke="#2e8f55" stroke-width="2"/><text x="211.5" y="29" text-anchor="middle" direction="rtl" font-size="11" font-weight="700" fill="#2e8f55">② هطول</text><rect x="91" y="8" width="75" height="36" rx="9" fill="#fff3da" stroke="#c98a1a" stroke-width="2"/><text x="128.5" y="29" text-anchor="middle" direction="rtl" font-size="11" font-weight="700" fill="#c98a1a">③ تجمع</text><rect x="8" y="8" width="75" height="36" rx="9" fill="#fde8e4" stroke="#c0503a" stroke-width="2"/><text x="45.5" y="29" text-anchor="middle" direction="rtl" font-size="11" font-weight="700" fill="#c0503a">④ تبخر</text></svg>
+<div class="lwex">✏️ <strong>أمثلة:</strong> أشكال الهطول الثلاثة (ص ١١٦): البرد، والثلج، والمطر.</div>
+<div class="lwtip">🧠 <strong>تذكّر:</strong> ابدئي من البحر: تبخر ← تكاثف ← هطول ← تجمع.</div>
+</div></details>
+<details class="lw"><summary><span class="lwn">٨</span> 🌊 المياه السطحية والجارية والجوفية</summary>
+<div class="lwbody">
+<div class="lwf" id="lwf7">السطحية: تتجمع فوق سطح الأرض. الجارية: لا تمتصها التربة فتتدفق أودية وأنهارًا. الجوفية: تدخل جوف الأرض.</div>
+<button class="lwcover" onclick="lwCover(7)">🙈 غطّي وحاولي الكتابة من ذاكرتك</button>
+<div class="lwq">📖 <strong>من الكتاب:</strong><div class="lwm">«وتعرف المياه التي تتجمع فوق سطح الأرض بالمياه السطحية.» <strong>(ص ١١٦)</strong></div><div class="lwm">«يتدفق الماء الذي لا تمتصه التربة على شكل أودية وأنهار قبل أن يصب في المحيطات والبحار. وتسمى هذه المياه المياه الجارية.» <strong>(ص ١١٧)</strong></div><div class="lwm">«أما الجزء الآخر من الماء فيدخل إلى جوف الأرض ويسمى المياه الجوفية التي تختزن في مسامات التربة والصخور.» <strong>(ص ١١٧)</strong></div></div>
+<div class="lwcap">رسم تلخيصي مبسّط أُعدّ للمذاكرة (ليس صورة من الكتاب)</div><svg viewBox="0 0 340 96" role="img" style="display:block;width:100%;max-width:420px;margin:8px auto;background:#fff;border:1px solid #e3e8f2;border-radius:14px;" xmlns="http://www.w3.org/2000/svg"><rect x="229.33333333333331" y="8" width="102.66666666666667" height="80" rx="9" fill="#e3f0ff" stroke="#2f6fb0" stroke-width="2"/><text x="280.66666666666663" y="29" text-anchor="middle" direction="rtl" font-size="13" font-weight="700" fill="#2f6fb0">سطحية</text><text x="280.66666666666663" y="54" text-anchor="middle" direction="rtl" font-size="11" font-weight="700" fill="#1d2b3a">تتجمع</text><text x="280.66666666666663" y="76" text-anchor="middle" direction="rtl" font-size="11" font-weight="700" fill="#1d2b3a">فوق الأرض</text><rect x="118.66666666666666" y="8" width="102.66666666666667" height="80" rx="9" fill="#e6f7ec" stroke="#2e8f55" stroke-width="2"/><text x="170" y="29" text-anchor="middle" direction="rtl" font-size="13" font-weight="700" fill="#2e8f55">جارية</text><text x="170" y="54" text-anchor="middle" direction="rtl" font-size="11" font-weight="700" fill="#1d2b3a">أودية</text><text x="170" y="76" text-anchor="middle" direction="rtl" font-size="11" font-weight="700" fill="#1d2b3a">وأنهار</text><rect x="8" y="8" width="102.66666666666667" height="80" rx="9" fill="#fff3da" stroke="#c98a1a" stroke-width="2"/><text x="59.333333333333336" y="29" text-anchor="middle" direction="rtl" font-size="13" font-weight="700" fill="#c98a1a">جوفية</text><text x="59.333333333333336" y="54" text-anchor="middle" direction="rtl" font-size="11" font-weight="700" fill="#1d2b3a">في التربة</text><text x="59.333333333333336" y="76" text-anchor="middle" direction="rtl" font-size="11" font-weight="700" fill="#1d2b3a">والصخور</text></svg>
+<div class="lwtip">🧠 <strong>تذكّر:</strong> تتجمع، تجري، تغوص.</div>
+</div></details>
+<details class="lw"><summary><span class="lwn">٩</span> ♻️ دورة الكربون</summary>
+<div class="lwbody">
+<div class="lwf" id="lwf8">دورة الكربون: انتقال الكربون بين المخلوقات الحية وغيرها بشكل مستمر. يُطلق إلى الجو بالتنفس والتحلل وحرق الوقود، ويأخذه البناء الضوئي.</div>
+<button class="lwcover" onclick="lwCover(8)">🙈 غطّي وحاولي الكتابة من ذاكرتك</button>
+<div class="lwq">📖 <strong>من الكتاب:</strong><div class="lwm">«ويعرف انتقال الكربون بين المخلوقات الحية وغيرها بشكل مستمر بدورة الكربون» <strong>(ص ١١٨)</strong></div><div class="lwm">«وينتج عن عملية التنفس غاز ثاني أكسيد الكربون، الذي يعود إلى الجو» <strong>(ص ١١٩)</strong></div><div class="lwm">«وتؤدي هذه العملية إلى إطلاق المزيد من الكربون المختزن في النباتات والحيوانات إلى الجو أيضا.» <strong>(ص ١١٩)</strong></div><div class="lwm">«وعندما يقوم الإنسان بحرق هذا الوقود للحصول على الطاقة يعود الكربون المختزن فيه إلى الغلاف الجوي على شكل غاز ثاني أكسيد الكربون.» <strong>(ص ١١٩)</strong></div></div>
+<div class="lwcap">رسم تلخيصي مبسّط أُعدّ للمذاكرة (ليس صورة من الكتاب)</div><svg viewBox="0 0 340 158" role="img" style="display:block;width:100%;max-width:420px;margin:8px auto;background:#fff;border:1px solid #e3e8f2;border-radius:14px;" xmlns="http://www.w3.org/2000/svg"><rect x="35" y="4" width="270" height="32" rx="9" fill="#e3f0ff" stroke="#2f6fb0" stroke-width="2"/><text x="170" y="25" text-anchor="middle" direction="rtl" font-size="12.5" font-weight="700" fill="#1d2b3a">ثاني أكسيد الكربون في الهواء</text><line x1="170" y1="36" x2="170" y2="46" stroke="#1d2b3a" stroke-width="2"/><polygon points="170,50 165,43 175,43" fill="#1d2b3a"/><rect x="35" y="50" width="270" height="32" rx="9" fill="#e6f7ec" stroke="#2e8f55" stroke-width="2"/><text x="170" y="71" text-anchor="middle" direction="rtl" font-size="12.5" font-weight="700" fill="#1d2b3a">البناء الضوئي: تأخذه النباتات</text><line x1="170" y1="82" x2="170" y2="92" stroke="#1d2b3a" stroke-width="2"/><polygon points="170,96 165,89 175,89" fill="#1d2b3a"/><rect x="35" y="96" width="270" height="32" rx="9" fill="#fff3da" stroke="#c98a1a" stroke-width="2"/><text x="170" y="117" text-anchor="middle" direction="rtl" font-size="12.5" font-weight="700" fill="#1d2b3a">تنفس وتحلل وحرق وقود: يعود إلى الجو</text><text x="170" y="153" text-anchor="middle" direction="rtl" font-size="11" font-weight="700" fill="#5b6478">وتتكرر الدورة</text></svg>
+<div class="lwex">✏️ <strong>أمثلة:</strong> من الكتاب (ص ١١٩): الفحم والنفط والغاز الطبيعي وقود أحفوري، وحرقه يعيد الكربون إلى الجو.</div>
+<div class="lwtip">🧠 <strong>تذكّر:</strong> واحدة تأخذ (البناء الضوئي)، وثلاث تُطلق.</div>
+</div></details>
+<details class="lw"><summary><span class="lwn">١٠</span> 🌱 دورة النيتروجين والدبال</summary>
+<div class="lwbody">
+<div class="lwf" id="lwf9">دورة النيتروجين: تكوين مركبات نيتروجينية داخل التربة، ثم انتشار النيتروجين مرة أخرى في الهواء.</div>
+<button class="lwcover" onclick="lwCover(9)">🙈 غطّي وحاولي الكتابة من ذاكرتك</button>
+<div class="lwq">📖 <strong>من الكتاب:</strong><div class="lwm">«ويطلق اسم دورة النيتروجين على العملية المستمرة التي تتضمن تكوين مركبات نيتروجينية داخل التربة، ثم انتشار النيتروجين مرة أخرى في الهواء.» <strong>(ص ١٢٠)</strong></div><div class="lwm">«نترات تمتصها النباتات في أثناء نموها» <strong>(ص ١٢١)</strong></div><div class="lwm">«وتتم إعادة النيتروجين إلى الجو مرة أخرى عن طريق البكتيريا المزيلة للنيتروجين» <strong>(ص ١٢١)</strong></div><div class="lwm">«والدبال خليط من بقايا مخلوقات حية أو أجسامها بعد موتها وتحللها، مثل بقايا الطعام وأوراق النباتات المتساقطة والأعشاب.» <strong>(ص ١٢٢)</strong></div></div>
+<div class="lwcap">رسم تلخيصي مبسّط أُعدّ للمذاكرة (ليس صورة من الكتاب)</div><svg viewBox="0 0 340 230" role="img" style="display:block;width:100%;max-width:420px;margin:8px auto;background:#fff;border:1px solid #e3e8f2;border-radius:14px;" xmlns="http://www.w3.org/2000/svg"><rect x="35" y="4" width="270" height="32" rx="9" fill="#e3f0ff" stroke="#2f6fb0" stroke-width="2"/><text x="170" y="25" text-anchor="middle" direction="rtl" font-size="12.5" font-weight="700" fill="#1d2b3a">نيتروجين في الهواء</text><line x1="170" y1="36" x2="170" y2="46" stroke="#1d2b3a" stroke-width="2"/><polygon points="170,50 165,43 175,43" fill="#1d2b3a"/><rect x="35" y="50" width="270" height="32" rx="9" fill="#e6f7ec" stroke="#2e8f55" stroke-width="2"/><text x="170" y="71" text-anchor="middle" direction="rtl" font-size="12.5" font-weight="700" fill="#1d2b3a">بكتيريا مثبتة: أمونيا</text><line x1="170" y1="82" x2="170" y2="92" stroke="#1d2b3a" stroke-width="2"/><polygon points="170,96 165,89 175,89" fill="#1d2b3a"/><rect x="35" y="96" width="270" height="32" rx="9" fill="#fff3da" stroke="#c98a1a" stroke-width="2"/><text x="170" y="117" text-anchor="middle" direction="rtl" font-size="12.5" font-weight="700" fill="#1d2b3a">بكتيريا: نيتريت ثم نترات</text><line x1="170" y1="128" x2="170" y2="138" stroke="#1d2b3a" stroke-width="2"/><polygon points="170,142 165,135 175,135" fill="#1d2b3a"/><rect x="35" y="142" width="270" height="32" rx="9" fill="#fde8e4" stroke="#c0503a" stroke-width="2"/><text x="170" y="163" text-anchor="middle" direction="rtl" font-size="12.5" font-weight="700" fill="#1d2b3a">يمتص النبات النترات</text><line x1="170" y1="174" x2="170" y2="184" stroke="#1d2b3a" stroke-width="2"/><polygon points="170,188 165,181 175,181" fill="#1d2b3a"/><rect x="35" y="188" width="270" height="32" rx="9" fill="#f0e9fb" stroke="#7a55b5" stroke-width="2"/><text x="170" y="209" text-anchor="middle" direction="rtl" font-size="12.5" font-weight="700" fill="#1d2b3a">بكتيريا مزيلة: تعيده إلى الهواء</text></svg>
+<div class="lwex">✏️ <strong>أمثلة:</strong> من أمثلة الدبال (ص ١٢٢): بقايا الطعام، وأوراق النباتات المتساقطة، والأعشاب.</div>
+<div class="lwtip">🧠 <strong>تذكّر:</strong> أمونيا ← نيتريت ← نترات.</div>
+</div></details>
+<details class="lw"><summary><span class="lwn">١١</span> 🦤 تغير الأنظمة البيئية والانقراض</summary>
+<div class="lwbody">
+<div class="lwf" id="lwf10">تتغير الأنظمة البيئية بالأحداث الطبيعية أو بفعل الإنسان. من أسباب الانقراض: التلوث، والامتداد العمراني، وتدمير المواطن، والصيد الجائر.</div>
+<button class="lwcover" onclick="lwCover(10)">🙈 غطّي وحاولي الكتابة من ذاكرتك</button>
+<div class="lwq">📖 <strong>من الكتاب:</strong><div class="lwm">«تتغير الأنظمة البيئية بسبب الأحداث الطبيعية أو بفعل الإنسان.» <strong>(ص ١٢٨)</strong></div><div class="lwm">«من الكوارث الطبيعية الزلازل والفيضانات والعواصف والبراكين والجفاف.» <strong>(ص ١٢٨)</strong></div><div class="lwm">«ويسبب التلوث، والامتداد العمراني، وتدمير المواطن، والصيد الجائر، انقراض الآلاف من أنواع المخلوقات الحية.» <strong>(ص ١٣٠)</strong></div><div class="lwm">«وتسمى أنواع المخلوقات الحية التي تتعرض لخطر موت أعداد كبيرة منها الأنواع المهددة بالانقراض، ومنها سلحفاة منقار الصقر المائية، والحوت المستقيم الذي لم يبق منه سوى بضع مئات فقط» <strong>(ص ١٣١)</strong></div><div class="lwm">«تصبح أنواعا منقرضة؛ أي لم يعد لها وجود على الأرض، مثلما حدث للديناصورات.» <strong>(ص ١٣٠)</strong></div></div>
+<div class="lwcap">رسم تلخيصي مبسّط أُعدّ للمذاكرة (ليس صورة من الكتاب)</div><svg viewBox="0 0 340 96" role="img" style="display:block;width:100%;max-width:420px;margin:8px auto;background:#fff;border:1px solid #e3e8f2;border-radius:14px;" xmlns="http://www.w3.org/2000/svg"><rect x="174" y="8" width="158" height="80" rx="9" fill="#e3f0ff" stroke="#2f6fb0" stroke-width="2"/><text x="253" y="29" text-anchor="middle" direction="rtl" font-size="13" font-weight="700" fill="#2f6fb0">مهدد بالانقراض</text><text x="253" y="54" text-anchor="middle" direction="rtl" font-size="12.5" font-weight="700" fill="#1d2b3a">عدده تناقص</text><text x="253" y="76" text-anchor="middle" direction="rtl" font-size="12.5" font-weight="700" fill="#1d2b3a">وهو معرض للخطر</text><rect x="8" y="8" width="158" height="80" rx="9" fill="#e6f7ec" stroke="#2e8f55" stroke-width="2"/><text x="87" y="29" text-anchor="middle" direction="rtl" font-size="13" font-weight="700" fill="#2e8f55">منقرض</text><text x="87" y="54" text-anchor="middle" direction="rtl" font-size="12.5" font-weight="700" fill="#1d2b3a">لم يعد</text><text x="87" y="76" text-anchor="middle" direction="rtl" font-size="12.5" font-weight="700" fill="#1d2b3a">له وجود</text></svg>
+<div class="lwex">✏️ <strong>أمثلة:</strong> منقرض (ص ١٣٠): الديناصورات. مهدد (ص ١٣١): سلحفاة منقار الصقر المائية، والحوت المستقيم.</div>
+<div class="lwtip">🧠 <strong>تذكّر:</strong> تلوث، عمران، تدمير مواطن، صيد جائر.</div>
+</div></details>
+<details class="lw"><summary><span class="lwn">١٢</span> 🌳 التعاقب الأولي والثانوي</summary>
+<div class="lwbody">
+<div class="lwf" id="lwf11">التعاقب: تحول نظام بيئي إلى نظام جديد مختلف. الثانوي أسرع من الأولي لوجود التربة وبعض المخلوقات الحية.</div>
+<button class="lwcover" onclick="lwCover(11)">🙈 غطّي وحاولي الكتابة من ذاكرتك</button>
+<div class="lwq">📖 <strong>من الكتاب:</strong><div class="lwm">«التعاقب: عملية تحول نظام بيئي إلى نظام بيئي جديد مختلف.» <strong>(ص ١١٣)</strong></div><div class="lwm">«الأنواع الرائدة: الأنواع الأولى التي عاشت في منطقة لا حياة فيها.» <strong>(ص ١١٣)</strong></div><div class="lwm">«التعاقب الأولي هو التعاقب الذي يظهر عادة في مجتمع حيوي يعيش فيه عدد قليل من المخلوقات الحية، أو في منطقة كانت تعيش فيها سابقا مخلوقات حية ثم ماتت.» <strong>(ص ١٣٢)</strong></div><div class="lwm">«التعاقب الثانوي هو بدء تكون مجتمع جديد بدل مجتمع قائم قبله لم تدمر عناصره تماما.» <strong>(ص ١٣٤)</strong></div><div class="lwm">«ويمكن للتعاقب الثانوي أن يبدأ في غابة دمرها حريق، بسرعة أكبر من التعاقب الأولي؛ بسبب وجود التربة وبعض المخلوقات الحية.» <strong>(ص ١٣٤)</strong></div><div class="lwm">«وعندما تملأ الأشجار المنطقة تصبح غابة أو مجتمع الذروة، وهي المرحلة الأخيرة من التعاقب» <strong>(ص ١٣٣)</strong></div></div>
+<div class="lwcap">رسم تلخيصي مبسّط أُعدّ للمذاكرة (ليس صورة من الكتاب)</div><svg viewBox="0 0 340 250" role="img" style="display:block;width:100%;max-width:420px;margin:8px auto;background:#fff;border:1px solid #e3e8f2;border-radius:14px;" xmlns="http://www.w3.org/2000/svg"><rect x="35" y="4" width="270" height="32" rx="9" fill="#e3f0ff" stroke="#2f6fb0" stroke-width="2"/><text x="170" y="25" text-anchor="middle" direction="rtl" font-size="12.5" font-weight="700" fill="#1d2b3a">صخور جرداء (المجتمع الأولي)</text><line x1="170" y1="36" x2="170" y2="46" stroke="#1d2b3a" stroke-width="2"/><polygon points="170,50 165,43 175,43" fill="#1d2b3a"/><rect x="35" y="50" width="270" height="32" rx="9" fill="#e6f7ec" stroke="#2e8f55" stroke-width="2"/><text x="170" y="71" text-anchor="middle" direction="rtl" font-size="12.5" font-weight="700" fill="#1d2b3a">أشنات وحزازيات (المجتمع الأولي)</text><line x1="170" y1="82" x2="170" y2="92" stroke="#1d2b3a" stroke-width="2"/><polygon points="170,96 165,89 175,89" fill="#1d2b3a"/><rect x="35" y="96" width="270" height="32" rx="9" fill="#fff3da" stroke="#c98a1a" stroke-width="2"/><text x="170" y="117" text-anchor="middle" direction="rtl" font-size="12.5" font-weight="700" fill="#1d2b3a">نباتات صغيرة وأعشاب وشجيرات (الوسيط)</text><line x1="170" y1="128" x2="170" y2="138" stroke="#1d2b3a" stroke-width="2"/><polygon points="170,142 165,135 175,135" fill="#1d2b3a"/><rect x="35" y="142" width="270" height="32" rx="9" fill="#fde8e4" stroke="#c0503a" stroke-width="2"/><text x="170" y="163" text-anchor="middle" direction="rtl" font-size="12.5" font-weight="700" fill="#1d2b3a">أشجار وشجيرات صغيرة (الوسيط)</text><line x1="170" y1="174" x2="170" y2="184" stroke="#1d2b3a" stroke-width="2"/><polygon points="170,188 165,181 175,181" fill="#1d2b3a"/><rect x="35" y="188" width="270" height="32" rx="9" fill="#f0e9fb" stroke="#7a55b5" stroke-width="2"/><text x="170" y="209" text-anchor="middle" direction="rtl" font-size="12.5" font-weight="700" fill="#1d2b3a">أشجار الغابة: مجتمع الذروة</text><text x="170" y="245" text-anchor="middle" direction="rtl" font-size="11" font-weight="700" fill="#5b6478">مراحل التعاقب الأولي (رسم ص ١٣٢–١٣٣)</text></svg>
+<div class="lwex">✏️ <strong>أمثلة:</strong> مثال التعاقب الثانوي (ص ١٣٤): غابة دمّرها حريق.</div>
+<div class="lwtip">🧠 <strong>تذكّر:</strong> صخر ← أشنات ← أعشاب ← أشجار صغيرة ← غابة.</div>
+</div></details>
+<details class="lw"><summary><span class="lwn">١٣</span> 🏔️ التضاريس: معالم اليابسة والماء</summary>
+<div class="lwbody">
+<div class="lwf" id="lwf12">التضاريس: المعالم الطبيعية لسطح الأرض: معالم يابسة، ومعالم مائية.</div>
+<button class="lwcover" onclick="lwCover(12)">🙈 غطّي وحاولي الكتابة من ذاكرتك</button>
+<div class="lwq">📖 <strong>من الكتاب:</strong><div class="lwm">«التضاريس وهي المعالم الطبيعية لسطح الأرض.» <strong>(ص ١٤٦)</strong></div><div class="lwm">«الجبل منطقة مرتفعة كثيرا فوق سطح الأرض.» <strong>(ص ١٤٧)</strong></div><div class="lwm">«التل أقل ارتفاعا من الجبل، وأكثر استدارة.» <strong>(ص ١٤٧)</strong></div><div class="lwm">«الوادي منطقة منخفضة تمتد بين جبلين أو تلين.» <strong>(ص ١٤٧)</strong></div><div class="lwm">«السهل منطقة واسعة منبسطة.» <strong>(ص ١٤٧)</strong></div><div class="lwm">«الجرف الجانب الحاد الميل من الصخور أو التربة.» <strong>(ص ١٤٧)</strong></div><div class="lwm">«الكثبان الرملية كومة أو نتوء من الرمال.» <strong>(ص ١٤٧)</strong></div><div class="lwm">«الساحل خط تلتقي عنده اليابسة مع الماء.» <strong>(ص ١٤٧)</strong></div><div class="lwm">«الدلتا أرض لها شكل المثلث تتشكل عند مصب النهر.» <strong>(ص ١٤٧)</strong></div><div class="lwm">«المصب ملتقى مياه النهر ومياه المحيطات أو البحار.» <strong>(ص ١٤٧)</strong></div></div>
+<div class="lwcap">رسم تلخيصي مبسّط أُعدّ للمذاكرة (ليس صورة من الكتاب)</div><svg viewBox="0 0 340 118" role="img" style="display:block;width:100%;max-width:420px;margin:8px auto;background:#fff;border:1px solid #e3e8f2;border-radius:14px;" xmlns="http://www.w3.org/2000/svg"><rect x="174" y="8" width="158" height="102" rx="9" fill="#e3f0ff" stroke="#2f6fb0" stroke-width="2"/><text x="253" y="29" text-anchor="middle" direction="rtl" font-size="13" font-weight="700" fill="#2f6fb0">اليابسة</text><text x="253" y="54" text-anchor="middle" direction="rtl" font-size="12.5" font-weight="700" fill="#1d2b3a">جبل · تل</text><text x="253" y="76" text-anchor="middle" direction="rtl" font-size="12.5" font-weight="700" fill="#1d2b3a">وادٍ · سهل</text><text x="253" y="98" text-anchor="middle" direction="rtl" font-size="12.5" font-weight="700" fill="#1d2b3a">جرف · كثبان</text><rect x="8" y="8" width="158" height="102" rx="9" fill="#e6f7ec" stroke="#2e8f55" stroke-width="2"/><text x="87" y="29" text-anchor="middle" direction="rtl" font-size="13" font-weight="700" fill="#2e8f55">المياه</text><text x="87" y="54" text-anchor="middle" direction="rtl" font-size="12.5" font-weight="700" fill="#1d2b3a">ساحل</text><text x="87" y="76" text-anchor="middle" direction="rtl" font-size="12.5" font-weight="700" fill="#1d2b3a">مصب</text><text x="87" y="98" text-anchor="middle" direction="rtl" font-size="12.5" font-weight="700" fill="#1d2b3a">دلتا</text></svg>
+<div class="lwtip">🧠 <strong>تذكّر:</strong> السهل منبسط، والكثبان كومة رمل، والدلتا مثلث.</div>
+</div></details>
+<details class="lw"><summary><span class="lwn">١٤</span> 🐋 معالم قاع المحيط</summary>
+<div class="lwbody">
+<div class="lwf" id="lwf13">الأخاديد البحرية: أعمق مناطق قاع المحيط. ومن معالمه أيضًا: الرصيف القاري، وظهر المحيط، والجبال البحرية.</div>
+<button class="lwcover" onclick="lwCover(13)">🙈 غطّي وحاولي الكتابة من ذاكرتك</button>
+<div class="lwq">📖 <strong>من الكتاب:</strong><div class="lwm">«الرصيف القاري: وهو شريط يحاذي شواطئ القارة، وهو يميل ميلا خفيفا» <strong>(ص ١٤٨)</strong></div><div class="lwm">«ظهر المحيط: سلسلة جبلية طويلة تحت الماء يخترقها بشكل طولي واد متصدع يكون على قمة هذه الجبال.» <strong>(ص ١٤٨)</strong></div><div class="lwm">«الجبال البحرية: جبال ترتفع من قاع المحيط، من دون أن تعلو فوق سطح المياه.» <strong>(ص ١٤٨)</strong></div><div class="lwm">«الأخاديد البحرية: أعمق مناطق قاع المحيط، تتميز بطولها الكبير وعرضها الضيق.» <strong>(ص ١٤٨)</strong></div></div>
+<div class="lwcap">رسم تلخيصي مبسّط أُعدّ للمذاكرة (ليس صورة من الكتاب)</div><svg viewBox="0 0 340 120" role="img" style="display:block;width:100%;max-width:420px;margin:8px auto;background:#fff;border:1px solid #e3e8f2;border-radius:14px;" xmlns="http://www.w3.org/2000/svg"><rect width="340" height="120" fill="#d8eefc"/><path d="M0,120 L0,25 L60,32 L100,70 L135,75 L160,40 L172,55 L184,40 L205,76 L245,76 L262,50 L280,76 L295,76 L305,116 L316,76 L340,76 L340,120 Z" fill="#c9a26b" stroke="#7a5b30" stroke-width="2"/><text x="32" y="20" text-anchor="middle" direction="rtl" font-size="10" font-weight="700" fill="#1d2b3a">الرصيف القاري</text><text x="172" y="25" text-anchor="middle" direction="rtl" font-size="10" font-weight="700" fill="#1d2b3a">ظهر المحيط</text><text x="262" y="35" text-anchor="middle" direction="rtl" font-size="10" font-weight="700" fill="#1d2b3a">جبل بحري</text><text x="305" y="63" text-anchor="middle" direction="rtl" font-size="10" font-weight="700" fill="#1d2b3a">أخدود</text></svg>
+<div class="lwtip">🧠 <strong>تذكّر:</strong> الأخدود: طويل وضيق، وهو الأعمق.</div>
+</div></details>
+<details class="lw"><summary><span class="lwn">١٥</span> 🌐 أغلفة الأرض وطبقاتها</summary>
+<div class="lwbody">
+<div class="lwf" id="lwf14">الغلاف الجوي: الغازات. المائي: المياه. الحيوي: حيث تعيش المخلوقات. وطبقاتها: القشرة، والستار، واللب الخارجي، واللب الداخلي.</div>
+<button class="lwcover" onclick="lwCover(14)">🙈 غطّي وحاولي الكتابة من ذاكرتك</button>
+<div class="lwq">📖 <strong>من الكتاب:</strong><div class="lwm">«يحيط بالأرض غطاء غازي يسمى الغلاف الجوي، ويحوي جميع الغازات الموجودة على سطح الأرض.» <strong>(ص ١٥٠)</strong></div><div class="lwm">«أما الغلاف المائي فيشمل المياه في الحالتين: الصلبة والسائلة، ومنها المحيطات والأنهار والبحيرات والجليديات.» <strong>(ص ١٥٠)</strong></div><div class="lwm">«أما الغلاف الحيوي للأرض فهو جزء من الأرض تعيش فيه جميع المخلوقات الحية» <strong>(ص ١٥٠)</strong></div><div class="lwm">«يسمى الجزء الصخري (الصلب) من سطح الأرض القشرة الأرضية» <strong>(ص ١٥٠)</strong></div><div class="lwm">«ويقع اللب أسفل الستار السفلي، ويشكل الكتلة المركزية للأرض.» <strong>(ص ١٥٠)</strong></div><div class="lwm">«يتكون الغلاف الصخري للأرض من القشرة الأرضية وجزء من الستار العلوي.» <strong>(ص ١٥١)</strong></div></div>
+<div class="lwcap">رسم تلخيصي مبسّط أُعدّ للمذاكرة (ليس صورة من الكتاب)</div><svg viewBox="0 0 360 220" role="img" aria-label="مقطع في طبقات الأرض بأربعة أرقام" style="display:block;width:100%;max-width:420px;margin:8px auto;border-radius:12px;" xmlns="http://www.w3.org/2000/svg"><rect width="360" height="220" fill="#f4f8ff"/><path d="M4,205 A176,176 0 0 1 356,205 Z" fill="#8d5a2b" transform=""/><path d="M18,205 A162,162 0 0 1 342,205 Z" fill="#e07b39" transform=""/><path d="M76,205 A104,104 0 0 1 284,205 Z" fill="#f6b73c" transform=""/><path d="M126,205 A54,54 0 0 1 234,205 Z" fill="#fff0a6" transform=""/><circle cx="262" cy="24" r="15" fill="#fff" stroke="#1d2b3a" stroke-width="1.6"/><text x="262" y="30" text-anchor="middle" font-size="18" font-weight="bold" fill="#1d2b3a" direction="rtl">①</text><line x1="254" y1="37" x2="243" y2="54" stroke="#1d2b3a" stroke-width="1.5"/><circle cx="180" cy="70" r="15" fill="#fff" stroke="#1d2b3a" stroke-width="1.6"/><text x="180" y="76" text-anchor="middle" font-size="18" font-weight="bold" fill="#1d2b3a" direction="rtl">②</text><circle cx="180" cy="128" r="15" fill="#fff" stroke="#1d2b3a" stroke-width="1.6"/><text x="180" y="134" text-anchor="middle" font-size="18" font-weight="bold" fill="#1d2b3a" direction="rtl">③</text><circle cx="180" cy="180" r="15" fill="#fff" stroke="#1d2b3a" stroke-width="1.6"/><text x="180" y="186" text-anchor="middle" font-size="18" font-weight="bold" fill="#1d2b3a" direction="rtl">④</text></svg><svg viewBox="0 0 340 52" role="img" style="display:block;width:100%;max-width:420px;margin:8px auto;background:#fff;border:1px solid #e3e8f2;border-radius:14px;" xmlns="http://www.w3.org/2000/svg"><rect x="257" y="8" width="75" height="36" rx="9" fill="#e3f0ff" stroke="#2f6fb0" stroke-width="2"/><text x="294.5" y="29" text-anchor="middle" direction="rtl" font-size="11" font-weight="700" fill="#2f6fb0">① القشرة</text><rect x="174" y="8" width="75" height="36" rx="9" fill="#e6f7ec" stroke="#2e8f55" stroke-width="2"/><text x="211.5" y="29" text-anchor="middle" direction="rtl" font-size="11" font-weight="700" fill="#2e8f55">② الستار</text><rect x="91" y="8" width="75" height="36" rx="9" fill="#fff3da" stroke="#c98a1a" stroke-width="2"/><text x="128.5" y="29" text-anchor="middle" direction="rtl" font-size="11" font-weight="700" fill="#c98a1a">③ لب خارجي</text><rect x="8" y="8" width="75" height="36" rx="9" fill="#fde8e4" stroke="#c0503a" stroke-width="2"/><text x="45.5" y="29" text-anchor="middle" direction="rtl" font-size="11" font-weight="700" fill="#c0503a">④ لب داخلي</text></svg>
+<div class="lwtip">🧠 <strong>تذكّر:</strong> اللب الخارجي سائل، والداخلي صلب (ص ١٥٠).</div>
+</div></details>
+<details class="lw"><summary><span class="lwn">١٦</span> 🧩 الصفائح الأرضية</summary>
+<div class="lwbody">
+<div class="lwf" id="lwf15">ينقسم الغلاف الصخري الصلب إلى ألواح تسمى صفائح. وعند تقاربها قد تنثني فتشكل مناطق جبلية.</div>
+<button class="lwcover" onclick="lwCover(15)">🙈 غطّي وحاولي الكتابة من ذاكرتك</button>
+<div class="lwq">📖 <strong>من الكتاب:</strong><div class="lwm">«يتكون الغلاف الصخري للأرض من القشرة الأرضية وجزء من الستار العلوي.» <strong>(ص ١٥١)</strong></div><div class="lwm">«أما في الجهة الثانية فتقترب الصفيحة المنزلقة من صفائح أخرى، وقد تنثني لتشكل مناطق جبلية.» <strong>(ص ١٥١)</strong></div></div>
+<div class="lwcap">رسم تلخيصي مبسّط أُعدّ للمذاكرة (ليس صورة من الكتاب)</div><svg viewBox="0 0 340 100" role="img" style="display:block;width:100%;max-width:420px;margin:8px auto;background:#fff;border:1px solid #e3e8f2;border-radius:14px;" xmlns="http://www.w3.org/2000/svg"><rect x="20" y="55" width="140" height="28" rx="9" fill="#fff3da" stroke="#c98a1a" stroke-width="2"/><rect x="180" y="55" width="140" height="28" rx="9" fill="#e6f7ec" stroke="#2e8f55" stroke-width="2"/><polygon points="140,55 170,15 200,55" fill="#8d6e63"/><text x="60" y="74" text-anchor="middle" direction="rtl" font-size="13" font-weight="700" fill="#1d2b3a">صفيحة</text><text x="280" y="74" text-anchor="middle" direction="rtl" font-size="13" font-weight="700" fill="#1d2b3a">صفيحة</text><line x1="90" y1="69" x2="138" y2="69" stroke="#1d2b3a" stroke-width="3"/><polygon points="150,69 136,62 136,76" fill="#1d2b3a"/><line x1="250" y1="69" x2="202" y2="69" stroke="#1d2b3a" stroke-width="3"/><polygon points="190,69 204,62 204,76" fill="#1d2b3a"/><text x="170" y="96" text-anchor="middle" direction="rtl" font-size="12" font-weight="700" fill="#1d2b3a">تقارب ← جبال</text></svg>
+<div class="lwex">✏️ <strong>أمثلة:</strong> من الكتاب (ص ١٥١): اتساع البحر الأحمر تدريجيًّا بسبب تحرك الصفيحة العربية.</div>
+<div class="lwtip">🧠 <strong>تذكّر:</strong> تقارب ← انثناء ← جبال.</div>
+</div></details>
+<details class="lw"><summary><span class="lwn">١٧</span> 📳 الزلازل</summary>
+<div class="lwbody">
+<div class="lwf" id="lwf16">الزلزال: اهتزاز قشرة الأرض. البؤرة تحت السطح، والمركز السطحي فوقها. السيزمومتر يسجل الأمواج، ورختر لقوة الزلزال. ويحدَّد المركز بثلاث محطات.</div>
+<button class="lwcover" onclick="lwCover(16)">🙈 غطّي وحاولي الكتابة من ذاكرتك</button>
+<div class="lwq">📖 <strong>من الكتاب:</strong><div class="lwm">«الزلزال اهتزاز قشرة الأرض.» <strong>(ص ١٥٦)</strong></div><div class="lwm">«تحدث الزلازل بقدرة الله عز وجل في مناطق الصدوع.» <strong>(ص ١٥٦)</strong></div><div class="lwm">«يسمى موقع حدوث الزلزال تحت سطح الأرض بؤرة الزلزال.» <strong>(ص ١٥٧)</strong></div><div class="lwm">«هذه النقطة تسمى المركز السطحي للزلزال.» <strong>(ص ١٥٧)</strong></div><div class="lwm">«يتم في محطة الرصد تسجيل الأمواج الزلزالية التي تنتشر من بؤرة الزلزال بجهاز يسمى السيزمومتر.» <strong>(ص ١٥٧)</strong></div><div class="lwm">«وتقدر قوة الزلزال بمقدار الطاقة التي تتحرر إثر حدوثه. ويستعمل في ذلك مقياس رختر» <strong>(ص ١٥٨)</strong></div><div class="lwm">«يحدد المركز السطحي للزلزال عن طريق رصد زمن وصول الأمواج الزلزالية إلى ثلاث محطات رصد» <strong>(ص ١٥٨)</strong></div></div>
+<div class="lwcap">رسم تلخيصي مبسّط أُعدّ للمذاكرة (ليس صورة من الكتاب)</div><svg viewBox="0 0 360 230" role="img" aria-label="مقطع زلزال بثلاثة أرقام" style="display:block;width:100%;max-width:420px;margin:8px auto;border-radius:12px;" xmlns="http://www.w3.org/2000/svg"><rect width="360" height="230" fill="#eaf6ff"/><polygon points="20,80 110,40 340,40 270,80" fill="#69a85c"/><rect x="20" y="80" width="250" height="135" fill="#c79a63"/><polygon points="270,80 340,40 340,175 270,215" fill="#a67c4b"/><path d="M120,40 L150,80 L205,215" fill="none" stroke="#222" stroke-width="3"/><line x1="184" y1="165" x2="184" y2="80" stroke="#c0392b" stroke-width="2" stroke-dasharray="5 4"/><path d="M194,165 L230,165" fill="none" stroke="#c0392b" stroke-width="3"/><polygon points="230,165 221.2,160.2 221.2,169.8" fill="#c0392b"/><path d="M174,165 L138,165" fill="none" stroke="#c0392b" stroke-width="3"/><polygon points="138,165 146.8,169.8 146.8,160.2" fill="#c0392b"/><path d="M191,173 L216,198" fill="none" stroke="#c0392b" stroke-width="3"/><polygon points="216,198 213.2,188.4 206.4,195.2" fill="#c0392b"/><path d="M177,158 L152,133" fill="none" stroke="#c0392b" stroke-width="3"/><polygon points="152,133 154.8,142.6 161.6,135.8" fill="#c0392b"/><path d="M191,158 L216,133" fill="none" stroke="#c0392b" stroke-width="3"/><polygon points="216,133 206.4,135.8 213.2,142.6" fill="#c0392b"/><path d="M177,173 L152,198" fill="none" stroke="#c0392b" stroke-width="3"/><polygon points="152,198 161.6,195.2 154.8,188.4" fill="#c0392b"/><circle cx="184" cy="80" r="7" fill="#e53935" stroke="#fff" stroke-width="2"/><circle cx="184" cy="165" r="7" fill="#e53935" stroke="#fff" stroke-width="2"/><circle cx="95" cy="25" r="15" fill="#fff" stroke="#1d2b3a" stroke-width="1.6"/><text x="95" y="31" text-anchor="middle" font-size="18" font-weight="bold" fill="#1d2b3a" direction="rtl">①</text><line x1="108" y1="30" x2="128" y2="50" stroke="#1d2b3a" stroke-width="1.5"/><circle cx="300" cy="80" r="15" fill="#fff" stroke="#1d2b3a" stroke-width="1.6"/><text x="300" y="86" text-anchor="middle" font-size="18" font-weight="bold" fill="#1d2b3a" direction="rtl">②</text><line x1="285" y1="80" x2="194" y2="80" stroke="#1d2b3a" stroke-width="1.5"/><circle cx="60" cy="165" r="15" fill="#fff" stroke="#1d2b3a" stroke-width="1.6"/><text x="60" y="171" text-anchor="middle" font-size="18" font-weight="bold" fill="#1d2b3a" direction="rtl">③</text><path d="M75,165 L112,150 L176,162" fill="none" stroke="#1d2b3a" stroke-width="1.5"/></svg><svg viewBox="0 0 340 74" role="img" style="display:block;width:100%;max-width:420px;margin:8px auto;background:#fff;border:1px solid #e3e8f2;border-radius:14px;" xmlns="http://www.w3.org/2000/svg"><rect x="229.33333333333331" y="8" width="102.66666666666667" height="58" rx="9" fill="#e3f0ff" stroke="#2f6fb0" stroke-width="2"/><text x="280.66666666666663" y="29" text-anchor="middle" direction="rtl" font-size="13" font-weight="700" fill="#2f6fb0">① الصدع</text><text x="280.66666666666663" y="54" text-anchor="middle" direction="rtl" font-size="11" font-weight="700" fill="#1d2b3a"> </text><rect x="118.66666666666666" y="8" width="102.66666666666667" height="58" rx="9" fill="#e6f7ec" stroke="#2e8f55" stroke-width="2"/><text x="170" y="29" text-anchor="middle" direction="rtl" font-size="13" font-weight="700" fill="#2e8f55">② المركز</text><text x="170" y="54" text-anchor="middle" direction="rtl" font-size="11" font-weight="700" fill="#1d2b3a">السطحي</text><rect x="8" y="8" width="102.66666666666667" height="58" rx="9" fill="#fff3da" stroke="#c98a1a" stroke-width="2"/><text x="59.333333333333336" y="29" text-anchor="middle" direction="rtl" font-size="13" font-weight="700" fill="#c98a1a">③ البؤرة</text><text x="59.333333333333336" y="54" text-anchor="middle" direction="rtl" font-size="11" font-weight="700" fill="#1d2b3a"> </text></svg>
+<div class="lwtip">🧠 <strong>تذكّر:</strong> تحت: بؤرة. فوق: مركز سطحي. ثلاث محطات.</div>
+</div></details>
+<details class="lw"><summary><span class="lwn">١٨</span> 🧮 قاعدة رختر: الدرجة الواحدة</summary>
+<div class="lwbody">
+<div class="lwf" id="lwf17">زيادة درجة واحدة في قوة الزلزال = ٣٠ ضعفًا من الطاقة المتحررة.</div>
+<button class="lwcover" onclick="lwCover(17)">🙈 غطّي وحاولي الكتابة من ذاكرتك</button>
+<div class="lwq">📖 <strong>من الكتاب:</strong><div class="lwm">«إن زيادة درجة واحدة في قوة الزلزال تدل على ٣٠ ضعفا من الطاقة المتحررة.» <strong>(ص ١٥٨)</strong></div></div>
+<div class="lwcap">رسم تلخيصي مبسّط أُعدّ للمذاكرة (ليس صورة من الكتاب)</div><svg viewBox="0 0 340 96" role="img" style="display:block;width:100%;max-width:420px;margin:8px auto;background:#fff;border:1px solid #e3e8f2;border-radius:14px;" xmlns="http://www.w3.org/2000/svg"><rect x="229.33333333333331" y="8" width="102.66666666666667" height="80" rx="9" fill="#e3f0ff" stroke="#2f6fb0" stroke-width="2"/><text x="280.66666666666663" y="29" text-anchor="middle" direction="rtl" font-size="13" font-weight="700" fill="#2f6fb0">قوة ٥</text><text x="280.66666666666663" y="54" text-anchor="middle" direction="rtl" font-size="11" font-weight="700" fill="#1d2b3a">١</text><rect x="118.66666666666666" y="8" width="102.66666666666667" height="80" rx="9" fill="#e6f7ec" stroke="#2e8f55" stroke-width="2"/><text x="170" y="29" text-anchor="middle" direction="rtl" font-size="13" font-weight="700" fill="#2e8f55">قوة ٦</text><text x="170" y="54" text-anchor="middle" direction="rtl" font-size="11" font-weight="700" fill="#1d2b3a">٣٠ ضعف ٥</text><rect x="8" y="8" width="102.66666666666667" height="80" rx="9" fill="#fff3da" stroke="#c98a1a" stroke-width="2"/><text x="59.333333333333336" y="29" text-anchor="middle" direction="rtl" font-size="13" font-weight="700" fill="#c98a1a">قوة ٧</text><text x="59.333333333333336" y="54" text-anchor="middle" direction="rtl" font-size="11" font-weight="700" fill="#1d2b3a">٣٠ ضعف ٦</text><text x="59.333333333333336" y="76" text-anchor="middle" direction="rtl" font-size="11" font-weight="700" fill="#1d2b3a">٩٠٠ ضعف ٥</text></svg>
+<div class="lwex">✏️ <strong>أمثلة:</strong> مثال الكتاب (ص ١٥٨): زلزال قوته ٧ طاقته ٣٠ ضعف طاقة زلزال قوته ٦، و٩٠٠ ضعف (٣٠ × ٣٠) طاقة زلزال قوته ٥.</div>
+<div class="lwtip">🧠 <strong>تذكّر:</strong> لكل درجة: اضربي في ٣٠ (لا تجمعي).</div>
+</div></details>
+<details class="lw"><summary><span class="lwn">١٩</span> 🌊 التسونامي</summary>
+<div class="lwbody">
+<div class="lwf" id="lwf18">زلازل قاع المحيط تحرك الأمواج بسرعة عالية، فتتحول قرب الشاطئ إلى أمواج عملاقة مدمرة هي التسونامي.</div>
+<button class="lwcover" onclick="lwCover(18)">🙈 غطّي وحاولي الكتابة من ذاكرتك</button>
+<div class="lwq">📖 <strong>من الكتاب:</strong><div class="lwm">«عند حدوث الزلازل في قاع المحيط تتحرك الأمواج في جميع الاتجاهات بسرعة عالية جدا» <strong>(ص ١٥٨)</strong></div><div class="lwm">«وتتحول إلى أمواج عملاقة تصطدم بالشاطئ وتسبب الدمار. وتسمى هذه الأمواج التسونامي.» <strong>(ص ١٥٩)</strong></div></div>
+<div class="lwcap">رسم تلخيصي مبسّط أُعدّ للمذاكرة (ليس صورة من الكتاب)</div><svg viewBox="0 0 340 138" role="img" style="display:block;width:100%;max-width:420px;margin:8px auto;background:#fff;border:1px solid #e3e8f2;border-radius:14px;" xmlns="http://www.w3.org/2000/svg"><rect x="35" y="4" width="270" height="32" rx="9" fill="#e3f0ff" stroke="#2f6fb0" stroke-width="2"/><text x="170" y="25" text-anchor="middle" direction="rtl" font-size="12.5" font-weight="700" fill="#1d2b3a">زلزال في قاع المحيط</text><line x1="170" y1="36" x2="170" y2="46" stroke="#1d2b3a" stroke-width="2"/><polygon points="170,50 165,43 175,43" fill="#1d2b3a"/><rect x="35" y="50" width="270" height="32" rx="9" fill="#e6f7ec" stroke="#2e8f55" stroke-width="2"/><text x="170" y="71" text-anchor="middle" direction="rtl" font-size="12.5" font-weight="700" fill="#1d2b3a">أمواج سريعة في كل الاتجاهات</text><line x1="170" y1="82" x2="170" y2="92" stroke="#1d2b3a" stroke-width="2"/><polygon points="170,96 165,89 175,89" fill="#1d2b3a"/><rect x="35" y="96" width="270" height="32" rx="9" fill="#fff3da" stroke="#c98a1a" stroke-width="2"/><text x="170" y="117" text-anchor="middle" direction="rtl" font-size="12.5" font-weight="700" fill="#1d2b3a">أمواج عملاقة تصطدم بالشاطئ</text></svg>
+<div class="lwtip">🧠 <strong>تذكّر:</strong> سببه زلزال تحت البحر.</div>
+</div></details>
+<details class="lw"><summary><span class="lwn">٢٠</span> 🌋 البراكين</summary>
+<div class="lwbody">
+<div class="lwf" id="lwf19">البركان: فتحة في القشرة تخرج منها الصهارة والغازات والرماد. أنواعه: نشطة، وهامدة، وساكنة.</div>
+<button class="lwcover" onclick="lwCover(19)">🙈 غطّي وحاولي الكتابة من ذاكرتك</button>
+<div class="lwq">📖 <strong>من الكتاب:</strong><div class="lwm">«البركان فتحة في القشرة الأرضية تخرج منها الصهارة والغازات والرماد البركاني إلى سطح الأرض.» <strong>(ص ١٦٠)</strong></div><div class="lwm">«وتسمى الصهارة عندما تصل إلى سطح الأرض لابة.» <strong>(ص ١٦٠)</strong></div><div class="lwm">«والبراكين ثلاثة أنواع: البراكين النشطة، وهي التي لا تزال الصهارة تندفع منها حتى وقتنا هذا، وتلك التي اندفعت حديثا.» <strong>(ص ١٦٠)</strong></div><div class="lwm">«والبراكين الهامدة، التي توقف اندفاع الصهارة منها، ولا يتوقع أن تثور مرة أخرى.» <strong>(ص ١٦٠)</strong></div><div class="lwm">«أما النوع الثالث فهو البراكين الساكنة، وهي البراكين التي توقفت عن الثوران، لكنها قد تعود فتثور من وقت إلى آخر.» <strong>(ص ١٦٠)</strong></div></div>
+<div class="lwcap">رسم تلخيصي مبسّط أُعدّ للمذاكرة (ليس صورة من الكتاب)</div><svg viewBox="0 0 340 96" role="img" style="display:block;width:100%;max-width:420px;margin:8px auto;background:#fff;border:1px solid #e3e8f2;border-radius:14px;" xmlns="http://www.w3.org/2000/svg"><rect x="229.33333333333331" y="8" width="102.66666666666667" height="80" rx="9" fill="#e3f0ff" stroke="#2f6fb0" stroke-width="2"/><text x="280.66666666666663" y="29" text-anchor="middle" direction="rtl" font-size="13" font-weight="700" fill="#2f6fb0">نشطة</text><text x="280.66666666666663" y="54" text-anchor="middle" direction="rtl" font-size="11" font-weight="700" fill="#1d2b3a">تثور الآن</text><text x="280.66666666666663" y="76" text-anchor="middle" direction="rtl" font-size="11" font-weight="700" fill="#1d2b3a">أو حديثًا</text><rect x="118.66666666666666" y="8" width="102.66666666666667" height="80" rx="9" fill="#e6f7ec" stroke="#2e8f55" stroke-width="2"/><text x="170" y="29" text-anchor="middle" direction="rtl" font-size="13" font-weight="700" fill="#2e8f55">هامدة</text><text x="170" y="54" text-anchor="middle" direction="rtl" font-size="11" font-weight="700" fill="#1d2b3a">توقفت ولا</text><text x="170" y="76" text-anchor="middle" direction="rtl" font-size="11" font-weight="700" fill="#1d2b3a">يتوقع عودتها</text><rect x="8" y="8" width="102.66666666666667" height="80" rx="9" fill="#fff3da" stroke="#c98a1a" stroke-width="2"/><text x="59.333333333333336" y="29" text-anchor="middle" direction="rtl" font-size="13" font-weight="700" fill="#c98a1a">ساكنة</text><text x="59.333333333333336" y="54" text-anchor="middle" direction="rtl" font-size="11" font-weight="700" fill="#1d2b3a">توقفت وقد</text><text x="59.333333333333336" y="76" text-anchor="middle" direction="rtl" font-size="11" font-weight="700" fill="#1d2b3a">تعود</text></svg>
+<div class="lwex">✏️ <strong>أمثلة:</strong> من الكتاب (ص ١٦٠): بركان أيسلندا عاد للثوران عام ١٤٣١هـ بعد سكون دام نحو ٢٠٠ عام.</div>
+<div class="lwtip">🧠 <strong>تذكّر:</strong> نشط، هامد (انتهى)، ساكن (نائم قد يستيقظ).</div>
+</div></details>
+<details class="lw"><summary><span class="lwn">٢١</span> 🪨 التجوية والتعرية والترسيب</summary>
+<div class="lwbody">
+<div class="lwf" id="lwf20">التجوية تفتّت الصخور (فيزيائية وكيميائية). التعرية تنقل الفتات. الترسيب يراكمه في مكان ما.</div>
+<button class="lwcover" onclick="lwCover(20)">🙈 غطّي وحاولي الكتابة من ذاكرتك</button>
+<div class="lwq">📖 <strong>من الكتاب:</strong><div class="lwm">«تسمى العملية التي تسبب تفتت الصخور أو مواد أخرى التجوية. وهناك نوعان من التجوية: التجوية الفيزيائية، والتجوية الكيميائية.» <strong>(ص ١٦٢)</strong></div><div class="lwm">«يقصد بالتجوية الفيزيائية تفتت الصخور من دون حدوث تغير في تركيبها الكيميائي.» <strong>(ص ١٦٢)</strong></div><div class="lwm">«وينتج هذا النوع من التجوية بفعل عدة عوامل، منها تجمد المياه في الشقوق، ونمو جذور النبات ومن ثم الضغط الذي تحدثه، والتغيرات في درجات الحرارة.» <strong>(ص ١٦٢)</strong></div><div class="lwm">«تحدث التجوية الكيميائية بسبب تفاعل المواد الكيميائية التي في الماء أو الهواء مع المعادن المكونة للصخور» <strong>(ص ١٦٢)</strong></div><div class="lwm">«تسمى عملية نقل التربة وفتات الصخور من مكان إلى آخر على سطح الأرض التعرية.» <strong>(ص ١٦٣)</strong></div><div class="lwm">«ومن أهم العوامل الطبيعية التي تسبب التعرية المياه الجارية والرياح والجليديات والأمواج البحرية.» <strong>(ص ١٦٣)</strong></div><div class="lwm">«وتسمى عملية تراكم الفتات في مكان ما الترسيب.» <strong>(ص ١٦٤)</strong></div></div>
+<div class="lwcap">رسم تلخيصي مبسّط أُعدّ للمذاكرة (ليس صورة من الكتاب)</div><svg viewBox="0 0 340 158" role="img" style="display:block;width:100%;max-width:420px;margin:8px auto;background:#fff;border:1px solid #e3e8f2;border-radius:14px;" xmlns="http://www.w3.org/2000/svg"><rect x="35" y="4" width="270" height="32" rx="9" fill="#e3f0ff" stroke="#2f6fb0" stroke-width="2"/><text x="170" y="25" text-anchor="middle" direction="rtl" font-size="12.5" font-weight="700" fill="#1d2b3a">التجوية: تفتيت</text><line x1="170" y1="36" x2="170" y2="46" stroke="#1d2b3a" stroke-width="2"/><polygon points="170,50 165,43 175,43" fill="#1d2b3a"/><rect x="35" y="50" width="270" height="32" rx="9" fill="#e6f7ec" stroke="#2e8f55" stroke-width="2"/><text x="170" y="71" text-anchor="middle" direction="rtl" font-size="12.5" font-weight="700" fill="#1d2b3a">التعرية: نقل (ماء، رياح، جليد، أمواج)</text><line x1="170" y1="82" x2="170" y2="92" stroke="#1d2b3a" stroke-width="2"/><polygon points="170,96 165,89 175,89" fill="#1d2b3a"/><rect x="35" y="96" width="270" height="32" rx="9" fill="#fff3da" stroke="#c98a1a" stroke-width="2"/><text x="170" y="117" text-anchor="middle" direction="rtl" font-size="12.5" font-weight="700" fill="#1d2b3a">الترسيب: تراكم</text><text x="170" y="153" text-anchor="middle" direction="rtl" font-size="11" font-weight="700" fill="#5b6478">الترتيب أضيف لتسهيل الحفظ</text></svg>
+<div class="lwex">✏️ <strong>أمثلة:</strong> تجوية فيزيائية: تجمد المياه في الشقوق. ومن أهم عوامل التجوية الكيميائية: الأمطار الحمضية (ص ١٦٢).</div>
+<div class="lwtip">🧠 <strong>تذكّر:</strong> فتّت ← انقل ← راكِم.</div>
+</div></details>
+<details class="lw"><summary><span class="lwn">٢٢</span> 🐚 الأحافير والوقود الأحفوري</summary>
+<div class="lwbody">
+<div class="lwf" id="lwf21">الأحافير: بقايا مخلوقات عاشت قديمًا أو آثارها في الصخور الرسوبية. الوقود الأحفوري: الفحم الحجري والنفط والغاز الطبيعي.</div>
+<button class="lwcover" onclick="lwCover(21)">🙈 غطّي وحاولي الكتابة من ذاكرتك</button>
+<div class="lwq">📖 <strong>من الكتاب:</strong><div class="lwm">«وفي ظروف معينة يمكن أن تحفظ بقايا المخلوقات الحية التي عاشت في الماضي أو آثارها في الصخور الرسوبية لتكون الأحافير.» <strong>(ص ١٧٦)</strong></div><div class="lwm">«وبتراكم الطبقات وازدياد الضغط والحرارة يتحول الخث إلى الفحم الحجري.» <strong>(ص ١٧٦)</strong></div><div class="lwm">«أما عند دفن المخلوقات البحرية تحت الرسوبيات في قاع المحيط فإن بقاياها تتحول نتيجة الضغط والحرارة وتأثير البكتيريا إلى نفط وغاز طبيعي.» <strong>(ص ١٧٦)</strong></div><div class="lwm">«ويسمى كل من الفحم الحجري والنفط والغاز الطبيعي الوقود الأحفوري.» <strong>(ص ١٧٦)</strong></div></div>
+<div class="lwcap">رسم تلخيصي مبسّط أُعدّ للمذاكرة (ليس صورة من الكتاب)</div><svg viewBox="0 0 340 118" role="img" style="display:block;width:100%;max-width:420px;margin:8px auto;background:#fff;border:1px solid #e3e8f2;border-radius:14px;" xmlns="http://www.w3.org/2000/svg"><rect x="174" y="8" width="158" height="102" rx="9" fill="#e3f0ff" stroke="#2f6fb0" stroke-width="2"/><text x="253" y="29" text-anchor="middle" direction="rtl" font-size="13" font-weight="700" fill="#2f6fb0">الفحم</text><text x="253" y="54" text-anchor="middle" direction="rtl" font-size="12.5" font-weight="700" fill="#1d2b3a">نباتات مدفونة</text><text x="253" y="76" text-anchor="middle" direction="rtl" font-size="12.5" font-weight="700" fill="#1d2b3a">↓ خُث</text><text x="253" y="98" text-anchor="middle" direction="rtl" font-size="12.5" font-weight="700" fill="#1d2b3a">↓ فحم حجري</text><rect x="8" y="8" width="158" height="102" rx="9" fill="#e6f7ec" stroke="#2e8f55" stroke-width="2"/><text x="87" y="29" text-anchor="middle" direction="rtl" font-size="13" font-weight="700" fill="#2e8f55">النفط والغاز</text><text x="87" y="54" text-anchor="middle" direction="rtl" font-size="12.5" font-weight="700" fill="#1d2b3a">مخلوقات بحرية</text><text x="87" y="76" text-anchor="middle" direction="rtl" font-size="12.5" font-weight="700" fill="#1d2b3a">↓ تدفن تحت الرسوبيات</text><text x="87" y="98" text-anchor="middle" direction="rtl" font-size="12.5" font-weight="700" fill="#1d2b3a">↓ ضغط وحرارة وبكتيريا</text></svg>
+<div class="lwtip">🧠 <strong>تذكّر:</strong> نبات ← خث ← فحم. مخلوقات بحرية ← نفط وغاز.</div>
+</div></details>
+<details class="lw"><summary><span class="lwn">٢٣</span> ⚡ موارد الطاقة والمحافظة عليها</summary>
+<div class="lwbody">
+<div class="lwf" id="lwf22">متجددة (دائمة): الشمس والمياه الجارية والرياح. غير متجددة: الوقود الأحفوري. ونحد من الهدر بتحسين مواصفات الأبنية واستعمال النقل العام.</div>
+<button class="lwcover" onclick="lwCover(22)">🙈 غطّي وحاولي الكتابة من ذاكرتك</button>
+<div class="lwq">📖 <strong>من الكتاب:</strong><div class="lwm">«موارد طاقة دائمة وغير محدودة تسمى موارد الطاقة المتجددة، ومنها الطاقة الشمسية وطاقة المياه الجارية وطاقة الرياح.» <strong>(ص ١٧٨)</strong></div><div class="lwm">«ومن مزايا هذه الموارد أنها توفر طاقة نظيفة، ولا تلوث الهواء الذي نتنفسه.» <strong>(ص ١٧٨)</strong></div><div class="lwm">«موارد الطاقة غير المتجددة تشمل الوقود الأحفوري بجميع أشكاله.» <strong>(ص ١٧٧)</strong></div><div class="lwm">«ومن طرائق الاستفادة منه بالشكل الأمثل والحد من هدر الطاقة: تحسين مواصفات الأبنية، واستعمال وسائل النقل العام» <strong>(ص ١٧٧)</strong></div><div class="lwm">«التأكد من إطفاء مصابيح الغرف عند مغادرتها.» <strong>(ص ١٧٩)</strong></div></div>
+<div class="lwcap">رسم تلخيصي مبسّط أُعدّ للمذاكرة (ليس صورة من الكتاب)</div><svg viewBox="0 0 340 118" role="img" style="display:block;width:100%;max-width:420px;margin:8px auto;background:#fff;border:1px solid #e3e8f2;border-radius:14px;" xmlns="http://www.w3.org/2000/svg"><rect x="174" y="8" width="158" height="102" rx="9" fill="#e3f0ff" stroke="#2f6fb0" stroke-width="2"/><text x="253" y="29" text-anchor="middle" direction="rtl" font-size="13" font-weight="700" fill="#2f6fb0">متجددة ✅</text><text x="253" y="54" text-anchor="middle" direction="rtl" font-size="12.5" font-weight="700" fill="#1d2b3a">الشمس</text><text x="253" y="76" text-anchor="middle" direction="rtl" font-size="12.5" font-weight="700" fill="#1d2b3a">المياه الجارية</text><text x="253" y="98" text-anchor="middle" direction="rtl" font-size="12.5" font-weight="700" fill="#1d2b3a">الرياح</text><rect x="8" y="8" width="158" height="102" rx="9" fill="#e6f7ec" stroke="#2e8f55" stroke-width="2"/><text x="87" y="29" text-anchor="middle" direction="rtl" font-size="13" font-weight="700" fill="#2e8f55">غير متجددة ⛔</text><text x="87" y="54" text-anchor="middle" direction="rtl" font-size="12.5" font-weight="700" fill="#1d2b3a">الفحم</text><text x="87" y="76" text-anchor="middle" direction="rtl" font-size="12.5" font-weight="700" fill="#1d2b3a">النفط</text><text x="87" y="98" text-anchor="middle" direction="rtl" font-size="12.5" font-weight="700" fill="#1d2b3a">الغاز</text></svg>
+<div class="lwex">✏️ <strong>أمثلة:</strong> من الكتاب (ص ١٧٨): الألواح الشمسية، والمراوح، والسدود.</div>
+<div class="lwtip">🧠 <strong>تذكّر:</strong> المتجددة نظيفة ولا تلوث الهواء.</div>
+</div></details>
+<script>function lwCover(i){var e=document.getElementById('lwf'+i);if(!e)return;var d=e.closest('details');d.classList.toggle('hidecover');e.classList.toggle('cov');}</script>
+<div style="text-align:center;margin-top:14px;font-weight:bold;color:#6f7a93;">ثم اختاري تمرين الحفظ للبدء:</div>
+    <div id="markazi2Box" style="margin-top:18px;border-top:2px dashed #7fc9b6;padding-top:14px;">
+      <div style="text-align:center;font-weight:bold;color:#1e7a5e;"><span style="background:#dff7ef;border:1px solid #4fbf9a;border-radius:10px;padding:2px 10px;margin-inline-end:6px;">✨ جديد</span>تمارين الحفظ</div>
+      <div class="small" style="text-align:center;margin-top:5px;">أغلبها أسئلة كتابة ✍️: احفظي ثم اكتبي بنفسك. (تمارين أعدّت للمذاكرة وليست من ورقة الاختبار.)</div>
+      <div class="row" id="markazi2Buttons" style="margin-top:8px;"></div>
+      <button class="btn-main" style="margin-top:8px;background:linear-gradient(135deg,#1e7a5e,#2fa884);" onclick="startQuiz('nr')">📚 كل الأسئلة</button>
+    </div>
+    <div id="hasHistory" class="hide" style="text-align:center;margin-top:10px;">
+      <button class="btn-soft" onclick="showDashboard()">📊 لوحة المتابعة</button></div>
+  </div>
+
+  <div id="quiz" class="card hide">
+    <div class="topbar"><span class="unit-badge" id="unitBadge"></span><span class="pill" id="scorePill">⭐ ٠ / ٠</span></div>
+    <div class="progress"><div id="bar"></div></div>
+    <p class="small" id="qcount"></p>
+    <div class="typetag" id="typeTag"></div>
+    <div class="qtext" id="qtext"></div>
+    <p class="hint" id="qhint"></p>
+    <div id="opts"></div>
+    <div id="fb" class="fb"></div>
+    <div id="alarm" class="alarm">⛔ أجيبي عن السؤال أولاً قبل الانتقال</div>
+    <div class="row" style="margin-top:14px;">
+      <button class="btn-soft" onclick="confirmReset()">↺ إعادة من البداية</button>
+      <button class="btn-check" id="checkBtn" onclick="checkInput()" style="display:none;">تحقّق ✓</button>
+      <button class="btn-next" id="nextBtn" onclick="next()" disabled>التالي ➜</button>
+    </div>
+  </div>
+
+  <div id="results" class="card hide">
+    <div class="star" id="resEmoji">🎉</div>
+    <h1 id="resTitle">أحسنتِ! 🌟</h1>
+    <p class="sub" id="resLine"></p>
+    <div id="resBreakdown"></div>
+    <h3 style="margin-top:18px;">📊 تقرير وليّ الأمر</h3>
+    <div id="reportArea"></div>
+    <div class="row" style="margin-top:16px;">
+      <button class="btn-soft" onclick="goHome()">🏠 القائمة الرئيسية</button>
+      <button class="btn-soft" onclick="confirmReset()">↺ إعادة المحاولة</button>
+      <button class="btn-soft" onclick="clearHistory()">🗑️ مسح السجل</button></div>
+  </div>
+</div>
+
+<!-- ===== بنك الأسئلة في sara5-science-laws.questions.js — عدّل ذلك الملف لإضافة/تغيير الأسئلة ===== -->
+<script src="config.js"></script>
+<script src="analytics.js"></script>
+<script src="sara5-science-laws.questions.js?v=20261127a"></script>
+<script>
+const STORAGE_KEY = "sara5_science_laws_attempts";
+const SUBJECT_KEY = "s5-science-laws";
+const TYPELABEL = {mcq:"✏️ اختاري الإجابة الصحيحة", fill:"🔡 أكملي الفراغ", tf:"✅ صح أو خطأ", match:"🔗 صِلي العمودين", essay:"✍️ سؤال مقالي"};
+
+
+/* ===== المحرّك (نفس محرّك نسخة الإنجليزي) ===== */
+let i=0, score=0, answered=false, startTime=0, perUnit={}, perType={}, wrongItems=[], studentName='', QUESTIONS=[], currentForm='', SAMPLE_SIZE=25;
+const ARDIG=s=>String(s).replace(/[0-9]/g,d=>"٠١٢٣٤٥٦٧٨٩"[d]);
+const norm=s=>(s||"").toString().toLowerCase().replace(/[\u064B-\u0652\u0670\u0640]/g,'').replace(/ى/g,'ي').replace(/[.،,!؟?]/g,'').replace(/['’‘`´]/g,'').replace(/\s+/g,' ').replace(/[أإآ]/g,'ا').replace(/ة/g,'ه').trim();
+/* يحوّل كل «بسط/مقام» إلى كسرٍ مكدّسٍ على هيئة الكتاب (بسط فوق خطٍّ ومقام تحته) */
+function _frac(s){if(s==null)return s;return String(s).replace(/([0-9٠-٩]+)\s*\/\s*([0-9٠-٩]+)/g,'<span class="frac"><span class="fn">$1</span><span class="fd">$2</span></span>');}
+
+function show(id){['intro','quiz','results'].forEach(s=>document.getElementById(s).classList.add('hide'));
+  document.getElementById(id).classList.remove('hide'); window.scrollTo(0,0);}
+function goHome(){show('intro');try{renderFormStatus();}catch(e){}
+  try{if(typeof _countHit==='function')_countHit(SUBJECT_KEY);}catch(e){}}
+(function(){var _p=loadProgress();if(_p.name){var _ne=document.getElementById('studentName');if(_ne)_ne.value=_p.name;}if(_p.attempts&&_p.attempts.length){document.getElementById('hasHistory').classList.remove('hide');}try{renderFormStatus();}catch(e){}})();
+function startQuiz(form){var _e=document.getElementById('studentName');var _n=_e?(''+_e.value).trim():'';if(!_n){if(_e){_e.style.borderColor='#ff6b6b';_e.focus();}alert('اكتبي اسمك أولاً للبدء 🙂');return;}studentName=_n;currentForm=form||'r';QUESTIONS=buildSample(currentForm);try{if(typeof _countHit==='function')_countHit(SUBJECT_KEY+'-f'+currentForm);}catch(e){};if(!QUESTIONS.length){return;}i=0;score=0;answered=false;perUnit={};perType={};wrongItems=[];startTime=Date.now();show('quiz');render();}
+
+function _rngSeed(s){var x=(s*9301+49297)%233280;return function(){x=(x*9301+49297)%233280;return x/233280;};}
+function _shufR(a,rnd){a=a.slice();for(var j=a.length-1;j>0;j--){var k=Math.floor(rnd()*(j+1));var t=a[j];a[j]=a[k];a[k]=t;}return a;}
+function _poolFor(mk){return mk?(typeof MARKAZI!=='undefined'?MARKAZI.slice():[]):(typeof POOL!=='undefined'?POOL.slice():[]);}
+function _m2pool(){return (typeof MARKAZI2!=='undefined'&&MARKAZI2)?MARKAZI2.slice():[];}
+function _m2sets(){return (typeof MARKAZI2_SETS!=='undefined'&&MARKAZI2_SETS&&MARKAZI2_SETS.length)?MARKAZI2_SETS.slice():(function(){var ns={};_m2pool().forEach(function(q){ns[q.s]=1;});return Object.keys(ns).map(function(n){return {n:parseInt(n,10),title:'نموذج جديد '+ARDIG(n)};}).sort(function(a,b){return a.n-b.n;});})();}
+function _withGen(base){if(typeof GENERATORS!=='undefined'){for(var g=0;g<GENERATORS.length;g++){try{var it=GENERATORS[g].make();if(it){it.u=it.u||GENERATORS[g].u;base.push(it);}}catch(e){}}}return base;}
+function _formSize(t){var s=Math.ceil(t/12);if(s<15)s=15;if(s>30)s=30;return s;}
+function _byUnitOrder(items,seedNum){var groups={},order=[];items.forEach(function(q){var u=q.u||'-';if(!groups[u]){groups[u]=[];order.push(u);}groups[u].push(q);});var r=_rngSeed(seedNum||12345);order.forEach(function(u){groups[u]=_shufR(groups[u],r);});order=_shufR(order,_rngSeed((seedNum||12345)+7));var out=[],i=0,more=true;while(more){more=false;for(var k=0;k<order.length;k++){var g=groups[order[k]];if(i<g.length){out.push(g[i]);more=true;}}i++;}return out;}
+function formCount(mk){var ord=_byUnitOrder(_poolFor(mk),mk?9001:12345);return Math.max(1,Math.ceil(ord.length/_formSize(ord.length)));}
+function buildSample(form){
+  if(typeof form==='string'&&form.charAt(0)==='n'){var nk=form.slice(1);var all=_m2pool();if(nk==='r'){return _shufR(all,Math.random);}var sn=parseInt(nk,10)||1;return all.filter(function(q){return String(q.s)===String(sn);});}
+  var mk=(typeof form==='string'&&form.charAt(0)==='m');var key=mk?form.slice(1):form;if(key==='r'){return _shufR(_withGen(_poolFor(mk)),Math.random);}var ord=_byUnitOrder(_poolFor(mk),mk?9001:12345);var size=_formSize(ord.length);var n=Math.max(1,Math.ceil(ord.length/size));var idx=((parseInt(key,10)||1)-1);if(idx<0)idx=0;idx=idx%n;return ord.slice(idx*size,(idx+1)*size);}
+function _mkFormBtn(label,form,extra){return '<button class="btn-main" style="font-size:1.02rem;padding:11px;'+(extra||'')+'" onclick="startQuiz(\''+form+'\')">'+label+'</button>';}
+function renderForms(){var AR=(document.documentElement.getAttribute('dir')==='rtl');var fb=document.getElementById('formButtons');if(fb){var n=formCount(false),h='';for(var k=1;k<=n;k++){h+=_mkFormBtn((AR?('نموذج '+ARDIG(k)):('Form '+k)),''+k);}fb.innerHTML=h;}var mb=document.getElementById('markaziButtons');if(mb&&typeof MARKAZI!=='undefined'&&MARKAZI&&MARKAZI.length){var m=formCount(true),h2='';for(var j=1;j<=m;j++){h2+=_mkFormBtn((AR?('مركزي '+ARDIG(j)):('Central '+j)),'m'+j,'background:linear-gradient(135deg,#8a6d1f,#b8860b);');}mb.innerHTML=h2;}
+  var nb=document.getElementById('markazi2Buttons');if(nb){var sets=_m2sets();var h3='';for(var z=0;z<sets.length;z++){var st=sets[z];h3+=_mkFormBtn(st.title||('نموذج جديد '+ARDIG(st.n)),'n'+st.n,'background:linear-gradient(135deg,#1e7a5e,#2fa884);');}nb.innerHTML=h3;}}
+try{renderForms();}catch(e){}
+function renderFormStatus(){
+  try{
+    var p=loadProgress();var atts=p.attempts||[];
+    var isAr=document.documentElement.getAttribute('dir')==='rtl';
+    var fb=document.getElementById('formButtons');
+    if(fb){var nf=formCount(false);var btns=fb.querySelectorAll('button');
+      for(var k=1;k<=nf;k++){var btn=btns[k-1];if(!btn)continue;
+        var done=atts.filter(function(a){return String(a.form)===String(k);});
+        if(done.length){var last=done[done.length-1];var pct=Math.round(last.correct/last.total*100);
+          if(!btn.querySelector('.fstatus')){var sp=document.createElement('span');sp.className='fstatus';
+            sp.style.cssText='display:block;font-size:.75rem;margin-top:2px;';
+            sp.textContent='✅ '+ARDIG(pct)+'%'+(done.length>1?' · '+ARDIG(done.length)+' مرّات':'');btn.appendChild(sp);}
+          btn.style.background='linear-gradient(135deg,#1e6e50,#2a8f6e)';}}}
+    var mb=document.getElementById('markaziButtons');
+    if(mb){var nm=(typeof MARKAZI!=='undefined'&&MARKAZI&&MARKAZI.length)?formCount(true):0;
+      var mbtns=mb.querySelectorAll('button');
+      for(var j=1;j<=nm;j++){var bm=mbtns[j-1];if(!bm)continue;
+        var dm=atts.filter(function(a){return a.form==='m'+j;});
+        if(dm.length){var lm=dm[dm.length-1];var pm=Math.round(lm.correct/lm.total*100);
+          if(!bm.querySelector('.fstatus')){var sm=document.createElement('span');sm.className='fstatus';
+            sm.style.cssText='display:block;font-size:.75rem;margin-top:2px;';
+            sm.textContent='✅ '+ARDIG(pm)+'%'+(dm.length>1?' · '+ARDIG(dm.length)+' مرّات':'');bm.appendChild(sm);}
+          bm.style.background='linear-gradient(135deg,#5a3d00,#8a6d1f)';}}}
+    var nb=document.getElementById('markazi2Buttons');
+    if(nb){var sets=_m2sets();var nbtns=nb.querySelectorAll('button');
+      for(var z=0;z<sets.length;z++){var bn=nbtns[z];if(!bn)continue;var sid='n'+sets[z].n;
+        var dn=atts.filter(function(a){return String(a.form)===sid;});
+        if(dn.length){var ln=dn[dn.length-1];var pn=Math.round(ln.correct/ln.total*100);
+          if(!bn.querySelector('.fstatus')){var sn2=document.createElement('span');sn2.className='fstatus';
+            sn2.style.cssText='display:block;font-size:.75rem;margin-top:2px;';
+            sn2.textContent='✅ '+ARDIG(pn)+'%'+(dn.length>1?' · '+ARDIG(dn.length)+' مرّات':'');bn.appendChild(sn2);}
+          bn.style.background='linear-gradient(135deg,#155c46,#1e7a5e)';}}}
+    var n2=formCount(false);var seenIds={};var doneIds=[];
+    atts.forEach(function(a){var f=String(a.form||'');
+      if(f&&f!=='r'&&f!=='?'&&!/^[mn]/.test(f)&&!seenIds[f]){seenIds[f]=1;doneIds.push(f);}});
+    var sumEl=document.getElementById('progressSummary');
+    if(sumEl&&n2>0){
+      sumEl.textContent=isAr?('✅ '+ARDIG(doneIds.length)+' من '+ARDIG(n2)+' نماذج مكتملة'):('✅ '+doneIds.length+' of '+n2+' forms done');
+      sumEl.style.display='';}
+  }catch(e){}
+}
+function showDashboard(){
+  var p=loadProgress();var atts=p.attempts||[];
+  var isAr=document.documentElement.getAttribute('dir')==='rtl';
+  show('results');
+  document.getElementById('resEmoji').textContent='📊';
+  document.getElementById('resTitle').textContent=isAr?'لوحة المتابعة':'Progress Dashboard';
+  document.getElementById('resLine').textContent=(p.name||(isAr?'الطالبة':'Student'))+(isAr?' — سجلّ الاختبارات':' — Exam Records');
+  document.getElementById('resBreakdown').innerHTML='';
+  var n=formCount(false);
+  var nm=(typeof MARKAZI!=='undefined'&&MARKAZI&&MARKAZI.length)?formCount(true):0;
+  var allForms=[];
+  for(var k=1;k<=n;k++)allForms.push({id:String(k),label:isAr?('نموذج '+ARDIG(k)):('Form '+k)});
+  for(var j=1;j<=nm;j++)allForms.push({id:'m'+j,label:isAr?('مركزي '+ARDIG(j)):('Central '+j)});
+  var _ns=_m2sets();for(var z=0;z<_ns.length;z++)allForms.push({id:'n'+_ns[z].n,label:(_ns[z].title||(isAr?('نموذج جديد '+ARDIG(_ns[z].n)):('New set '+_ns[z].n)))});
+  if(atts.some(function(a){return a.form==='r';}))allForms.push({id:'r',label:isAr?'كل الأسئلة':'All Questions'});
+  var h='<table style="width:100%;border-collapse:collapse;font-size:.92rem;"><tr>'
+    +'<th>'+(isAr?'النموذج':'Form')+'</th>'
+    +'<th>'+(isAr?'آخر محاولة':'Last Attempt')+'</th>'
+    +'<th>'+(isAr?'النتيجة':'Score')+'</th>'
+    +'<th>'+(isAr?'الوقت':'Time')+'</th>'
+    +'<th>×</th></tr>';
+  var doneCt=0;
+  allForms.forEach(function(f){
+    var done=atts.filter(function(a){return String(a.form)===f.id;});
+    if(done.length){doneCt++;var last=done[done.length-1];
+      var pct=Math.round(last.correct/last.total*100);
+      var star=pct>=80?'🌟':pct>=60?'👍':'💪';
+      h+='<tr style="background:#f0faf5;"><td><b>'+f.label+'</b></td>'
+        +'<td style="font-size:.8rem;direction:ltr;text-align:center;">'+last.date+'</td>'
+        +'<td>'+star+' '+ARDIG(last.correct)+'/'+ARDIG(last.total)+' ('+ARDIG(pct)+'%)</td>'
+        +'<td>'+fmt(last.sec)+'</td><td>'+ARDIG(done.length)+'</td></tr>';
+    }else{
+      h+='<tr style="color:#bbb;"><td>'+f.label+'</td>'
+        +'<td colspan="4" style="text-align:center;">'+(isAr?'□ لم يُكمَل بعد':'□ not taken yet')+'</td></tr>';}
+  });
+  h+='</table>';
+  if(doneCt>0){
+    var scList=atts.filter(function(a){return a.total>0;}).map(function(a){return Math.round(a.correct/a.total*100);});
+    var avg=Math.round(scList.reduce(function(a,b){return a+b;},0)/(scList.length||1));
+    h+='<div class="parent" style="margin-top:10px;">📈 '
+      +(isAr?'<b>متوسط الدرجات:</b> ':'<b>Avg score:</b> ')
+      +ARDIG(avg)+'% · '
+      +(isAr?'اكتمل '+ARDIG(doneCt)+' من '+ARDIG(allForms.length)+' نموذج':'Completed '+doneCt+'/'+allForms.length+' forms')
+      +'</div>';}
+  document.getElementById('reportArea').innerHTML=h;
+}
+function _formLabelAR(f){if(!f)return'';if(f.charAt(0)==='n'){var sn=f.slice(1);if(sn==='r')return'كل الأسئلة الجديدة';var _t=_m2sets().filter(function(x){return String(x.n)===String(sn);})[0];return _t?_t.title:('نموذج جديد '+ARDIG(sn));}if(f.charAt(0)==='m'){var s=f.slice(1);return s==='r'?'كل أسئلة المركزي':'مركزي '+ARDIG(s);}return f==='r'?'كل الأسئلة':'نموذج '+ARDIG(f);}
+function _formLabelEN(f){if(!f)return'';if(f.charAt(0)==='n'){var sn=f.slice(1);return sn==='r'?'All new sets':'New set '+sn;}if(f.charAt(0)==='m'){var s=f.slice(1);return s==='r'?'All central':'Central '+s;}return f==='r'?'All questions':'Form '+f;}
+(function(){var _mb=document.getElementById('markaziBox');if(_mb&&(typeof MARKAZI==='undefined'||!MARKAZI||!MARKAZI.length)){_mb.style.display='none';}})();
+(function(){var _m2=document.getElementById('markazi2Box');if(_m2&&!_m2pool().length){_m2.style.display='none';}})();
+function render(){
+  answered=false; const Q=QUESTIONS[i];
+  document.getElementById('unitBadge').textContent=Q.u;
+  document.getElementById('scorePill').textContent='⭐ '+ARDIG(score)+' / '+ARDIG(i);
+  document.getElementById('qcount').textContent='السؤال '+ARDIG(i+1)+' من '+ARDIG(QUESTIONS.length);
+  document.getElementById('bar').style.width=(i/QUESTIONS.length*100)+'%';
+  document.getElementById('typeTag').textContent=TYPELABEL[Q.type]||'';
+  document.getElementById('qtext').innerHTML=_frac(Q.q);
+  document.getElementById('qhint').innerHTML=_frac(Q.hint?('💭 '+Q.hint):'');
+  document.getElementById('fb').className='fb'; document.getElementById('fb').innerHTML='';
+  document.getElementById('alarm').classList.remove('show');
+  document.getElementById('nextBtn').disabled=true;
+  document.getElementById('nextBtn').textContent=(i===QUESTIONS.length-1)?'إنهاء 🏁':'التالي ➜';
+  document.getElementById('checkBtn').style.display=(Q.type==='mcq'||Q.type==='tf')?'none':'';
+  document.getElementById('checkBtn').textContent=(Q.type==='essay')?'أظهر الإجابة النموذجية ✍️':'تحقّق ✓';
+  const ob=document.getElementById('opts'); ob.innerHTML='';
+  if(Q.type==='mcq') renderMCQ(Q,ob);
+  else if(Q.type==='tf') renderTF(Q,ob);
+  else if(Q.type==='fill') renderFill(Q,ob);
+  else if(Q.type==='match') renderMatch(Q,ob);
+  else if(Q.type==='essay') renderEssay(Q,ob);
+}
+function renderEssay(Q,ob){const ta=document.createElement('textarea');ta.className='essayBox';ta.id='essayInp';ta.placeholder='اكتبي إجابتك هنا بأسلوبك…';ob.appendChild(ta);setTimeout(()=>ta.focus(),60);}
+function renderMCQ(Q,ob){Q.opts.forEach((o,k)=>{const b=document.createElement('button');b.className='opt';b.innerHTML=_frac(o);b.onclick=()=>{
+   lockOpts(); ob.querySelectorAll('.opt').forEach((bb,idx)=>{if(idx===Q.a)bb.classList.add('correct');if(idx===k&&k!==Q.a)bb.classList.add('wrong');});
+   grade(k===Q.a,Q.opts[Q.a],Q);};ob.appendChild(b);});}
+function renderTF(Q,ob){[['صح ✓',true],['خطأ ✗',false]].forEach(([lbl,val])=>{const b=document.createElement('button');
+   b.className='opt tf '+(val?'t':'f');b.textContent=lbl;b.onclick=()=>{lockOpts();grade(val===Q.a,(Q.a?'صح':'خطأ'),Q);};ob.appendChild(b);});}
+function renderFill(Q,ob){const inp=document.createElement('input');inp.className='inp';inp.id='fillInp';inp.placeholder='اكتبي الإجابة هنا…';inp.autocomplete='off';
+   inp.onkeydown=e=>{if(e.key==='Enter')checkInput();};ob.appendChild(inp);setTimeout(()=>inp.focus(),60);}
+function renderMatch(Q,ob){const rights=shuffle(Q.pairs.map(p=>p[1]));
+   Q.pairs.forEach(p=>{const row=document.createElement('div');row.className='matchrow';row.dataset.correct=p[1];
+     const l=document.createElement('div');l.className='lft';l.textContent=p[0];row.appendChild(l);
+     const sel=document.createElement('select');sel.innerHTML='<option value="">— اختاري —</option>'+rights.map(r=>'<option>'+r+'</option>').join('');
+     row.appendChild(sel);ob.appendChild(row);});}
+function checkInput(){if(answered)return;const Q=QUESTIONS[i];
+  if(Q.type==='essay'){const v=document.getElementById('essayInp');if(v)v.disabled=true;
+    document.getElementById('checkBtn').style.display='none';
+    const fb=document.getElementById('fb');fb.className='fb warn show';
+    fb.innerHTML='<b>📝 الإجابة النموذجية</b>'+_frac(Q.right)+'<div class="parent">✍️ قارني إجابتك بالإجابة النموذجية بنفسك، ثم اختاري بأمانة:</div>'+
+      '<div class="selfgrade"><button class="btn-ok" onclick="gradeEssay(true)">إجابتي صحيحة ✅</button>'+
+      '<button class="btn-no" onclick="gradeEssay(false)">أحتاج مراجعة 🔁</button></div>';
+    return;}
+  if(Q.type==='fill'){const v=document.getElementById('fillInp').value;if(!v.trim()){alarm();return;}
+    var nv=norm(v);var _g=Q.accept.map(norm).indexOf(nv)>=0;var _a=(!_g&&Q.ok&&Q.ok.map(norm).indexOf(nv)>=0);document.getElementById('fillInp').style.borderColor=_g?'var(--green)':(_a?'#f5a623':'var(--red)');
+    document.getElementById('fillInp').disabled=true;grade(_g?true:(_a?'warn':false),Q.accept[0],Q);}
+  else if(Q.type==='match'){const rows=document.querySelectorAll('.matchrow');let all=true,filled=true;
+    rows.forEach(r=>{const s=r.querySelector('select');if(!s.value)filled=false;});
+    if(!filled){alarm();return;}
+    rows.forEach(r=>{const s=r.querySelector('select');const ok=s.value===r.dataset.correct;r.classList.add(ok?'ok':'no');if(!ok)all=false;s.disabled=true;});
+    grade(all,Q.pairs.map(p=>p[0]+' ⟵ '+p[1]).join(' ، '),Q);}
+}
+function gradeEssay(correct){if(answered)return;const Q=QUESTIONS[i];answered=true;
+  perType[Q.type]=(perType[Q.type]||{c:0,t:0});perType[Q.type].t++;
+  const uk=Q.u;perUnit[uk]=perUnit[uk]||{c:0,t:0};perUnit[uk].t++;
+  if(correct){score++;perUnit[uk].c++;perType[Q.type].c++;}
+  else{wrongItems.push({u:Q.u,q:(Q.q||'').replace(/<svg[\s\S]*?<\/svg>/g,'').replace(/<span style="display:block;background[^>]*>📄 <\/span>/g,'').replace(/<[^>]+>/g,'').trim(),ans:(Q.right||'').replace(/<[^>]+>/g,'').trim(),exp:'راجِع الإجابة النموذجية أعلاه.'});}
+  document.getElementById('scorePill').textContent='⭐ '+ARDIG(score)+' / '+ARDIG(i+1);
+  document.querySelectorAll('.selfgrade button').forEach(b=>b.disabled=true);
+  document.getElementById('nextBtn').disabled=false;}
+function alarm(){const a=document.getElementById('alarm');a.classList.add('show');setTimeout(()=>a.classList.remove('show'),1500);}
+function lockOpts(){document.querySelectorAll('#opts .opt').forEach(b=>b.classList.add('locked'));}
+function grade(correct,correctText,Q){answered=true; perType[Q.type]=(perType[Q.type]||{c:0,t:0}); perType[Q.type].t++; if(correct===true||correct==='warn'){perType[Q.type].c++;} else {wrongItems.push({u:Q.u,q:(Q.q||'').replace(/<svg[\s\S]*?<\/svg>/g,'').replace(/<span style="display:block;background[^>]*>📄 <\/span>/g,'').replace(/<[^>]+>/g,'').trim(),ans:correctText,exp:(Q.wrong||'').replace(/<[^>]+>/g,'').trim()});}document.getElementById('checkBtn').style.display='none';
+  const uk=Q.u;perUnit[uk]=perUnit[uk]||{c:0,t:0};perUnit[uk].t++;const fb=document.getElementById('fb');
+  if(correct===true){score++;perUnit[uk].c++;fb.className='fb right show';fb.innerHTML='<b>✅ إجابة صحيحة</b>'+_frac(Q.right);}else if(correct==='warn'){score++;perUnit[uk].c++;fb.className='fb warn show';fb.innerHTML='<b>🟠 صحيحة — والأفضل كتابتها بالكامل</b>'+_frac(Q.right)+'<div class="parent">📝 الصيغة المفضّلة: «<b>'+_frac(correctText)+'</b>».</div>';}
+  else{fb.className='fb bad show';fb.innerHTML='<b>❌ ليست صحيحة</b>'+_frac(Q.wrong)+
+    '<div class="parent">👨‍👩‍👧 <strong>لوليّ الأمر:</strong> الإجابة الصحيحة: «<strong>'+_frac(correctText)+'</strong>». راجِعا السؤال معاً.</div>';}
+  document.getElementById('scorePill').textContent='⭐ '+ARDIG(score)+' / '+ARDIG(i+1);
+  document.getElementById('nextBtn').disabled=false;
+}
+function next(){if(!answered){alarm();return;}i++;if(i>=QUESTIONS.length)finish();else render();}
+function finish(){const dur=Math.round((Date.now()-startTime)/1000),wrong=QUESTIONS.length-score,wrongPct=Math.round(wrong/QUESTIONS.length*100);
+  const a=loadHistory();a.push({no:a.length+1,date:new Date().toLocaleString('ar'),form:currentForm||'r',total:QUESTIONS.length,correct:score,wrongPct,sec:dur});saveHistory(a);
+  show('results');const pct=Math.round(score/QUESTIONS.length*100);
+  document.getElementById('resEmoji').textContent=pct>=80?'🎉🌟':pct>=50?'😊👍':'💪📚';
+  document.getElementById('resTitle').textContent=(pct>=80?'🌟':pct>=50?'👍':'💪')+' '+studentName+'!';
+  document.getElementById('resLine').innerHTML='النتيجة: <b>'+ARDIG(score)+' / '+ARDIG(QUESTIONS.length)+'</b> ('+ARDIG(pct)+'%) · الزمن: '+fmt(dur);
+  let bd='<div style="margin-top:8px;">';for(const[k,v]of Object.entries(perUnit))bd+='<span class="pill">'+k.split('·')[0].trim()+': '+ARDIG(v.c)+'/'+ARDIG(v.t)+'</span>';bd+='</div>';
+  document.getElementById('resBreakdown').innerHTML=bd;renderFullReport(dur);}
+function showReport(standalone){if(standalone){show('results');document.getElementById('resEmoji').textContent='📊';
+   document.getElementById('resTitle').textContent='تقرير وليّ الأمر';document.getElementById('resLine').textContent='';document.getElementById('resBreakdown').innerHTML='';}
+  const a=loadHistory();let h='<p class="small">عدد المحاولات: <b>'+ARDIG(a.length)+'</b></p>';
+  if(a.length){h+='<table><tr><th>#</th><th>التاريخ</th><th>النتيجة</th><th>نسبة الخطأ</th><th>الزمن</th></tr>';
+    a.slice().reverse().forEach(x=>h+='<tr><td>'+ARDIG(x.no)+'</td><td>'+x.date+'</td><td>'+ARDIG(x.correct)+'/'+ARDIG(x.total)+'</td><td>'+ARDIG(x.wrongPct)+'%</td><td>'+fmt(x.sec)+'</td></tr>');
+    h+='</table>';const f=a[0];h+='<div class="parent">⭐ <b>المحاولة الأولى:</b> '+ARDIG(f.correct)+'/'+ARDIG(f.total)+' · نسبة الخطأ '+ARDIG(f.wrongPct)+'% · الزمن '+fmt(f.sec)+'. (محفوظة لمتابعة التقدّم)</div>';}
+  document.getElementById('reportArea').innerHTML=h;}
+function fmt(s){const m=Math.floor(s/60),x=s%60;return (m?ARDIG(m)+' د ':'')+ARDIG(x)+' ث';}
+function shuffle(a){a=a.slice();for(let j=a.length-1;j>0;j--){const k=Math.floor(Math.random()*(j+1));[a[j],a[k]]=[a[k],a[j]];}return a;}
+
+var NL=String.fromCharCode(10);
+var TYPENAME={mcq:'اختيار من متعدد',tf:'صح/خطأ',fill:'إكمال',match:'توصيل',reorder:'ترتيب',spell:'إملاء'};
+function _pc(c,t){return t?Math.round(c/t*100):0;}
+function injectPrintCSS(){if(document.getElementById('printcss'))return;var st=document.createElement('style');st.id='printcss';st.textContent='@media print{body *{visibility:hidden!important}#printable,#printable *{visibility:visible!important}#printable{position:absolute;inset:0;width:100%;padding:8mm;font-size:13px;color:#000}.noprint{display:none!important}#printable table{border-collapse:collapse;width:100%;margin:6px 0}#printable th,#printable td{border:1px solid #888;padding:4px 8px;text-align:right}}';document.head.appendChild(st);}
+function reportData(dur){var total=QUESTIONS.length,correct=score,wrong=total-correct;
+  var units=Object.keys(perUnit).map(function(k){var v=perUnit[k];return {u:k,c:v.c,t:v.t,p:_pc(v.c,v.t)};});
+  var types=Object.keys(perType).map(function(k){var v=perType[k];return {ty:k,c:v.c,t:v.t,p:_pc(v.c,v.t)};});
+  var weak=units.filter(function(u){return u.p<100;}).sort(function(a,b){return a.p-b.p;});
+  return {total:total,correct:correct,wrong:wrong,p:_pc(correct,total),dur:dur,units:units,types:types,weak:weak,started:new Date(startTime),ended:new Date()};}
+function renderFullReport(dur){injectPrintCSS();var d=reportData(dur);var subj=document.title+(currentForm?(' · '+_formLabelAR(currentForm)):'');
+  var h='<div id="printable" style="text-align:right;direction:rtl;">';
+  h+='<h2 style="margin:.2em 0;">📊 تقرير وليّ الأمر</h2><p style="margin:.2em 0;"><b>الطالبة:</b> '+(studentName||'-')+'</p><p style="margin:.2em 0;color:#555;">'+subj+'</p>';
+  h+='<table><tr><th>التاريخ والوقت</th><td>'+d.started.toLocaleString('ar')+'</td></tr>';
+  h+='<tr><th>الزمن المستغرق</th><td>'+fmt(d.dur)+'</td></tr>';
+  h+='<tr><th>عدد الأسئلة</th><td>'+ARDIG(d.total)+'</td></tr>';
+  h+='<tr><th>إجابات صحيحة</th><td>'+ARDIG(d.correct)+'</td></tr>';
+  h+='<tr><th>إجابات خاطئة</th><td>'+ARDIG(d.wrong)+'</td></tr>';
+  h+='<tr><th>النسبة المئوية</th><td>'+ARDIG(d.p)+'%</td></tr></table>';
+  h+='<h3>الأداء حسب الوحدة</h3><table><tr><th>الوحدة</th><th>صحيح/الكل</th><th>النسبة</th></tr>';
+  d.units.forEach(function(u){h+='<tr><td>'+u.u+'</td><td>'+ARDIG(u.c)+'/'+ARDIG(u.t)+'</td><td>'+ARDIG(u.p)+'%</td></tr>';});h+='</table>';
+
+
+  if(d.weak.length){h+='<h3>👀 ركّزوا هنا (الوحدات الأكثر خطأً)</h3><ul>';d.weak.forEach(function(u){h+='<li>'+u.u+' — '+ARDIG(u.p)+'%</li>';});h+='</ul>';}
+  if(wrongItems.length){h+='<h3>الأسئلة التي أُخطئ فيها ('+ARDIG(wrongItems.length)+')</h3><ol style="padding-inline-start:18px;">';
+    wrongItems.forEach(function(w){h+='<li style="margin-bottom:6px;"><div>'+w.u+'</div><div>'+_frac(w.q)+'</div><div style="color:#137333;">الإجابة الصحيحة: '+_frac(w.ans)+'</div>'+(w.exp?'<div style="color:#7a5b00;">💡 '+_frac(w.exp)+'</div>':'')+'</li>';});h+='</ol>';}
+  else{h+='<p style="color:#137333;font-weight:bold;">ممتاز! لا توجد أخطاء. 🌟</p>';}
+  h+='<p style="color:#999;font-size:.82rem;">أُنشئ التقرير في '+d.ended.toLocaleString('ar')+'</p></div>';
+  h+='<div class="noprint" style="margin-top:14px;display:flex;gap:8px;flex-wrap:wrap;justify-content:center;">'+
+     '<button class="btn-soft" onclick="printReport()">🖨️ حفظ PDF / طباعة</button>'+
+     '<button class="btn-soft" onclick="copyReport()">📋 نسخ التقرير</button>'+
+     '<button class="btn-soft" onclick="downloadReport()">⬇️ تنزيل التقرير (نصي)</button><button class="btn-soft" onclick="shareReport()">📤 مشاركة (واتساب…)</button></div>';
+  if(typeof LOG_ENDPOINT!=='undefined'&&LOG_ENDPOINT){h+='<div class="noprint" style="margin-top:14px;background:#fff8e6;border:2px dashed #ffd166;border-radius:12px;padding:10px;"><div style="font-weight:bold;margin-bottom:6px;">📝 ملاحظة لوليّ الأمر (تصل للمعلّم):</div><textarea id="parentNote" rows="2" style="width:100%;border-radius:10px;border:2px solid #e7eef7;padding:8px;font-family:inherit;font-size:1rem;"></textarea><button class="btn-soft" style="margin-top:6px;" onclick="sendNote()">✉️ إرسال الملاحظة للمعلّم</button></div>';} var a=loadHistory();
+  if(a.length){h+='<div class="noprint"><h3>سجلّ المحاولات ('+ARDIG(a.length)+')</h3><table><tr><th>#</th><th>التاريخ</th><th>النتيجة</th><th>نسبة الخطأ</th><th>الزمن</th></tr>';
+    a.slice().reverse().forEach(function(x){h+='<tr><td>'+ARDIG(x.no)+'</td><td>'+x.date+'</td><td>'+ARDIG(x.correct)+'/'+ARDIG(x.total)+'</td><td>'+ARDIG(x.wrongPct)+'%</td><td>'+fmt(x.sec)+'</td></tr>';});h+='</table></div>';}
+  document.getElementById('reportArea').innerHTML=h;
+  window._reportText=reportText(d,subj);sendLog(d);}
+function reportText(d,subj){var L=[];L.push('تقرير وليّ الأمر — '+subj);L.push('الطالبة: '+(studentName||'-'));L.push('التاريخ والوقت: '+d.started.toLocaleString('ar'));
+  L.push('الزمن المستغرق: '+fmt(d.dur));L.push('النتيجة: '+d.correct+' / '+d.total+' ('+d.p+'%)');L.push('إجابات خاطئة: '+d.wrong);
+  L.push('');L.push('الأداء حسب الوحدة:');d.units.forEach(function(u){L.push('  - '+u.u+': '+u.c+'/'+u.t+' ('+u.p+'%)');});
+
+  if(d.weak.length){L.push('');L.push('نقاط تحتاج مراجعة:');d.weak.forEach(function(u){L.push('  - '+u.u+' ('+u.p+'%)');});}
+  if(wrongItems.length){L.push('');L.push('الأسئلة التي أُخطئ فيها:');wrongItems.forEach(function(w,n){L.push('  '+(n+1)+') ['+w.u+'] '+w.q+' ← الصحيح: '+w.ans+(w.exp?(NL+'      💡 '+w.exp):''));});}
+  return L.join(NL);}
+var SHARE_TITLE='تقرير الطالبة';var NOTE_EMPTY='اكتبي الملاحظة أولاً.';var NOTE_OFF='الإرسال غير مُفعّل بعد.';var NOTE_OK='تم إرسال ملاحظتك للمعلّم، شكراً ✅';var NOTE_FAIL='تعذّر الإرسال.';
+function shareReport(){var t=window._reportText||'';if(navigator.share){navigator.share({title:SHARE_TITLE,text:t}).catch(function(){});}else{window.open('https://wa.me/?text='+encodeURIComponent(t),'_blank');}}
+function sendLog(d){try{if(typeof LOG_ENDPOINT==='undefined'||!LOG_ENDPOINT)return;fetch(LOG_ENDPOINT,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({kind:'attempt',name:studentName||'',subject:document.title,score:d.correct,total:d.total,wrongPct:_pc(d.wrong,d.total),timeSec:d.dur,weak:d.weak.map(function(u){return u.u+' ('+u.p+'%)';}).join('; '),date:d.started.toISOString(),note:''})}).catch(function(){});}catch(e){}}
+function sendNote(){var el=document.getElementById('parentNote');var n=el?(''+el.value).trim():'';if(!n){alert(NOTE_EMPTY);return;}if(typeof LOG_ENDPOINT==='undefined'||!LOG_ENDPOINT){alert(NOTE_OFF);return;}try{fetch(LOG_ENDPOINT,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({kind:'note',name:studentName||'',subject:document.title,note:n,date:new Date().toISOString()})}).catch(function(){});alert(NOTE_OK);if(el)el.value='';}catch(e){alert(NOTE_FAIL);}}
+function printReport(){window.print();}
+function copyReport(){var t=window._reportText||'';if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(t).then(function(){alert('تم نسخ التقرير ✅');},function(){_fbCopy(t);});}else{_fbCopy(t);}}
+function _fbCopy(t){var ta=document.createElement('textarea');ta.value=t;document.body.appendChild(ta);ta.select();try{document.execCommand('copy');alert('تم نسخ التقرير ✅');}catch(e){alert('انسخ يدوياً:'+NL+NL+t);}document.body.removeChild(ta);}
+function downloadReport(){var t=window._reportText||'';var blob=new Blob([t],{type:'text/plain;charset=utf-8'});var url=URL.createObjectURL(blob);var a=document.createElement('a');a.href=url;a.download='تقرير-'+document.title.slice(0,20)+'.txt';document.body.appendChild(a);a.click();document.body.removeChild(a);setTimeout(function(){URL.revokeObjectURL(url);},1500);}
+
+function loadProgress(){try{var v2=JSON.parse(localStorage.getItem(STORAGE_KEY+'_v2'));if(v2&&v2.attempts)return v2;var old=JSON.parse(localStorage.getItem(STORAGE_KEY));if(old&&old.length)return {name:'',attempts:old.map(function(a){return Object.assign({form:'?'},a);})};}catch(e){}return {name:'',attempts:[]};}
+function saveProgress(p){try{localStorage.setItem(STORAGE_KEY+'_v2',JSON.stringify(p));}catch(e){}}
+function loadHistory(){return loadProgress().attempts;}
+function saveHistory(a){var p=loadProgress();p.attempts=a;if(typeof studentName!=='undefined'&&studentName)p.name=studentName;saveProgress(p);}
+function confirmReset(){if(confirm('هل تريدين إعادة الاختبار من البداية؟'))startQuiz();}
+function clearHistory(){if(confirm('مسح تقرير وليّ الأمر المحفوظ؟')){localStorage.removeItem(STORAGE_KEY);localStorage.removeItem(STORAGE_KEY+'_v2');show('intro');try{renderFormStatus();}catch(e){};}}
+</script>
+</body>
+</html>
